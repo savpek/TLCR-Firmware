@@ -193,7 +193,7 @@ static errorc_t _is_command_same (char* command, const char* compare_to_str)
 
 /*@ Thread for terminal. This parses terminal commands and drive sub-programs
  * under terminal when needed. */
-extern void terminal_thread()
+extern void terminal_thread(void* parameters)
 	{
 	char command_str[TERMINAL_COMMAND_MAX_LENGTH];
 	uint32_t command_value = 0;
