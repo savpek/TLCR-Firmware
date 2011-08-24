@@ -15,6 +15,9 @@
 
 #include "error_codes.h"
 
+#define STORAGE_HELPFILE_ID 0
+#define STORAGE_AUTHORFILE_ID 1
+
 /*@Inits SPI transmission between MCU and FLASH chip */
 extern void storage_init(void);
 
@@ -38,7 +41,7 @@ extern errorc_t storage_erase_segment(uint8_t segment_id);
 extern errorc_t storage_read_segment(uint8_t segment_id, uint16_t next_byte_id, uint8_t* ret_data);
 
 /*@Erase hole chip. */
-extern uint8_t storage_erase_all(void);
+extern errorc_t storage_erase_all(void);
 
 /*@Gets flash ID and manufacturer ID from flash device.
  * This is for testing purposes. */
