@@ -10,7 +10,7 @@
  */
 
 #include "terminal.h"
-#include "subprog.h"
+#include "subprograms.h"
 #include "error_codes.h"
 #include "usart.h"
 #include "ascii_chars.h"

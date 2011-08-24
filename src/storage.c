@@ -41,6 +41,18 @@
 /*Dummy byte for SPI */
 #define STORAGE_FCMD_DUMMY_WORD			0xFFFF
 
+/*@Set flash IC WEL bit (write enable pit). Required to set before
+ * write and erase operations. */
+static void _set_wel_bit(void)
+	{
+	spi_unselectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
+	/* Set WEL bit 1 (Write enable) */
+	spi_selectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
+	spi_write(STORAGE_SPI, STORAGE_FCMD_WRITE_ENABLE);
+	spi_unselectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
+	}
+
+
 /*@Get status register, this can be used to check global write
  * protection or by polling device busy bit */
 static uint8_t _get_status_register(void)
@@ -128,7 +140,7 @@ static void _enable_write_protect(void)
 static void _read_start(uint32_t flash_addr)
 	{
 	/* For make sure chip is unselected before start read
-	 * rounites */
+	 * routines */
 	spi_unselectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
 		
 	/* Select chip and send command */
@@ -344,7 +356,7 @@ extern errorc_t storage_read_segment(uint8_t segment_id, uint16_t next_byte_id, 
 /*@Gets flash id. This is tests that flash chip is
  * working correctly. */
 extern uint16_t storage_get_flash_id ()
-	{
+	{	
 	uint16_t id_temp = 0;
 	spi_unselectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
 	
@@ -363,4 +375,34 @@ extern uint16_t storage_get_flash_id ()
 	spi_unselectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
 	
 	return id_temp;
+	}
+
+/* @This function erases entire chip. Stays in function as
+ *	long as erasing takes (flash IC stays busy). */
+extern errorc_t storage_erase_all(void)
+	{
+	spi_unselectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
+	
+	_disable_write_protect();
+	_set_wel_bit();
+	
+	/* Get #CS pin down (Flash chip active). */
+	spi_selectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
+	
+	/* Write command that erases entire chip */
+	spi_write(STORAGE_SPI, STORAGE_FCMD_CHIP_ERASE);
+	
+	/* Get #CS pin up (Flash chip disabled). */
+	spi_unselectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
+	
+	
+	/* Get #CS pin down (Flash chip active). */
+	spi_selectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
+	/* Waits until chip erase is done. */
+	while((_get_status_register()&0x01) != 0);
+	
+	/* Get #CS pin up (Flash chip disabled). */
+	spi_unselectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
+	
+	return EC_TRUE;	
 	}
