@@ -6,6 +6,12 @@
 #include "compiler.h"
 
 
+/* These are definations for usart_write_hex and usart_write_bit functions */
+#define USART_WRITE_INT 24
+#define USART_WRITE_WORD 16
+#define USART_WRITE_BYTE 8
+#define USART_WRITE_BIT 1
+
 /*! \name Return Values
  */
 //! @{
