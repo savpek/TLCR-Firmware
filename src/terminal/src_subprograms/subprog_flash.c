@@ -228,7 +228,7 @@ extern void subprog_flash_print_segment(uint32_t params)
 	
 	while(storage_read_segment(segment_id, next_byte, &print_char) == EC_DONE)
 		{
-		usart_write_hex(TERMINAL_USART, print_char, PRINT_BYTE);
+		usart_write_hex(TERMINAL_USART, print_char, USART_WRITE_BYTE);
 		usart_putchar(TERMINAL_USART, ASCII_SPACE);
 		
 		/* Print character must be in printable ASCII range */

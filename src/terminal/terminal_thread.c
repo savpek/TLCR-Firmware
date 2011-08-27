@@ -35,7 +35,7 @@ static void _get_command (char* ret_command_string)
 		/* Don't accept special letters or other ASCII standard
 		 * trash. */
 		if (((received_char <= 123 && received_char >= 48)
-				|| received_char == TERMINAL_SPACEBAR)
+				|| received_char == ASCII_SPACE)
 				&& string_current_index < TERMINAL_COMMAND_MAX_LENGTH)
 			{
 			ret_command_string[string_current_index] = received_char;
@@ -78,7 +78,7 @@ static errorc_t _try_get_value_int(char* command_string, uint32_t *return_value)
 	while (1)
 		{
 		/* Checks SPACE */
-		if(command_string[string_current_index] == TERMINAL_SPACEBAR)
+		if(command_string[string_current_index] == ASCII_SPACE)
 			{
 			value_begin_index = string_current_index;
 			break;
@@ -140,7 +140,7 @@ static uint16_t _get_command_value_begin_index(char* command_string)
 	while (1)
 		{
 		/* Checks SPACE */
-		if(command_string[string_current_index] == TERMINAL_SPACEBAR)
+		if(command_string[string_current_index] == ASCII_SPACE)
 			{
 			break;
 			}
@@ -169,7 +169,7 @@ static errorc_t _is_command_same (char* command, const char* compare_to_str)
 	 * in same time counts length of command (length must be compared so that
 	 * set is not equal with set_speed! */
 	while(command[string_index] != 0 //Null
-			&& command[string_index] != TERMINAL_SPACEBAR) //Space
+			&& command[string_index] != ASCII_SPACE) //Space
 		{
 		/* Every character of command must be identical */
 		if(command[string_index] != compare_to_str[string_index])
