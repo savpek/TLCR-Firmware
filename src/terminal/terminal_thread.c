@@ -72,7 +72,7 @@ static errorc_t _try_get_value_int(char* command_string, uint32_t *return_value)
 	{
 	uint8_t value_begin_index = 0;
 	uint8_t string_current_index = 0;
-	uint8_t multiplier = 1;
+	uint32_t multiplier = 1;
 
 	/* First need to find point where value begins (first space) */
 	while (1)
