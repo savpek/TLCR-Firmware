@@ -441,3 +441,30 @@ extern void usart_write_hex (volatile avr32_usart_t *usart, int32_t hex_value, u
 		bit_shift -= 4;
 		}
 	}
+	
+void usart_write_decimal(volatile avr32_usart_t *usart, uint32_t int_value)
+	{
+	/* Because maximum value of uint32 is 4294967296, it means we need 10 char
+	 * string at most. */
+	char string_temp[10] = {0};
+	uint8_t string_index = 0;
+	
+	/* Now we make reversed string version of
+	 * number value. */
+	do 
+		{
+		string_temp[string_index] = int_value%10;
+		string_index++;
+		
+		/* Divide by ten, as long as there are number left */
+		int_value = int_value/10;
+		
+		} while (int_value > 0);
+	
+	/* String is in reversed order now, lets print it. */
+	do 
+		{
+		string_index--;
+		usart_putchar(usart, string_temp[string_index]+48);
+		} while (string_index != 0);
+	}

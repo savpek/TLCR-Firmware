@@ -403,5 +403,6 @@ extern int usart_get_echo_line(volatile avr32_usart_t *usart);
 
 extern void usart_write_bits (volatile avr32_usart_t *usart, int32_t bit_value, uint8_t print_length);
 extern void usart_write_hex (volatile avr32_usart_t *usart, int32_t hex_value, uint8_t print_length);
+extern void usart_write_decimal (volatile avr32_usart_t *usart, uint32_t int_value);
 
 #endif //#ifndef _USART_H_
