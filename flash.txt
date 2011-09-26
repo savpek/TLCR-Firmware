@@ -1,0 +1,57 @@
+Flash storage content. Between markings there are number, that defines on which block
+data will be saved. Actually code parses them to order beginning from 0. Number between
+is only for user to make reading easier.
+
+Number defines block from program (see storage.h). Use defined constants to point data
+segment (from beginning of storage.h lib).
+---------------------------------------------------------------------------------------
+
+-Help file content--->
+##00##
+Help file for "Timelapse camera rail" device.
+Author: Savpek Electronics
+Mail: savpekelectronics@gmail.com
+
+TERMINAL COMMANDS:
+help - View this document.
+flash_check - Simply check that ask from flash IC it's ID. If ID returned correctly
+                IC is responding and working correctly.
+restart - Restarts device.
+program (number) - Begin write program.
+end_program (number) - End write program.
+
+PROGRAMMING COMMANDS:
+These command you can use after you have runned program command.
+Programs work through event system. You do event like change speed or change directions,
+then you wait as long as you want to keep those settings. Then change speed and direction again
+and wait as long as you like.
+
+For example:
+program 1
+prog_stop
+prog_rspeed 300
+prog_rdirection counterw
+prog_speed 400
+prog_direction left
+prog_start
+prog_wait 900
+prog_stop
+program_end
+
+run 1 - Runs just saved program.
+
+ADVANGED COMMANDS:
+bootloader - Restarts device to bootloader. Gives possibility to rewrite device firmware.
+flash_read (number) - Reads selected segment from flash and output it's as text to terminal.
+flash_read_hex (number) - Reads selected segment from flash and output it's as hexadecimal format.
+flash_rewrite - Rewrites entire flash content.
+
+######
+
+##01##
+Second segment lol omg :D:D::D:D:D:D
+######
+
+##01##
+Vithulla paahan sanon mina.
+######
