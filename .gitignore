@@ -1,0 +1,8 @@
+
+/Debug/*
+/Release/*
+*.config
+*.avrgcc*
+*.png
+*.tmp
+/src/asf/*
