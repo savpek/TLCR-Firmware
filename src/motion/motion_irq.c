@@ -15,7 +15,7 @@ static volatile uint32_t _ms_counter = 0;
 
 /* Setup A coil value, value can be from -127 to +127. That is value negative positive
  * or negative tells coil current direction */
-static void _a_coil_value (motorc_t* motor_params, int8_t coil_value)
+static void _a_coil_value (volatile motorc_t* motor_params, int8_t coil_value)
 	{
 	/* If value is >0, it means that coil direction is positive */
 	if(coil_value >= 0)
@@ -33,7 +33,7 @@ static void _a_coil_value (motorc_t* motor_params, int8_t coil_value)
 
 /* Setup B coil value, value can be from -127 to +127. That is value negative positive
  * or negative tells coil current direction */
-static void _b_coil_value (motorc_t* motor_params, int8_t coil_value)
+static void _b_coil_value (volatile motorc_t* motor_params, int8_t coil_value)
 	{
 	/* If value is >0, it means that coil direction is positive */
 	if(coil_value >= 0)

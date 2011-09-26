@@ -15,8 +15,8 @@
  * gate to control for motors from elsewhere. EG: motion_set_speed(ID, SPEED) 
  * from motion_handle.h 
  * These must be in increasing order, starting from 0. */
-#define MOTION_RMOTOR_ID	0
-#define MOTION_XMOTOR_ID	1
+#define MOTION_RMOTOR_ID	1
+#define MOTION_XMOTOR_ID	0
 
 /*!! These constants tells how long distance device moves during one step from
  *   stepper motors. !!*/
@@ -28,7 +28,7 @@
 
 /* This must be set to  correct value! This means as name says, last
  * ID is last motor ID from ID list. Used as loop limit in motion_irq() */
-#define MOTION_LAST_MOTOR_ID 0
+#define MOTION_LAST_MOTOR_ID 1
 
 /*!! PWMA pins are configured in motion_config.c file directly to
  * motor parameters !!*/
