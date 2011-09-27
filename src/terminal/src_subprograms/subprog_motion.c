@@ -5,18 +5,24 @@
  *  Author: savpek
  */ 
 
-#include "terminal.h"
-#include "subprograms.h"
+#include "list_of_subprograms.h"
 #include "motion.h"
+#include "terminal_common.h"
+#include "terminal_usart_settings.h"
 
-void subprog_move_init()
+void subprog_move_init(char* argument_str)
 	{
 	usart_write_line(TERMINAL_USART, "Terminal control over XMOTOR.\r\n");
 	motion_force_take_control(MOTION_XMOTOR_ID, TERMINAL);	
 	}
 
-void subprog_move_left(uint32_t mm_per_h)
+void subprog_move_left(char* argument_str)
 	{
+	uint32_t mm_per_h = 0;
+		
+	/* If parameter given for subprogram isn't number, exit program */
+	if(terminal_try_get_int_value(argument_str, &mm_per_h) != EC_SUCCES) return;
+
 	if(motion_check_control(MOTION_XMOTOR_ID) != TERMINAL)
 		{
 		usart_write_line(TERMINAL_USART, "Take control of XMOTOR first. \r\n");
@@ -37,8 +43,13 @@ void subprog_move_left(uint32_t mm_per_h)
 	motion_set_direction(MOTION_XMOTOR_ID, LEFT);
 	}
 	
-void subprog_move_right(uint32_t mm_per_h)
+void subprog_move_right(char* argument_str)
 	{
+	uint32_t mm_per_h = 0;
+		
+	/* If parameter given for subprogram isn't number, exit program */
+	if(terminal_try_get_int_value(argument_str, &mm_per_h) != EC_SUCCES) return;
+			
 	if(motion_check_control(MOTION_XMOTOR_ID) != TERMINAL)
 		{
 		usart_write_line(TERMINAL_USART, "Take control of XMOTOR first. \r\n");
@@ -59,7 +70,7 @@ void subprog_move_right(uint32_t mm_per_h)
 	motion_set_direction(MOTION_XMOTOR_ID, RIGHT);	
 	}
 	
-void subprog_move_stop()
+void subprog_move_stop(char* argument_str)
 	{
 	if(motion_check_control(MOTION_XMOTOR_ID) != TERMINAL)
 		{
@@ -71,7 +82,7 @@ void subprog_move_stop()
 	motion_set_direction(MOTION_XMOTOR_ID, STOP);	
 	}
 	
-void subprog_move_exit()
+void subprog_move_exit(char* argument_str)
 	{
 	if(motion_check_control(MOTION_XMOTOR_ID) != TERMINAL)
 		{
@@ -83,14 +94,19 @@ void subprog_move_exit()
 	motion_release_control(MOTION_XMOTOR_ID);
 	}
 	
-void subprog_rotate_init()
+void subprog_rotate_init(char* argument_str)
 	{
 	usart_write_line(TERMINAL_USART, "Terminal control over RMOTOR.\r\n");
 	motion_force_take_control(MOTION_RMOTOR_ID, TERMINAL);	
 	}
 
-void subprog_rotate_countercw(uint32_t mm_per_h)
+void subprog_rotate_countercw(char* argument_str)
 	{
+	uint32_t hundred_of_angle_per_h = 0;
+		
+	/* If parameter given for subprogram isn't number, exit program */
+	if(terminal_try_get_int_value(argument_str, &hundred_of_angle_per_h) != EC_SUCCES) return;
+
 	if(motion_check_control(MOTION_RMOTOR_ID) != TERMINAL)
 		{
 		usart_write_line(TERMINAL_USART, "Take control of XMOTOR first. \r\n");
@@ -98,21 +114,26 @@ void subprog_rotate_countercw(uint32_t mm_per_h)
 		}
 		
 	usart_write_line(TERMINAL_USART, "MM/H: ");
-	usart_write_decimal(TERMINAL_USART, mm_per_h);
+	usart_write_decimal(TERMINAL_USART, hundred_of_angle_per_h);
 	usart_write_line(TERMINAL_USART, "\r\n");
 	
 	usart_write_line(TERMINAL_USART, "STEP DELAY: ");
 	usart_write_decimal(TERMINAL_USART, 
-		(uint32_t)((((MOTION_MS_PER_HOUR*MOTION_UM_PER_STEP_XMOTOR)/1000)/(mm_per_h))));
+		(uint32_t)((((MOTION_MS_PER_HOUR*MOTION_UM_PER_STEP_XMOTOR)/1000)/(hundred_of_angle_per_h))));
 	usart_write_line(TERMINAL_USART, "ms\r\n");
 	
 	motion_set_direction(MOTION_RMOTOR_ID, STOP);
-	motion_set_move_speed(MOTION_RMOTOR_ID, mm_per_h);
+	motion_set_move_speed(MOTION_RMOTOR_ID, hundred_of_angle_per_h);
 	motion_set_direction(MOTION_RMOTOR_ID, LEFT);
 	}
 	
-void subprog_rotate_clockw(uint32_t mm_per_h)
+void subprog_rotate_clockw(char* argument_str)
 	{
+	uint32_t hundred_of_angle_per_h = 0;
+		
+	/* If parameter given for subprogram isn't number, exit program */
+	if(terminal_try_get_int_value(argument_str, &hundred_of_angle_per_h) != EC_SUCCES) return;
+		
 	if(motion_check_control(MOTION_RMOTOR_ID) != TERMINAL)
 		{
 		usart_write_line(TERMINAL_USART, "Take control of XMOTOR first. \r\n");
@@ -120,20 +141,20 @@ void subprog_rotate_clockw(uint32_t mm_per_h)
 		}
 	
 	usart_write_line(TERMINAL_USART, "MM/H: ");
-	usart_write_decimal(TERMINAL_USART, mm_per_h);
+	usart_write_decimal(TERMINAL_USART, hundred_of_angle_per_h);
 	usart_write_line(TERMINAL_USART, "\r\n");
 	
 	usart_write_line(TERMINAL_USART, "STEP DELAY: ");
 	usart_write_decimal(TERMINAL_USART, 
-		(uint32_t)((((MOTION_MS_PER_HOUR*MOTION_UM_PER_STEP_XMOTOR)/1000)/(mm_per_h))));
+		(uint32_t)((((MOTION_MS_PER_HOUR*MOTION_UM_PER_STEP_XMOTOR)/1000)/(hundred_of_angle_per_h))));
 	usart_write_line(TERMINAL_USART, "ms\r\n");
 		
 	motion_set_direction(MOTION_RMOTOR_ID, STOP);
-	motion_set_move_speed(MOTION_RMOTOR_ID, mm_per_h);
+	motion_set_move_speed(MOTION_RMOTOR_ID, hundred_of_angle_per_h);
 	motion_set_direction(MOTION_RMOTOR_ID, RIGHT);	
 	}
 	
-void subprog_rotate_stop()
+void subprog_rotate_stop(char* argument_str)
 	{
 	if(motion_check_control(MOTION_RMOTOR_ID) != TERMINAL)
 		{
@@ -145,7 +166,7 @@ void subprog_rotate_stop()
 	motion_set_direction(MOTION_RMOTOR_ID, STOP);	
 	}
 	
-void subprog_rotate_exit()
+void subprog_rotate_exit(char* argument_str)
 	{
 	if(motion_check_control(MOTION_RMOTOR_ID) != TERMINAL)
 		{
@@ -157,8 +178,13 @@ void subprog_rotate_exit()
 	motion_release_control(MOTION_RMOTOR_ID);
 	}
 	
-void subprog_move_with_keyboard(uint32_t speed)
+void subprog_move_with_keyboard(char* argument_str)
 	{
+	uint32_t speed = 0;
+	
+	/* If parameter given for subprogram isn't number, exit program */
+	if(terminal_try_get_int_value(argument_str, &speed) != EC_SUCCES) return;
+		
 	char received_char = 0;
 	
 	/* Set speed for movements: */

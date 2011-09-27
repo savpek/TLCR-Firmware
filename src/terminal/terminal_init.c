@@ -7,6 +7,7 @@
 
 #include "compiler.h"
 #include "terminal.h"
+#include "terminal_usart_settings.h"
 #include "usart.h"
 #include "gpio.h"
 #include "mcu.h"

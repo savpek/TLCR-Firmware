@@ -12,11 +12,12 @@
  */
 
 #include "compiler.h"
-#include "subprograms.h"
-#include "terminal.h"
+#include "list_of_subprograms.h"
 #include "error_codes.h"
 #include "storage.h"
 #include "ascii_chars.h"
+#include "terminal_common.h"
+#include "terminal_usart_settings.h"
 
 static errorc_t _is_same_or_same_type(char c_this, char c_to)
 	{
@@ -139,8 +140,8 @@ static errorc_t _try_store(uint8_t segment_id, volatile uint16_t *byte_id, uint8
 
 /*@ With this terminal program, you can upload certain text file
  *	(see example flash.txt from root of project) to flash storage. */
-extern void subprog_upload_flash_content(char* params)
-	{
+extern void subprog_upload_flash_content(char* argument_str)
+	{	
 	int char_temp = 0;
 	uint8_t segment_id = 0;
 	volatile uint16_t byte_id = 0;
@@ -151,7 +152,7 @@ extern void subprog_upload_flash_content(char* params)
 	 * make sure that user don't accidently erase whole content */
 	usart_write_line(TERMINAL_USART, "Rewrite entire flash: ");
 	
-	if(!subprogc_ask_are_sure()) return;
+	if(!terminal_ask_are_sure()) return;
 	
 	usart_write_line(TERMINAL_USART, "\r\nErasing chip...!\r\n");
 	if(!storage_erase_all())
@@ -213,16 +214,21 @@ extern void subprog_upload_flash_content(char* params)
 		usart_reset_status(TERMINAL_USART);
 		}
 		
-	subprogc_xon();
+	terminal_xon();
 	}
 
 /*@ Prints selected segment data to terminal in format
  * 0xXX A, so first hex and then char presentation of same
  * segment. */	
-extern void subprog_flash_print_segment(uint32_t params)
-	{
-	uint8_t segment_id = (uint8_t) params;
+extern void subprog_flash_print_segment(char* argument_str)
+	{	
+	uint32_t segment_id = 0;
+	
+	/* If parameter given for subprogram isn't number, exit program */
+	if(terminal_try_get_int_value(argument_str, &segment_id) != EC_SUCCES) return;
+	
 	usart_write_line(TERMINAL_USART, "\r\nSegment data:\r\n");
+	
 	uint16_t next_byte = 0;
 	uint8_t print_char;
 	
@@ -254,7 +260,7 @@ extern void subprog_flash_print_segment(uint32_t params)
 		 * change to quit before end. */
 		if (next_byte%500 == 0 && next_byte != 0)
 			{
-			if(subprogc_ask_continue() != EC_TRUE)
+			if(terminal_ask_continue() != EC_TRUE)
 				{
 				break;	
 				}
@@ -266,7 +272,7 @@ extern void subprog_flash_print_segment(uint32_t params)
 
 /*@ This subprogram simply checks storage flash chips ID.
  * This is to quick check that chip is responding correctly. */	
-extern void subprog_flash_check(char *params) 
+extern void subprog_flash_check(char* argument_str) 
 	{
 	uint16_t flash_id;
 	
@@ -289,28 +295,39 @@ extern void subprog_flash_check(char *params)
 
 /*@ Writes help file to terminal. Gets defined segment from flash
  *	where helpfile should be written and prints it to terminal. */
-extern void subprog_flash_print_help_file(char* params)
+extern void subprog_flash_print_help_file(char* argument_str)
 	{
 	usart_write_from_storage(TERMINAL_USART, STORAGE_HELPFILE_ID);
 	}		
 
 /*@ Counts selected segment data as text and prints it to terminal. */
-extern void subprog_flash_print_segment_text(uint32_t segment_id)
+extern void subprog_flash_print_segment_text(char* argument_str)
 	{
+	uint32_t segment_id = 0;
+	
+	/* If parameter given for subprogram isn't number, exit program */
+	if(terminal_try_get_int_value(argument_str, &segment_id) != EC_SUCCES) return;
+	
+	/* If is number, print value from that segment */
 	usart_write_from_storage(TERMINAL_USART, segment_id);
 	}
 	
 /*@ Writes 'c' letter at addr 15 in selected segment. Meant to be
  * simply function that proves in problem situations that flash is writing
  * correctly. */	
-extern void subprog_flash_test_write(uint32_t segment_id)
+extern void subprog_flash_test_write(char* argument_str)
 	{
+	uint32_t segment_id = 0;
+	
+	/* If parameter given for subprogram isn't number, exit program */
+	if(terminal_try_get_int_value(argument_str, &segment_id) != EC_SUCCES) return;
+		
 	storage_write_segment(segment_id, 15, 'c');
 	usart_write_line(TERMINAL_USART, "Written A in addr 15!");
 	}
 	
 /*@ Erases hole chip at once, this is for test that erase is working */
-extern void subprog_flash_test_erase(char *params)
+extern void subprog_flash_test_erase(char* argument_str)
 	{
 	storage_erase_all();	
 	usart_write_line(TERMINAL_USART, "Flash erased ...!");

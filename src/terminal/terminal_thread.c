@@ -10,11 +10,11 @@
  */
 
 #include "terminal.h"
-#include "subprograms.h"
+#include "list_of_subprograms.h"
 #include "error_codes.h"
 #include "usart.h"
 #include "ascii_chars.h"
-#include "terminal_program_list.h"
+#include "terminal_usart_settings.h"
 
 /* How long command writed in terminal can be (including parameters).*/
 #define TERMINAL_COMMAND_MAX_LENGTH 30
@@ -65,70 +65,7 @@ static void _get_command (char* ret_command_string)
 		}
 	}
 
-/*@ This function is used to separate value of command from 
- * command string. Returns numerical value as int. If value
- * in command is not integer, returns SERTERMINAL_VALUE_ERROR. */
-static errorc_t _try_get_value_int(char* command_string, uint32_t *return_value)
-	{
-	uint8_t value_begin_index = 0;
-	uint8_t string_current_index = 0;
-	uint32_t multiplier = 1;
 
-	/* First need to find point where value begins (first space) */
-	while (1)
-		{
-		/* Checks SPACE */
-		if(command_string[string_current_index] == ASCII_SPACE)
-			{
-			value_begin_index = string_current_index;
-			break;
-			}
-		/* If no value given (gets end of string or
-		 * get out of maximum length of string */
-		else if ((command_string[string_current_index] == 0)
-				|| (string_current_index == TERMINAL_COMMAND_MAX_LENGTH))
-			{
-			return EC_FAIL;
-			}
-		string_current_index++;
-		}
-
-	/* If value begin point find succesfully, next find end of command
-	 * string. */
-	while ((string_current_index < TERMINAL_COMMAND_MAX_LENGTH)
-			&& (command_string[string_current_index] != 0))
-		{
-		string_current_index++;
-		}
-
-	/* Reduce by one to get pointer from 0 to last markable character */
-	string_current_index--;
-
-	/* Now we have begin point of value in value_begin_index and
-	 * end point in string_current_index. Lets calculate value of
-	 * string part. */
-	while (string_current_index > value_begin_index)
-		{
-		/* Changes ASCII mark to value. Made by reduce 48 from
-		 * ASCII value (48 is point where 0 is in ASCII table).*/
-
-		/* Checks that ASCII mark is in really number */
-		if ((command_string[string_current_index]-48 < 0)
-				|| command_string[string_current_index]-48 > 9)
-			{
-			return EC_FAIL;
-			}
-
-		/* Adds value to return value, every run value gets 10x bigger */
-		*return_value += (command_string[string_current_index]-48)*multiplier;
-		multiplier = multiplier*10;
-
-		/* Go to next character (number) from right to left */
-		string_current_index--;
-		}
-
-	return EC_DONE;
-	}
 	 
 /*@ This function returns point where value string begins.
  * Example: "set_direction left", this function returns value 14. */
@@ -196,36 +133,17 @@ static errorc_t _is_command_same (char* command, const char* compare_to_str)
 static errorc_t _try_command (char* command_str)
 	{
 	uint8_t arindex = 0;
-	uint32_t param_uint32 = 0;
 
 	/* We loop through program array and try find match */
 	while(_subprog_array[arindex].command_str[0] != 0)
 		{
 		if(_is_command_same(command_str, _subprog_array[arindex].command_str))
 			{
-			/* When we find matching function. Lets see if given value is correct
-			 * type for it. */
-			if(_try_get_value_int(command_str, &param_uint32)
-				&& _subprog_array[arindex].pointer_uint32 != 0)
-				{
-				/* Run program with parameter type of uint32 */
-				(*_subprog_array[arindex].pointer_uint32)(param_uint32);
-				return EC_DONE;
-				}
-			else if(_subprog_array[arindex].pointer_str != 0)
-				{
-				/* Run program with parameter type of string */
-				(*_subprog_array[arindex].pointer_str)(command_str+_get_command_value_begin_index(command_str));
-				return EC_DONE;
-				}
-			else
-				{
-				/* Didn't find correct kind of program. This happens when
-				 * there is function for this command, but given value is 
-				 * incorrect type. IE: set_direction 33 (param should be string,
-				 * left or right) */
-				return EC_VALUE_ERROR;	
-				}
+			/* Run subprogram, gives value string as only argument for
+			 * subprogram. If program uses any parameters, you should check
+			 * value as first thing in subprogram function */
+			(*_subprog_array[arindex].pointer)(command_str+_get_command_value_begin_index(command_str));
+			return EC_SUCCES;
 			}
 		arindex++;
 		}
@@ -246,7 +164,7 @@ extern void terminal_thread(void* params)
 	char command_str[TERMINAL_COMMAND_MAX_LENGTH];
 	
 	/* Save return value of _try_command */
-	char try_command_ret = 0;
+	errorc_t try_command_ret = 0;
 	
 	/* Infinite thread loop */
 	while(1)
