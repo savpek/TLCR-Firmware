@@ -28,7 +28,7 @@ enum struct
 	uint8_t irq;
 	
 	/* This contains step count of encoder. Increments */
-	uint32_t cycle_count;
+	uint32_t step_count;
 } encoderc_t;
 
 /* This handle is way to init and control

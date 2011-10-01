@@ -173,6 +173,4 @@ void lcd_init_display ( void )
 	gpio_set_pin_high(LCD_D4_PIN);
 	
 	_e_routine_with_delay();
-	
-	while(1);	
 	}
