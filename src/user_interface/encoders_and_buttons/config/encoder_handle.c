@@ -6,22 +6,19 @@
  */ 
 
 #include "compiler.h"
-#include "eic.h"
+#include "encoder.h"
 
 /* This struct contains information about
  * certain encoder. This is used via global handle
  * since encoder states are written in ISR (EXTINT). */
-encoderc_t encoder_handle[] = 
+encoderc_t encoder_handle[ENCODER_COUNT] = 
 	{
 	/* ENCODER 1 */
 		{
-		.a_pin =  AVR32_EIC_EXTINT_1_PIN,
-		.a_function AVR32_EIC_EXTINT_1_FUNCTION,
-		.b_pin AVR32_PIN_PA11= ,
-		
-		.irq = EXT_INT1,
-		
-		.cycle_count = 0
+		.a_pin =  AVR32_PIN_PA09,
+		.b_pin = AVR32_PIN_PA10,
+
+		.step_count = 0
 		},
 	/* ENCODER 2 */
 	

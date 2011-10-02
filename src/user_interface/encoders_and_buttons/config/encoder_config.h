@@ -11,13 +11,8 @@
 
 #include "compiler.h"
 #include "encoder_config.h"
-#include "encoder_isr.h"
 
-/* Uncomment as many encoders as you use
- * in program. Define settings for them in encoder_handle.c */
-//ENCODER_ISR_ENABLE(0)
-//ENCDER_ISR_ENABLE(1)
-//ENCODER_ISR_ENABLE(2)
-//ENCODER_ISR_ENABLE(3)
-
+/* This defines how many encoders are in current setup,
+ * basically this defines size of encoder_handle struct array. */
+#define ENCODER_COUNT 1
 #endif /* ENCODER_CONFIG_H_ */

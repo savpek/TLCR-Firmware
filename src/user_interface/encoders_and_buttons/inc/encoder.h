@@ -10,22 +10,18 @@
 #define ENCODER_H_
 
 #include "compiler.h"
+#include "encoder_config.h"
 
 /* This struct contains information about
  * certain encoder. This is used wia globan handle
  * since encoder states are written in ISR (extint). */
-enum struct  
+typedef struct  
 {
 	/* A pin has interrupt routines. */
 	uint8_t a_pin;
-	uint8_t a_function;
 	
 	/* B pin state is polled when interrupt occurs. */
 	uint8_t b_pin;
-	uint8_t b_function;
-	
-	/* Define IRQ line of EIC module. */
-	uint8_t irq;
 	
 	/* This contains step count of encoder. Increments */
 	uint32_t step_count;
@@ -35,7 +31,7 @@ enum struct
  * encoders. Encoders works through interrupt
  * routines defined in encoder_isr.h in internal_src
  * folder. */
-extern encoder_handle[];
+extern encoderc_t encoder_handle[ENCODER_COUNT];
 
 /* This function inits all encoders. Inits ISR routines
  * and IO settings. */
