@@ -18,10 +18,10 @@
 typedef struct  
 {
 	/* A pin has interrupt routines. */
-	uint8_t a_pin;
+	const uint8_t a_pin;
 	
 	/* B pin state is polled when interrupt occurs. */
-	uint8_t b_pin;
+	const uint8_t b_pin;
 	
 	/* This contains step count of encoder. Increments */
 	uint32_t step_count;
@@ -35,6 +35,6 @@ extern encoderc_t encoder_handle[ENCODER_COUNT];
 
 /* This function inits all encoders. Inits ISR routines
  * and IO settings. */
-extern void encoder_init_all();
+extern void encoder_init_all( void );
 
 #endif /* ENCODER_H_ */

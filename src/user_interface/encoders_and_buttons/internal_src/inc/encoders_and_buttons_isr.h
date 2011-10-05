@@ -14,5 +14,5 @@
 #include "gpio.h"
 
 extern void encoders_and_buttons_isr(void);
-	
+
 #endif /* ENCODER_ISR_H_ */

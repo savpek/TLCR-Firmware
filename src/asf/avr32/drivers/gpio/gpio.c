@@ -608,7 +608,7 @@ void gpio_clear_pin_interrupt_flag(uint32_t pin)
   uint32_t const gpio_ier = gpio_port->ier;
 
   // Disable interrupt.
-  gpio_port->ierc = 1 << (pin & 0x1F);
+  gpio_port->ierc = 0xFFFFFFFF;
 
   // Clear pin interrupt.
   gpio_port->ifrc = 1 << (pin & 0x1F);

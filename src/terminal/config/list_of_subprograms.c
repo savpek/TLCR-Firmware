@@ -32,6 +32,7 @@ subprog_list_t _subprog_array[] =
 		{ &subprog_rotate_clockw,				"rotate_countercw"	},
 		{ &subprog_rotate_stop,					"rotate_stop"		},
 		{ &subprog_rotate_exit,					"rotate_exit"		},
+		{ &subprog_ui_test	,					"ui_test"			},
 		
 		/* ! Program that allows control device with ASDW keys */
 		{ &subprog_move_with_keyboard,			"move_with_keyboard"},

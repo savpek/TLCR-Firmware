@@ -10,9 +10,8 @@
 #define ENCODER_CONFIG_H_
 
 #include "compiler.h"
-#include "encoder_config.h"
 
 /* This defines how many encoders are in current setup,
  * basically this defines size of encoder_handle struct array. */
-#define ENCODER_COUNT 1
+#define ENCODER_COUNT 3
 #endif /* ENCODER_CONFIG_H_ */

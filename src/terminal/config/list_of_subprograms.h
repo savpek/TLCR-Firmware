@@ -61,5 +61,6 @@ extern void subprog_rotate_stop(char* argument_str);
 extern void subprog_rotate_exit(char* argument_str);
 
 extern void subprog_move_with_keyboard(char* argument_str);
+extern void subprog_ui_test(char* argument_str);
 
 #endif /* SUBPROG_H_ */

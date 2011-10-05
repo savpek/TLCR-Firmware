@@ -7,6 +7,7 @@
 
 #include "compiler.h"
 #include "encoder.h"
+#include "encoder_config.h"
 
 /* This struct contains information about
  * certain encoder. This is used via global handle
@@ -17,10 +18,21 @@ encoderc_t encoder_handle[ENCODER_COUNT] =
 		{
 		.a_pin =  AVR32_PIN_PA09,
 		.b_pin = AVR32_PIN_PA10,
-
+		
 		.step_count = 0
 		},
 	/* ENCODER 2 */
-	
-	/* ENCODER 3 */			
+		{
+		.a_pin =  AVR32_PIN_PA13,
+		.b_pin = AVR32_PIN_PA11,
+
+		.step_count = 0
+		},
+	/* ENCODER 3 */
+		{
+		.a_pin =  AVR32_PIN_PA15,
+		.b_pin = AVR32_PIN_PB10,
+
+		.step_count = 0
+		}			
 	};	
