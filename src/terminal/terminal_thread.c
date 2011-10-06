@@ -26,7 +26,7 @@ static void _get_command (char* ret_command_string)
 	{
 	char received_char = 0;
 	int string_current_index = 0;
-
+	
 	/* Loops, reads transmission to string until ended by CR */
 	while(1)
 		{

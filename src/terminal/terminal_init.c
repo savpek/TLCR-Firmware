@@ -31,8 +31,10 @@ extern void terminal_init()
 	 * in gpio_map_t format. */
 	static const gpio_map_t USART_GPIO_MAP =
 	   {
-	     {TERMINAL_USART_RX_PIN,TERMINAL_USART_RX_FUNCTION},
-	     {TERMINAL_USART_TX_PIN, TERMINAL_USART_TX_FUNCTION}
+	     {TERMINAL_USART_RX_PIN, TERMINAL_USART_RX_FUNCTION},
+	     {TERMINAL_USART_TX_PIN, TERMINAL_USART_TX_FUNCTION},
+		 {TERMINAL_USART_CTS_PIN, TERMINAL_USART_CTS_FUNCTION},
+		 {TERMINAL_USART_RTS_PIN, TERMINAL_USART_RTS_FUNCTION}
 	   };
 
 	/* Assign GPIO to USART. */
@@ -40,5 +42,6 @@ extern void terminal_init()
 	                     sizeof(USART_GPIO_MAP) / sizeof(USART_GPIO_MAP[0]));
 
 	/* Initialize USART in RS232 mode. */
+	//usart_init_rs232(TERMINAL_USART, &USART_OPTIONS, MCU_PBA_F);
 	usart_init_rs232(TERMINAL_USART, &USART_OPTIONS, MCU_PBA_F);
 	}

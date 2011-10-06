@@ -109,8 +109,6 @@ void motion_init ()
     .lovrs = 0,
     .covfs = 0
 	};
-	
-	INTC_init_interrupts();
 
 	/* IRQ used for controlling motion can be found from motion_irq. file. */
 	INTC_register_interrupt(&motion_irq, AVR32_TC0_IRQ0, AVR32_INTC_INT0);
