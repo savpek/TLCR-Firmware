@@ -1,4 +1,3 @@
-/src/asf.*
 /Debug/*
 /Release/*
 *.config
