@@ -20,7 +20,7 @@ extern void lcd_e_routine(void);
 extern void lcd_send_cmd(uint8_t command);
 extern void lcd_send_char(uint8_t char_to_send);
 
-/* This function waits until 
+/* This function waits until */ 
 extern void lcd_wait_busy_end(void);
 
 /* This inits display. MCU io for lcd etc... */

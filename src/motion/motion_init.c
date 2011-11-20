@@ -7,7 +7,7 @@
 
 #include "motion.h"
 #include "motion_config.h"
-#include "mcu.h"
+#include "./mcu/inc/mcu.h"
 #include "scif_uc3l.h"
 #include "pwma.h"
 #include "gpio.h"

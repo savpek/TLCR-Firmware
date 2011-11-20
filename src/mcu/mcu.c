@@ -9,7 +9,7 @@
 #include "scif_uc3l.h"
 #include "power_clocks_lib.h"
 #include "gpio.h"
-#include "mcu.h"
+#include "./mcu/inc/mcu.h"
 
 extern void mcu_init_clocks()
 	{

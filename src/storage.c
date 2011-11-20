@@ -9,7 +9,7 @@
 #include "storage.h"
 #include "gpio.h"
 #include "spi.h"
-#include "mcu.h"
+#include "./mcu/inc/mcu.h"
 #include "error_codes.h"
 
 #define STORAGE_SPI (&AVR32_SPI)

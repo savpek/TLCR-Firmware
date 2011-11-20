@@ -46,7 +46,7 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
-#include "mcu.h"
+#include "./mcu/inc/mcu.h"
 
 /*-----------------------------------------------------------
  * Application specific definitions.

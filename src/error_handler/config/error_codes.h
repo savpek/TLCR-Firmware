@@ -9,8 +9,12 @@
 #ifndef ERROR_CODES_H_
 #define ERROR_CODES_H_
 
+#include "compiler.h"
+
 typedef enum 
 	{
+	/* Common error types, mostly
+	 * used as return codes, not actual errors */
 	EC_PASS = 1,
 	EC_SUCCES = 1,
 	EC_DONE = 1,
@@ -27,7 +31,12 @@ typedef enum
 	EC_VALUE_ERROR = 7,
 	EC_GOTO_NEXT = 8,
 	EC_END = 9,
-	EC_EXIT = 10
+	EC_EXIT = 10,
+	
+	/* USART errors. */
+	EC_USART_RXD_OVERRUN = 100,
+	EC_USART_PARITY_E = 101,
+	EC_USART_GENERIC = 102,
 	}	errorc_t;
 
 #endif /* ERROR_CODES_H_ */

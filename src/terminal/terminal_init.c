@@ -10,7 +10,7 @@
 #include "terminal_usart_settings.h"
 #include "usart.h"
 #include "gpio.h"
-#include "mcu.h"
+#include "./mcu/inc/mcu.h"
 
 /* @Inits serial transmission
  * from MCU. Uses USART driver from Atmels framework.*/
