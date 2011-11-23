@@ -19,12 +19,12 @@ errorc_t motion_try_take_control(uint8_t motion_handle_id, motorc_ctrl_unit_t ne
 	if(motion_check_control(motion_handle_id) == new_ctrl_unit) 
 		{
 		motion_handle[motion_handle_id].ctrl_unit = new_ctrl_unit;
-		return EC_SUCCES;
+		return EC_SUCCESS;
 		}
 	/* If not */
 	else
 		{
-		return EC_FAIL;
+		return EC_FAILURE;
 		}
 	}
 

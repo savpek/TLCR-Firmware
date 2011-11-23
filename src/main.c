@@ -5,10 +5,13 @@
  *      Author: savpek
  */
 
+/* ASF */
 #include "compiler.h"
+#include "intc.h"
+#include "delay.h"
 #include "./terminal/inc/terminal.h"
 #include "./mcu/inc/mcu.h"
-#include "storage.h"
+#include "./storage/inc/storage.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "motion.h"
@@ -18,8 +21,6 @@
 #include "button.h"
 //#include "terminal_usart_settings.h"
 //#include "delay.h"
-#include "intc.h"
-#include "delay.h"
 
 int main(void)
 		{
@@ -29,10 +30,10 @@ int main(void)
 	delay_init(48000000);
 
 	terminal_init();
-	storage_init();
+//	storage_init();
 	//encoder_init_all();
 	//button_init_all();
-	motion_init();
+//	motion_init();
 
 	/* Add terminal to FreeRTOS run list */
 	xTaskCreate(terminal_thread, "terminal", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);

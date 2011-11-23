@@ -6,7 +6,7 @@
  */ 
 
 #include "compiler.h"
-#include "usart.h"
+#include "usart_wb.h"
 #include "terminal.h"
 #include "terminal_usart_settings.h"
 #include "button_config.h"

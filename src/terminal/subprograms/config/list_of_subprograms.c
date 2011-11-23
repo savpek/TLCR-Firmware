@@ -11,7 +11,8 @@
 /*!! Array of runnable programs, you must define function
  *	 pointer and command string that calls function from terminal !*/
 subprog_list_t _subprog_array[] =
-	   {				
+	   {
+		#if 0				
 		/*POINTER;								| CMD string		*/
 		{ &subprog_flash_check,					"flash_check"		},
 		{ &subprog_flash_print_segment,			"flash_read_hex"	},			
@@ -36,7 +37,7 @@ subprog_list_t _subprog_array[] =
 		
 		/* ! Program that allows control device with ASDW keys */
 		{ &subprog_move_with_keyboard,			"move_with_keyboard"},
-		
+		#endif
 		/* Last member of subprogram array must be null! */
 		{ 0,									0}
 		

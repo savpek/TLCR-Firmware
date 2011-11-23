@@ -8,14 +8,13 @@
 #ifndef MCU_H_
 #define MCU_H_
 
-#define MCU_CPU_F 	48000000UL
-#define MCU_PBA_F	48000000UL
-#define MCU_PBB_F	48000000UL
+/* ASF */
+#include "compiler.h"
 
-/* This must be bigger than any other clocks, DFLL loop
- * is used to generate rest of frequencies. */
-#define MCU_DFLL_F	48000000UL
+/* Internal */
+#include "./mcu/config/mcu_config.h"
 
+/* This inits clocks, see "./mcu/config/mcu_config.h" for settings */
 extern void mcu_init_clocks(void);
 
 #endif /* MCU_H_ */

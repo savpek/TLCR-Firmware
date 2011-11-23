@@ -10,11 +10,11 @@
  */
 
 #include "terminal.h"
-#include "list_of_subprograms.h"
+#include "./terminal/subprograms/config/list_of_subprograms.h"
 #include "error_codes.h"
-#include "usart.h"
-#include "ascii_chars.h"
-#include "terminal_usart_settings.h"
+#include "./terminal/common/usart/inc/usart_wb.h"
+#include "./terminal/common/usart/config/usart_settings.h"
+#include "delay.h"
 
 /* How long command writed in terminal can be (including parameters).*/
 #define TERMINAL_COMMAND_MAX_LENGTH 30
@@ -26,21 +26,21 @@ static void _get_command (char* ret_command_string)
 	{
 	char received_char = 0;
 	int string_current_index = 0;
-	
+
 	/* Loops, reads transmission to string until ended by CR */
 	while(1)
 		{
-		received_char = usart_getchar(TERMINAL_USART);
-
+		received_char = usart_getchar();
+		
 		/* Don't accept special letters or other ASCII standard
 		 * trash. */
 		if (((received_char <= 123 && received_char >= 48)
-				|| received_char == ASCII_SPACE)
+				|| received_char == USART_ASCII_SPACE)
 				&& string_current_index < TERMINAL_COMMAND_MAX_LENGTH)
 			{
 			ret_command_string[string_current_index] = received_char;
 
-			usart_putchar(TERMINAL_USART, received_char);
+			usart_putchar(received_char);
 
 			string_current_index++;
 			}
@@ -48,13 +48,13 @@ static void _get_command (char* ret_command_string)
 		else if (received_char == 0x7F && string_current_index > 0)
 			{
 			string_current_index--;
-			usart_putchar(TERMINAL_USART, received_char);
+			usart_putchar(received_char);
 			}
 		/* If enter (0x0D)*/
 		else if (received_char == 0x0D)
 			{
-			usart_putchar(TERMINAL_USART, received_char);
-			usart_putchar(TERMINAL_USART, '\n');
+			usart_putchar(received_char);
+			usart_putchar('\n');
 
 			/* Null character to mark end of line. */
 			ret_command_string[string_current_index] = 0;
@@ -62,7 +62,7 @@ static void _get_command (char* ret_command_string)
 			/* Command string is completed. */
 			break;
 			}
-		}
+		} /* While 1 */
 	}
 
 
@@ -77,7 +77,7 @@ static uint16_t _get_command_value_begin_index(char* command_string)
 	while (1)
 		{
 		/* Checks SPACE */
-		if(command_string[string_current_index] == ASCII_SPACE)
+		if(command_string[string_current_index] == USART_ASCII_SPACE)
 			{
 			break;
 			}
@@ -106,7 +106,7 @@ static errorc_t _is_command_same (char* command, const char* compare_to_str)
 	 * in same time counts length of command (length must be compared so that
 	 * set is not equal with set_speed! */
 	while(command[string_index] != 0 //Null
-			&& command[string_index] != ASCII_SPACE) //Space
+			&& command[string_index] != USART_ASCII_SPACE) //Space
 		{
 		/* Every character of command must be identical */
 		if(command[string_index] != compare_to_str[string_index])
@@ -143,14 +143,14 @@ static errorc_t _try_command (char* command_str)
 			 * subprogram. If program uses any parameters, you should check
 			 * value as first thing in subprogram function */
 			(*_subprog_array[arindex].pointer)(command_str+_get_command_value_begin_index(command_str));
-			return EC_SUCCES;
+			return EC_SUCCESS;
 			}
 		arindex++;
 		}
 		
 	/* If function gets to this point, there is no correctly
 	 * named subprogram in list. So command is invalid. */
-	return EC_FAIL;	
+	return EC_FAILURE;	
 	}
 
 /*@ Thread for terminal. This parses terminal commands and drive sub-programs
@@ -158,27 +158,19 @@ static errorc_t _try_command (char* command_str)
 extern void terminal_thread(void* params)
 	{
 	/* Write terminal header data :) */
-	usart_write_line(TERMINAL_USART, "\r\n\nTimelapse terminal\r\n");
-	usart_write_line(TERMINAL_USART, "Author: Savpek Electronics 2011\r\n");
+	usart_write_line("\r\n\nTLCR TERMINAL\r\n");
 	
 	char command_str[TERMINAL_COMMAND_MAX_LENGTH];
 	
 	/* Save return value of _try_command */
 	errorc_t try_command_ret = 0;
-	
+	unsigned long counteri = 0;
 	/* Infinite thread loop */
+	uint8_t char_temp = 0;
 	while(1)
 		{
-		/* Send XON to make sure terminal is not in pause state. */
-		usart_putchar(TERMINAL_USART, ASCII_XON);
-		
-		/* Allso reset usart status bit for sure, this because if usart
-		 * have faced error (overrun for most likely) it will be halted
-		 * until this bit is reseted. */
-		usart_reset_status(TERMINAL_USART);	
-
 		/* One loop is one command run, so print terminal mark */
-		usart_write_line(TERMINAL_USART, " TL>");
+		usart_write_line("TLCR>");
 		
 		/* Wait until get command (string ended with enter press) */
 		_get_command (command_str);
@@ -189,16 +181,16 @@ extern void terminal_thread(void* params)
 	
 		/* Then we check were command run correctly or was there
 		 * error. */
-		if (try_command_ret == EC_FAIL)
+		if (try_command_ret == EC_FAILURE)
 			{
-			usart_write_line(TERMINAL_USART, "Invalid command!");	
+			usart_write_line("Invalid command!");	
 			}
 		else if (try_command_ret == EC_VALUE_ERROR)
 			{
-			usart_write_line(TERMINAL_USART, "Invalid value!");
+			usart_write_line("Invalid value!");
 			}
 			
 		/* Newlines are nice eh? */	
-		usart_write_line(TERMINAL_USART, "\n\r");
+		usart_write_line("\n\r");
 		}		
 	}

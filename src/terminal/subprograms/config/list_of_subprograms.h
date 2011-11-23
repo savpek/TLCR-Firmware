@@ -25,7 +25,7 @@ extern subprog_list_t _subprog_array[];
 
 /*!! Subprogram protypes, they should return VOID and take char* argument_str
  *   as only parameter. !!*/
-
+#if 0
 /*! Subprograms to check, modify, write and control flash IC chip and storage data. !*/
 /*@ Program checks that flash IC is responding for calls */
 extern void subprog_flash_check(char* argument_str);
@@ -62,5 +62,5 @@ extern void subprog_rotate_exit(char* argument_str);
 
 extern void subprog_move_with_keyboard(char* argument_str);
 extern void subprog_ui_test(char* argument_str);
-
+#endif //0
 #endif /* SUBPROG_H_ */

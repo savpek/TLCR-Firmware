@@ -16,11 +16,11 @@ typedef enum
 	/* Common error types, mostly
 	 * used as return codes, not actual errors */
 	EC_PASS = 1,
-	EC_SUCCES = 1,
+	EC_SUCCESS = 1,
 	EC_DONE = 1,
 	EC_TRUE = 1,
 	EC_NULL = 0,
-	EC_FAIL = 0,
+	EC_FAILURE = 0,
 	EC_FALSE = 0,
 	EC_FULL = 1,
 	EC_NOT_EMPTY = 2,
@@ -37,6 +37,15 @@ typedef enum
 	EC_USART_RXD_OVERRUN = 100,
 	EC_USART_PARITY_E = 101,
 	EC_USART_GENERIC = 102,
+	EC_USART_INVALID_INPUT = 103,
+	EC_USART_RX_ERROR = 104,
+	EC_USART_RX_EMPTY = 105,
+	EC_USART_TX_BUSY = 106,
+	
+	/* FIFO errors */
+	EC_FIFO_FULL = 200,
+	EC_FIFO_EMPTY = 201,
+	EC_FIFO_SUCCES = 202,
 	}	errorc_t;
 
 #endif /* ERROR_CODES_H_ */

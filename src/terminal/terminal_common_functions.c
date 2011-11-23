@@ -7,9 +7,7 @@
 
 #include "compiler.h"
 #include "error_codes.h"
-#include "terminal_usart_settings.h"
-#include "usart.h"
-#include "ascii_chars.h"
+#include "./terminal/common/usart/inc/usart_wb.h"
 
 /*!! Functions that checks arguments given for subprogram.
  *   Usage example:
@@ -48,8 +46,8 @@ errorc_t terminal_try_get_int_value (char* arg_str, uint32_t* return_arg_value)
 		if ((arg_str[string_current_index]-48 < 0)
 				|| arg_str[string_current_index]-48 > 9)
 			{
-			usart_write_line(TERMINAL_USART, "Invalid value, number required!");
-			return EC_FAIL;
+			usart_write_line("Invalid value, number required!");
+			return EC_FAILURE;
 			}
 
 		/* Adds value to return value, every run value gets 10x bigger */
@@ -59,7 +57,7 @@ errorc_t terminal_try_get_int_value (char* arg_str, uint32_t* return_arg_value)
 		/* Go to next character (number) from right to left */
 		} while (string_current_index != 0);
 
-	return EC_SUCCES;
+	return EC_SUCCESS;
 	}
 
 /* For functions where argument is reguired.
@@ -77,13 +75,13 @@ errorc_t terminal_require_arg_str (char* arg_str )
 	/* In case argument string is empty */
 	if ( string_counter == 0)
 		{
-		usart_write_line(TERMINAL_USART, "Invalid value!");
-		return EC_FAIL;	
+		usart_write_line("Invalid value!");
+		return EC_FAILURE;	
 		}
 	/* In case there are argument given */
 	else
 		{
-		return EC_SUCCES;	
+		return EC_SUCCESS;	
 		}
 	}
 
@@ -91,13 +89,13 @@ errorc_t terminal_require_arg_str (char* arg_str )
 extern void terminal_xon(void) 
 	{
 	/* Send XON (RESUME) character to terminal */
-	 usart_putchar(TERMINAL_USART, 0x11);
+	 usart_putchar(0x11);
 	}
 	
 extern void terminal_xoff(void)
 	{
 	/* Send XOFF (PAUSE) character to terminal */
-	 usart_putchar(TERMINAL_USART, 0x13);		
+	 usart_putchar(0x13);		
 	}
 
 
@@ -105,11 +103,11 @@ extern void terminal_xoff(void)
 //NOTTESTED
 extern errorc_t terminal_ask_are_sure(void)
 	{
-	char char_temp = 0;
-	usart_write_line(TERMINAL_USART, "\r\nAre you sure? (y/n): ");
-	char_temp = usart_getchar(TERMINAL_USART);
-	usart_putchar(TERMINAL_USART, char_temp);
-	usart_write_line(TERMINAL_USART, "\r\n");
+	uint8_t char_temp = 0;
+	usart_write_line("\r\nAre you sure? (y/n): ");
+	char_temp = usart_getchar();
+	usart_putchar(char_temp);
+	usart_write_line("\r\n");
 
 	if (char_temp == 'y')
 		{
@@ -125,11 +123,11 @@ extern errorc_t terminal_ask_are_sure(void)
 /*@As if terminal user want to continue. Returns boolean */
 extern errorc_t terminal_ask_continue(void)
 	{
-	char char_temp = 0;
-	usart_write_line(TERMINAL_USART, "\r\nContinue? (y/n): ");
-	char_temp = usart_getchar(TERMINAL_USART);
-	 usart_putchar(TERMINAL_USART, char_temp);
-	usart_write_line(TERMINAL_USART, "\r\n");
+	uint8_t char_temp = 0;
+	usart_write_line("\r\nContinue? (y/n): ");
+	char_temp = usart_getchar();
+	 usart_putchar(char_temp);
+	usart_write_line("\r\n");
 	
 	if (char_temp == 'y')
 		{

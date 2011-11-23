@@ -6,7 +6,7 @@
  */
 
 #include "compiler.h"
-#include "storage.h"
+#include "./storage/inc/storage.h"
 #include "gpio.h"
 #include "spi.h"
 #include "./mcu/inc/mcu.h"

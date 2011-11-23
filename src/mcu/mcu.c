@@ -5,11 +5,15 @@
  *      Author: savpek
  */
 
+/* ASF */
 #include "compiler.h"
 #include "scif_uc3l.h"
 #include "power_clocks_lib.h"
 #include "gpio.h"
+
+/* Lib internal headers */
 #include "./mcu/inc/mcu.h"
+#include "./mcu/config/mcu_config.h"
 
 extern void mcu_init_clocks()
 	{

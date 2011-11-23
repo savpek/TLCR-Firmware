@@ -7,8 +7,8 @@
 
 #include "compiler.h"
 #include "terminal.h"
-#include "terminal_usart_settings.h"
-#include "usart.h"
+#include "./terminal/common/usart/config/usart_settings.h"
+#include "./terminal/common/usart/inc/usart_wb.h"
 #include "gpio.h"
 #include "./mcu/inc/mcu.h"
 
@@ -16,25 +16,14 @@
  * from MCU. Uses USART driver from Atmels framework.*/
 extern void terminal_init()
 	{
-	/* Settings for usart initialization. Atmels USART-driver
-	 * reguires settings in usart_options_t type struct.	*/
-	static const usart_options_t USART_OPTIONS =
-	   {
-	     .baudrate     = TERMINAL_BAUDRATE,
-	     .charlength   = TERMINAL_CHARLENGTH,
-	     .paritytype   = TERMINAL_PARITYPE,
-	     .stopbits     = TERMINAL_STOPBITS,
-	     .channelmode  = TERMINAL_CHANNELMODE
-	   };
-
 	/* Map ports for USART, Atmel driver function reguires mapping
 	 * in gpio_map_t format. */
 	static const gpio_map_t USART_GPIO_MAP =
 	   {
-	     {TERMINAL_USART_RX_PIN, TERMINAL_USART_RX_FUNCTION},
-	     {TERMINAL_USART_TX_PIN, TERMINAL_USART_TX_FUNCTION},
-		 {TERMINAL_USART_CTS_PIN, TERMINAL_USART_CTS_FUNCTION},
-		 {TERMINAL_USART_RTS_PIN, TERMINAL_USART_RTS_FUNCTION}
+	     {USART_RX_PIN, USART_RX_FUNCTION},
+	     {USART_TX_PIN, USART_TX_FUNCTION},
+		 {USART_CTS_PIN, USART_CTS_FUNCTION},
+		 {USART_RTS_PIN, USART_RTS_FUNCTION}
 	   };
 
 	/* Assign GPIO to USART. */
@@ -43,5 +32,5 @@ extern void terminal_init()
 
 	/* Initialize USART in RS232 mode. */
 	//usart_init_rs232(TERMINAL_USART, &USART_OPTIONS, MCU_PBA_F);
-	usart_init_rs232(TERMINAL_USART, &USART_OPTIONS, MCU_PBA_F);
+	usart_init_rs232_with_rxdry_irq(MCU_PBA_F);
 	}

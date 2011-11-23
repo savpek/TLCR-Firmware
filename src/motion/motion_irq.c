@@ -6,7 +6,6 @@
  */ 
 #include "motion_config.h"
 #include "motion.h"
-#include "usart.h"
 #include "terminal.h"
 #include "tc.h"
 #include "pwma.h"
