@@ -9,7 +9,7 @@
 #ifndef SUBPROG_H_
 #define SUBPROG_H_
 
-#include "error_codes.h"
+#include "./errorh/inc/errorh.h"
 #include "terminal.h"
 
 /*!! Subprograms, designed to run through terminal service (terminal.h, terminal.c) !!*/

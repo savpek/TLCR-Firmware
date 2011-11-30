@@ -10,7 +10,7 @@
 
 /* Own */
 #include "./common/fifo/inc/fifo.h"
-#include "./error_handler/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 
 static errorc_t is_buffer_full (uint8_t first_index, uint8_t last_index, uint8_t fifo_size)
 	{

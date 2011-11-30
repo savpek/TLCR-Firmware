@@ -7,7 +7,7 @@
 #include "compiler.h"
 
 /* TLCR lib */
-#include "error_handler/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 
 /* USART ascii marks */
 #define USART_ASCII_DEL 0x7F
@@ -75,7 +75,7 @@ extern errorc_t usart_read_char(uint8_t *c);
 extern uint8_t usart_getchar( void );
 
 /* Writes character string to the USART (constant). */
-extern void usart_write_line(const char *string);
+extern void usart_write_line(char *string);
 
 /* Writes non-constant string to usart. */
 extern void usart_write_string(char *string);

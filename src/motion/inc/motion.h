@@ -10,7 +10,7 @@
 
 #include "compiler.h"
 #include "motion_config.h"
-#include "error_codes.h"
+#include "./errorh/inc/errorh.h"
 
 /* Inits necessary system components for motion library. EG: Clocks and interrupts. */
 void motion_init (void);

@@ -9,6 +9,7 @@
 #include "compiler.h"
 #include "intc.h"
 #include "delay.h"
+#include "errorh/inc/errorh.h"
 #include "./terminal/inc/terminal.h"
 #include "./mcu/inc/mcu.h"
 #include "./storage/inc/storage.h"
@@ -26,15 +27,16 @@ int main(void)
 	{
 	mcu_init_clocks();
 	INTC_init_interrupts();
-			
-	delay_init(48000000);
 
+	errorh_set_print_handler(usart_write_line);
+	
+	delay_init(48000000);
 	terminal_init();
 //	storage_init();
 	//encoder_init_all();
 	//button_init_all();
 //	motion_init();
-
+	errorh_print("trolooooaoaoaoaa");
 	/* Add terminal to FreeRTOS run list */
 	xTaskCreate(terminal_thread, "terminal", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);
 

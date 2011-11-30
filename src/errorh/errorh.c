@@ -6,7 +6,7 @@
  */ 
 
 #include "compiler.h"
-#include "./error_handler/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 
 /* We store up to 10 different error codes */
 static errorc_t error_log[10] = {0};

@@ -10,8 +10,8 @@
 #define ERRORH_H_
 
 /* Error codes and their short definitions can be found from
- * .error_handler/config/error_codes.h. */
-#include "error_codes.h"
+ * .errorh/config/error_codes.h. */
+#include "./errorh/config/error_codes.h"
 
 /* Error fatalities:
  * FATAL hangs program to infinity inside error loop!
@@ -22,6 +22,14 @@ typedef enum {
 	ERROR_NONFATAL = 0,
 	ERROR_WARNING = 2,
 	} error_fatality_t;
+
+/* Prints error to output stream, you can define this pointer to point
+ * different kind of streams (usart, lcd for example) */
+void (*errorh_print)(char *error_str);
+
+/* This sets error handler used in project. For example, to set error messages
+ * printed to usart use: errorh_set_print_handler(usart_write_line); */
+#define errorh_set_print_handler(x) errorh_print = x
 
 /* This function creates new error to error list. */
 extern void errorh_new_error( errorc_t error_code, error_fatality_t error_fatality );

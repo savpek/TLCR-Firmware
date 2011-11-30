@@ -9,6 +9,8 @@
 #ifndef TERMINAL_COMMON_H_
 #define TERMINAL_COMMON_H_
 
+#include "./errorh/inc/errorh.h"
+
 /*!! Common functions for global use in subprograms. !!*/
 extern errorc_t terminal_try_get_int_value (char* arg_str, uint32_t* return_arg_value);
 extern errorc_t terminal_require_arg_str (char* arg_str);

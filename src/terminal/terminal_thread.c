@@ -11,7 +11,7 @@
 
 #include "terminal.h"
 #include "./terminal/subprograms/config/list_of_subprograms.h"
-#include "error_codes.h"
+#include "./errorh/inc/errorh.h"
 #include "./usart/inc/usart.h"
 #include "./usart/config/usart_settings.h"
 #include "delay.h"
@@ -164,9 +164,8 @@ extern void terminal_thread(void* params)
 	
 	/* Save return value of _try_command */
 	errorc_t try_command_ret = 0;
-	unsigned long counteri = 0;
+
 	/* Infinite thread loop */
-	uint8_t char_temp = 0;
 	while(1)
 		{
 		/* One loop is one command run, so print terminal mark */

@@ -13,7 +13,7 @@
 #ifndef STORAGE_H_
 #define STORAGE_H_
 
-#include "error_codes.h"
+#include "./errorh/inc/errorh.h"
 
 #define STORAGE_HELPFILE_ID 0
 #define STORAGE_AUTHORFILE_ID 1

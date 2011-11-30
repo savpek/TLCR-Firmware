@@ -28,7 +28,7 @@
 #include "./usart/config/usart_settings.h"
 
 /* TLCR libs */
-#include "./error_handler/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 
 /* Define this to enter debug mode */
 //#define USART_DEBUG
@@ -244,17 +244,10 @@ uint8_t usart_getchar( )
 	return temp_char;
 }
 
-void usart_write_line(const char *string)
+void usart_write_line(char *string)
 	{	
 	while (*string != '\0')
 		{
 		usart_putchar(*string++);	
 		}
-	}
-
-/*@ This function is for printing non constant strings. */
-extern void usart_write_string(char *string)
-	{
-		uint16_t char_index = 0;
-	while(string[char_index] != 0) usart_putchar(string[char_index]);
 	}

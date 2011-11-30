@@ -16,7 +16,7 @@
 #include "./common/fifo/config/fifo_config.h"
 
 /* TLCR Libs */
-#include "./error_handler/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 
 typedef struct {
 	uint8_t first_index;

@@ -11,7 +11,7 @@
 
 #include "compiler.h"
 #include "button_config.h"
-#include "error_codes.h"
+#include "./errorh/inc/errorh.h"
 
 /* Briefly, buttons are in array. In steady mode
  * all poll lines are in ground and all interrupt lines

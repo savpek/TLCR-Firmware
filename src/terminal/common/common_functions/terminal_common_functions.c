@@ -5,8 +5,14 @@
  *  Author: savpek
  */ 
 
+/* ASF */
 #include "compiler.h"
-#include "error_codes.h"
+
+/* Internal */
+#include "./terminal/common/common_functions/inc/terminal_common_functions.h"
+
+/* TLCR libs */
+#include "./errorh/inc/errorh.h"
 #include "./usart/inc/usart.h"
 
 /*!! Functions that checks arguments given for subprogram.
