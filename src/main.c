@@ -23,7 +23,7 @@
 //#include "delay.h"
 
 int main(void)
-		{
+	{
 	mcu_init_clocks();
 	INTC_init_interrupts();
 			

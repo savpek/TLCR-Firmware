@@ -9,7 +9,7 @@
 
 /* Startup settings for terminal, includes USART settings etc... */
 #define USART_POINTER 		(&AVR32_USART0)
-#define USART_BAUDRATE	56000
+#define USART_BAUDRATE	9600
 #define USART_CHARLENGTH	8
 #define USART_PARITYPE	USART_NO_PARITY
 #define USART_STOPBITS	USART_2_STOPBITS
@@ -30,6 +30,6 @@
 
 /* This defines how many items are in fifo before
  * usart trys pause transmission with XOFF */
-#define USART_XOFF_DELAY	3
+#define USART_XOFF_DELAY	2
 
 #endif /* USART_SETTINGS_H_ */

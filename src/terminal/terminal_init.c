@@ -7,8 +7,8 @@
 
 #include "compiler.h"
 #include "terminal.h"
-#include "./terminal/common/usart/config/usart_settings.h"
-#include "./terminal/common/usart/inc/usart_wb.h"
+#include "./usart/config/usart_settings.h"
+#include "./usart/inc/usart.h"
 #include "gpio.h"
 #include "./mcu/inc/mcu.h"
 

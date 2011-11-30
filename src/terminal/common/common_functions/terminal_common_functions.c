@@ -7,7 +7,7 @@
 
 #include "compiler.h"
 #include "error_codes.h"
-#include "./terminal/common/usart/inc/usart_wb.h"
+#include "./usart/inc/usart.h"
 
 /*!! Functions that checks arguments given for subprogram.
  *   Usage example:
@@ -16,7 +16,6 @@
  *	 If argument isn't number, subprogram then exit with error message */
 errorc_t terminal_try_get_int_value (char* arg_str, uint32_t* return_arg_value)
 	{
-	uint8_t value_begin_index = 0;
 	uint8_t string_current_index = 0;
 	uint32_t multiplier = 1;
 
@@ -84,20 +83,6 @@ errorc_t terminal_require_arg_str (char* arg_str )
 		return EC_SUCCESS;	
 		}
 	}
-
-/* @XON/XOF protocol functions. */
-extern void terminal_xon(void) 
-	{
-	/* Send XON (RESUME) character to terminal */
-	 usart_putchar(0x11);
-	}
-	
-extern void terminal_xoff(void)
-	{
-	/* Send XOFF (PAUSE) character to terminal */
-	 usart_putchar(0x13);		
-	}
-
 
 /*@This function sends "Are you sure?" dialog through terminal */
 //NOTTESTED

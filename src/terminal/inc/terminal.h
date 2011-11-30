@@ -13,7 +13,7 @@
 #define TERM_H_
 
 /* Internal */
-#include "./terminal/common/usart/inc/usart_wb.h"
+#include "./usart/inc/usart.h"
 
 /*@ Thread function for terminal (compatible with FreeRTOS). */
 extern void terminal_thread(void*);

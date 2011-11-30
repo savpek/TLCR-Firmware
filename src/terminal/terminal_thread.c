@@ -12,8 +12,8 @@
 #include "terminal.h"
 #include "./terminal/subprograms/config/list_of_subprograms.h"
 #include "error_codes.h"
-#include "./terminal/common/usart/inc/usart_wb.h"
-#include "./terminal/common/usart/config/usart_settings.h"
+#include "./usart/inc/usart.h"
+#include "./usart/config/usart_settings.h"
 #include "delay.h"
 
 /* How long command writed in terminal can be (including parameters).*/

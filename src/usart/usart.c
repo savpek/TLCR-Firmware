@@ -24,15 +24,14 @@
 #include "intc.h"
 
 /* Internal */
-#include "./terminal/common/usart/inc/usart_wb.h"
-#include "./terminal/common/usart/config/usart_settings.h"
+#include "./usart/inc/usart.h"
+#include "./usart/config/usart_settings.h"
 
 /* TLCR libs */
-#include "./common/fifo/inc/fifo.h"
 #include "./error_handler/inc/errorh.h"
 
-/* This buffer contains incoming data. */
-static fifo_uint8_t usart_fifo;
+/* Define this to enter debug mode */
+//#define USART_DEBUG
 
 /* This resets status of transmitter. */
 static void usart_reset_status(volatile avr32_usart_t *usart)
@@ -69,7 +68,7 @@ static errorc_t usart_write_char(uint8_t c)
 
 /* This reads character from MCU internal rx buffer. This is used to save received
  * characters to fifo buffer. */
-static errorc_t usart_get_character_from_rx_register(volatile avr32_usart_t *usart, int *c)
+static errorc_t usart_get_character_from_rx_register(volatile avr32_usart_t *usart, uint8_t *c)
 {
   // Check for errors: frame, parity and overrun. In RS485 mode, a parity error
   // would mean that an address char has been received.
@@ -87,41 +86,6 @@ static errorc_t usart_get_character_from_rx_register(volatile avr32_usart_t *usa
   else
     return EC_USART_RX_EMPTY;
 }
-
-/* RXRDY IRQ routine, this is runned when
- * character is received. When received character is saved to
- * fifo buffer, if there are more than 5 characters in buffer
- * IRQ sends XOFF command to terminal. This because when
- * terminal transfers large datablock, simply routines got
- * overrunned when software have to wait for some reason, for
- * example when writing data to flash memory. */
-__attribute__((__interrupt__))
-static void usart_rxrdy_irq( void )
-	{
-	int char_temp = 0;
-	
-	if( usart_get_character_from_rx_register(USART_POINTER, &char_temp) == EC_USART_RX_ERROR )
-		{
-		errorh_new_error(EC_USART_RX_ERROR, ERROR_WARNING);
-		usart_reset_status(USART_POINTER);
-		}
-	
-	/* Send error message to log if fifo is full, this shouldn't
-	 * happen however. This could happen when terminal doesn't have
-	 * SW flow control enabled (XON/XOFF). */
-	if(!fifo_put_uint8(&usart_fifo, char_temp))
-		{
-		errorh_new_error(EC_FIFO_FULL, ERROR_WARNING);
-		}
-
-	/* Here we send XOFF character if buffer have enough data.
-	* After XOFF character we may receive some more characters
-	* before terminal receives XOFF, for this reason buffer exist. */ 
-	if(USART_XOFF_DELAY == fifo_count_data_uint8(&usart_fifo))
-		{
-		usart_putchar(USART_ASCII_XOFF);
-		}
-	}
 
 /* Calculates a clock divider (CD) and a fractional part (FP) for
  * the USART asynchronous modes to generate a baud rate as close as
@@ -190,9 +154,6 @@ errorc_t usart_init_rs232_with_rxdry_irq(unsigned long pba_hz)
 	// Reset the USART and shutdown TX and RX.
 	usart_reset(usart);
 	
-	// Resets fifo buffer
-	fifo_reset_uint8(&usart_fifo);
-
 	// Check input values.
 	if (USART_CHARLENGTH < 5 || USART_CHARLENGTH > 9 ||
 		  USART_PARITYPE > 7 ||
@@ -232,12 +193,6 @@ errorc_t usart_init_rs232_with_rxdry_irq(unsigned long pba_hz)
 	usart->mr = (usart->mr & ~AVR32_USART_MR_MODE_MASK) |
 				AVR32_USART_MR_MODE_NORMAL << AVR32_USART_MR_MODE_OFFSET;
 
-	//Enables interrupt vector from usart.
-	usart->ier |= 1<<AVR32_USART_IER_RXRDY_OFFSET;
-
-	/* Register IRQ for RXRDY buffer. */
-	INTC_register_interrupt(&usart_rxrdy_irq, AVR32_USART0_IRQ, AVR32_INTC_INT0);
-
 	// Setup complete; enable communication.
 	// Enable input and output.
 	usart->cr = AVR32_USART_CR_RXEN_MASK |
@@ -258,50 +213,39 @@ errorc_t usart_putchar(uint8_t c)
 	return EC_SUCCESS;
 	}
 
-/* Reads single character from buffer. Don't stay here if buffer is empty. 
- * However, every 260 read attempt we send XON character to terminal. This
- * makes sure that terminal never stop responding completly.*/
+/* Reads single character from register. Don't stay here, just check. */
 errorc_t usart_read_char(uint8_t *c)
 	{
-	avr32_usart_t *usart;
-	usart = USART_POINTER;
-	static unsigned long int xon_delay_counter = 0;
+	errorc_t rx_status = usart_get_character_from_rx_register(USART_POINTER, c);
 	
-	if(xon_delay_counter > USART_XON_DELAY)
+	/* We basically ignore RX errors here. */
+	if (rx_status == EC_USART_RX_ERROR)
 		{
-		usart_putchar(USART_ASCII_XON);	
-		xon_delay_counter = 0;
+		#ifdef USART_DEBUG
+		errorh_new_error(EC_USART_RX_ERROR, ERROR_WARNING);
+		#endif
+		
+		/* Reset status, if status is not reseted, no further
+		 * chars cannot be received through usart. */
+		usart_reset_status(USART_POINTER);
 		}
-	
-	/* If fifo buffer isn't empty, return character. */
-	if(EC_FIFO_EMPTY != fifo_get_uint8(&usart_fifo, c))
-		{
-		xon_delay_counter = 0;
-		return EC_SUCCESS;
-		}
-	else
-		{
-		xon_delay_counter++;
-		return EC_USART_RX_EMPTY;
-		}
+		
+	return rx_status;
 	}
 
-/* Get character (from buffer), stays inside of function
- * as long as character is received. If*/
+/* Get character (from buffer), loop in function
+ * as long as character is received.*/
 uint8_t usart_getchar( )
 {
 	uint8_t temp_char;
 	
 	/* We stay here as long as needed to receive characters. */
 	while(EC_USART_RX_EMPTY == usart_read_char(&temp_char));
-	return (int)temp_char;
+	return temp_char;
 }
 
 void usart_write_line(const char *string)
-	{
-	avr32_usart_t *usart;
-	usart = USART_POINTER;
-	
+	{	
 	while (*string != '\0')
 		{
 		usart_putchar(*string++);	
@@ -311,9 +255,6 @@ void usart_write_line(const char *string)
 /*@ This function is for printing non constant strings. */
 extern void usart_write_string(char *string)
 	{
-	avr32_usart_t *usart;
-	usart = USART_POINTER;
-	
-	uint16_t char_index = 0;
+		uint16_t char_index = 0;
 	while(string[char_index] != 0) usart_putchar(string[char_index]);
 	}
