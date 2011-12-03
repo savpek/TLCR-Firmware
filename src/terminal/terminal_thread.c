@@ -10,7 +10,7 @@
  */
 
 #include "terminal.h"
-#include "./terminal/subprograms/config/list_of_subprograms.h"
+#include "./terminal/subprograms/config/subprogram_list.h"
 #include "./errorh/inc/errorh.h"
 #include "./usart/inc/usart.h"
 #include "./usart/config/usart_settings.h"
@@ -24,19 +24,17 @@
  * returns it to string. */
 static void _get_command (char* ret_command_string)
 	{
-	char received_char = 0;
-	int string_current_index = 0;
+	uint8_t received_char = 0;
+	uint32_t string_current_index = 0;
 
 	/* Loops, reads transmission to string until ended by CR */
 	while(1)
 		{
 		received_char = usart_getchar();
 		
-		/* Don't accept special letters or other ASCII standard
-		 * trash. */
-		if (((received_char <= 123 && received_char >= 48)
-				|| received_char == USART_ASCII_SPACE)
-				&& string_current_index < TERMINAL_COMMAND_MAX_LENGTH)
+		/* Don't accept non'visible characters from ascii. */
+		if ( ( (received_char <= 123 && received_char >= 32) )
+			&& string_current_index < TERMINAL_COMMAND_MAX_LENGTH)
 			{
 			ret_command_string[string_current_index] = received_char;
 
@@ -45,13 +43,13 @@ static void _get_command (char* ret_command_string)
 			string_current_index++;
 			}
 		/* If character is backspace. */
-		else if (received_char == 0x7F && string_current_index > 0)
+		else if (received_char == 0x08 && string_current_index > 0)
 			{
 			string_current_index--;
 			usart_putchar(received_char);
 			}
 		/* If enter (0x0D)*/
-		else if (received_char == 0x0D)
+		else if (received_char == 0x0A)
 			{
 			usart_putchar(received_char);
 			usart_putchar('\n');

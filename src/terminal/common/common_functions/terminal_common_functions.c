@@ -20,10 +20,10 @@
  *		uint32 arg_int_value = 0;	 
  *		if (terminal_try_get_int_value(arg_str, arg_int_value) == EC_FAILED) return;
  *	 If argument isn't number, subprogram then exit with error message */
-errorc_t terminal_try_get_int_value (char* arg_str, uint32_t* return_arg_value)
+errorc_t terminal_try_get_int_value (char* arg_str, int32_t* return_arg_value)
 	{
 	uint8_t string_current_index = 0;
-	uint32_t multiplier = 1;
+	int32_t multiplier = 1;
 
 	/* If value begin point find succesfully, next find end of command
 	 * string. Possible argument example:
@@ -31,7 +31,7 @@ errorc_t terminal_try_get_int_value (char* arg_str, uint32_t* return_arg_value)
 	while (arg_str[string_current_index] != 0)
 		{
 		string_current_index++;
-		}
+		}		
 		
 	/* Now we have begin point of value in value_begin_index and
 	 * end point in string_current_index. Lets calculate value of
@@ -43,6 +43,13 @@ errorc_t terminal_try_get_int_value (char* arg_str, uint32_t* return_arg_value)
 		 * string. We do this as long as we are in beginning
 		 * of the string.*/
 		string_current_index--;
+		
+		/* If number is negative, invert value and end here. */
+		if(arg_str[0] == '-' && string_current_index == 0)
+			{
+			*return_arg_value *= -1;
+			break;
+			}
 		
 		/* Changes ASCII mark to value. Made by reduce 48 from
 		 * ASCII value (48 is point where 0 is in ASCII table).*/
@@ -56,10 +63,11 @@ errorc_t terminal_try_get_int_value (char* arg_str, uint32_t* return_arg_value)
 			}
 
 		/* Adds value to return value, every run value gets 10x bigger */
-		*return_arg_value += (arg_str[string_current_index]-48)*multiplier;
-		multiplier = multiplier*10;
+		*return_arg_value += ( arg_str[string_current_index] - 48 ) * multiplier;
+		multiplier = multiplier * 10;
 
-		/* Go to next character (number) from right to left */
+		/* Go to next character (number) from right to left. Stop if face beginning
+		 * of the string, or '-' mark. */
 		} while (string_current_index != 0);
 
 	return EC_SUCCESS;
