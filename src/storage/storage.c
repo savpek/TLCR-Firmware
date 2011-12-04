@@ -10,7 +10,7 @@
 #include "gpio.h"
 #include "spi.h"
 #include "./mcu/inc/mcu.h"
-#include "error_codes.h"
+#include "./errorh/inc/errorh.h"
 
 #define STORAGE_SPI (&AVR32_SPI)
 #define STORAGE_SPI_NPCS 0
@@ -51,7 +51,6 @@ static void _set_wel_bit(void)
 	spi_write(STORAGE_SPI, STORAGE_FCMD_WRITE_ENABLE);
 	spi_unselectChip(STORAGE_SPI, STORAGE_SPI_NPCS);
 	}
-
 
 /*@Get status register, this can be used to check global write
  * protection or by polling device busy bit */

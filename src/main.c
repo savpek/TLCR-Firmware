@@ -22,6 +22,9 @@
 #include "button.h"
 //#include "terminal_usart_settings.h"
 //#include "delay.h"
+#include "./api/flashmem/inc/flashmem.h"
+#include "./api/flashmem/inc/flashmem.h"
+#include "gpio.h"
 
 int main(void)
 	{
@@ -35,10 +38,13 @@ int main(void)
 //	storage_init();
 	//encoder_init_all();
 	//button_init_all();
-//	motion_init();
-	errorh_print("trolooooaoaoaoaa");
+	flashmem_init();
+	
 	/* Add terminal to FreeRTOS run list */
 	xTaskCreate(terminal_thread, "terminal", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);
+	flashmem_erase_chip();
+	//flashmem_write_uint8_t(100, 33);
+	flashmem_read_uint8_t(100);
 
 	/* LCD thread */
 	//xTaskCreate(lcd_thread, "lcd_thread", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);

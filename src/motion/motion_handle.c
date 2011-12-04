@@ -7,7 +7,7 @@
 
 #include "motion.h"
 #include "motion_config.h"
-#include "error_codes.h"
+#include "./errorh/inc/errorh.h"
 
 /*@ This function takes control of selected motor. */
 errorc_t motion_try_take_control(uint8_t motion_handle_id, motorc_ctrl_unit_t new_ctrl_unit)
