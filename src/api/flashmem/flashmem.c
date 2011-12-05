@@ -13,10 +13,10 @@
 /* Internal */
 #include "./api/flashmem/inc/flashmem.h"
 #include "./api/flashmem/config/flashmem_config.h"
-#include "./mcu/inc/mcu.h"
+#include "./api/mcu/inc/mcu.h"
 
 /* TLCR lib */
-#include "./errorh/inc/errorh.h"
+#include "./api/errorh/inc/errorh.h"
 
 /* Routine for select FLASH IC (#CS pin to low) */
 static void s_npcs_select( void )

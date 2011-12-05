@@ -11,7 +11,7 @@
 
 #include "compiler.h"
 #include "./api/flashmem/config/flashmem_config.h"
-#include "./errorh/inc/errorh.h"
+#include "./api/errorh/inc/errorh.h"
 
 /* This function inits currently used flash IC and MCU IO */
 extern void flashmem_init(void);
