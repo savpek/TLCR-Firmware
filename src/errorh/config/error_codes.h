@@ -52,6 +52,11 @@ typedef enum
 	EC_FLASHMEM_LOCKED = 301,
 	EC_FLASHMEM_FULL = 302,
 	EC_FLASHMEM_NOT_RESPONDING = 303,
+	
+	/* Storage errors */
+	EC_STORAGE_END = 400,
+	EC_STORAGE_SEGMENT_END = 401,
+	EC_STORAGE_NOT_EMPTY = 402,
 	}	errorc_t;
 
 #endif /* ERROR_CODES_H_ */

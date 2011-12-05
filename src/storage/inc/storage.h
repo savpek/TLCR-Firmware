@@ -13,39 +13,42 @@
 #ifndef STORAGE_H_
 #define STORAGE_H_
 
+#include "compiler.h"
 #include "./errorh/inc/errorh.h"
+#include "./storage/config/storage_config.h"
 
-#define STORAGE_HELPFILE_ID 0
-#define STORAGE_AUTHORFILE_ID 1
-
-/*@Inits SPI transmission between MCU and FLASH chip */
+/* Inits SPI transmission between MCU and FLASH chip */
 extern void storage_init(void);
 
-/*@Reads one uint32_t variable from memory. You need to know
- * segment and variable ID to read it from memory. Returns value
- * of variable from function.*/
-extern uint32_t storage_get_variable(uint16_t segment_id, uint16_t variable_id);
+/* Reads from selected storage segment! Address is address from beginning of the segment.
+ * Returns: EC_STORAGE_END, EC_SUCCESS */
+extern errorc_t storage_read(uint32_t segment_id, uint32_t address, uint8_t *return_byte);
 
-/*@Put one variable to memory. You need to select segment and
- * variable ID to save it in memory. Returns false if write didn't done. */
-extern uint8_t storage_put_variable(uint16_t segment_id, uint16_t variable_id);
+/* Writes single byte to given address in segment.
+ * Returns: EC_STORAGE_NOT_EMPTY, EC_STORAGE_END, EC_SUCCESS, EC_FAILURE */
+extern errorc_t storage_write(uint32_t segment_id, uint32_t address, uint8_t write_byte);
 
-/*@Writes single segment of data (8kB block) with Bytes.
- * Last parameter is write addr counter from beginning of segment.*/ 
-extern errorc_t storage_write_segment(uint8_t segment_id, uint16_t next_byte_id, uint8_t data);
-extern errorc_t storage_erase_segment(uint8_t segment_id);
+/* When you save variables to memory, they are saved with "id's". Id isn't anything else
+ * than calculated value from actual address, because every variable contains 4 bytes. 
+ * So id is simply location of single 32 bit variable from beginning of the memory! */
 
-/*@Reads single segment of data (8kB block), returns data as Bytes.
- * Last parameter is read addr counter from beginning of segment.
- * Remember end with storage_stop_read_segment()!!*/
-extern errorc_t storage_read_segment(uint8_t segment_id, uint16_t next_byte_id, uint8_t* ret_data);
+/* Read uint32_t variable from memory. 
+ * Returns: EC_SUCCESS, EC_STORAGE_END */
+extern errorc_t storage_read_uint32_t(uint32_t segment_id, uint32_t var_id, uint32_t *var_return);
 
-/*@Erase hole chip. */
-extern errorc_t storage_erase_all(void);
+/* Read int32_t variable from memory. 
+ * Returns: EC_SUCCESS, EC_STORAGE_END */
+extern errorc_t storage_read_int32_t(uint32_t segment_id, uint32_t var_id, int32_t *var_return);
 
-/*@Gets flash ID and manufacturer ID from flash device.
- * This is for testing purposes. */
-extern uint16_t storage_get_flash_id(void);
+/* Write uint32_t variable to memory.
+ * Returns: EC_SUCCESS, EC_STORAGE_END, EC_STORAGE_NOT_EMPTY. */
+extern errorc_t storage_write_uint32_t(uint32_t segment_id, uint32_t var_id, uint32_t var_write);
 
-extern errorc_t storage_is_flash_ready(void);
+/* Write int32_t variable to memory.
+ * Returns: EC_SUCCESS, EC_STORAGE_END, EC_STORAGE_NOT_EMPTY. */
+extern errorc_t storage_write_int32_t(uint32_t segment_id, uint32_t var_id, int32_t var_write);
+
+/* Erases defined segment. */
+extern errorc_t storage_erase_segment(uint32_t segment_id);
+
 #endif /* STORAGE_H_ */
