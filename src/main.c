@@ -22,6 +22,8 @@
 #include "./api/flashmem/inc/flashmem.h"
 #include "./api/flashmem/inc/flashmem.h"
 #include "gpio.h"
+#include "./api/chrstr/inc/chrstr.h"
+#include "./driver/usart/inc/usart.h"
 
 int main(void)
 	{
@@ -37,11 +39,14 @@ int main(void)
 	//button_init_all();
 	flashmem_init();
 	
+	flashmem_write_uint8_t(10, 0xAA);
+	
+	uint8_t char_string[10] = {0};
+	chrstr_uint32_to_hex_str(0x1E1E1E1E, char_string);
+	usart_write_line(char_string);
+	
 	/* Add terminal to FreeRTOS run list */
 	xTaskCreate(terminal_thread, "terminal", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);
-	flashmem_erase_chip();
-	//flashmem_write_uint8_t(100, 33);
-	flashmem_read_uint8_t(100);
 
 	/* LCD thread */
 	//xTaskCreate(lcd_thread, "lcd_thread", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);

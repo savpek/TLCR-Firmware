@@ -14,6 +14,9 @@
 /* Define to enter debugmode */
 #define FLASHMEM_DEBUG
 
+/* Total size of flash, in bytes. */
+#define FLASHMEM_SIZE 3000
+
 /* Pin configuration for SPI interface */
 #define FLASHMEM_SCK_PIN			AVR32_SPI_SCK_0_0_PIN
 #define FLASHMEM_SCK_FUNCTION		AVR32_SPI_SCK_0_0_FUNCTION

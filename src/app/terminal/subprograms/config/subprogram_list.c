@@ -12,7 +12,7 @@
  *	 pointer and command string that calls function from terminal !*/
 subprog_list_t _subprog_array[] =
 	   {
-		{ &subprog_test_get_int,				"test_get_int"		},
+		{ &subprog_flash_dump,				"flash_dump"		},
 		#if 0			
 		/*POINTER;								| CMD string		*/
 		/*! FLASH subprograms */

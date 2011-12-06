@@ -75,9 +75,9 @@ extern errorc_t usart_read_char(uint8_t *c);
 extern uint8_t usart_getchar( void );
 
 /* Writes character string to the USART (constant). */
-extern void usart_write_line(char *string);
+extern void usart_write_line(uint8_t *string);
 
 /* Writes non-constant string to usart. */
-extern void usart_write_string(char *string);
+extern void usart_write_string(uint8_t *string);
 
 #endif //#ifndef _USART_H_

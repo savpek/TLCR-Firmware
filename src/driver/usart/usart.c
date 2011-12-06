@@ -244,7 +244,7 @@ uint8_t usart_getchar( )
 	return temp_char;
 }
 
-void usart_write_line(char *string)
+void usart_write_line(uint8_t *string)
 	{	
 	while (*string != '\0')
 		{
