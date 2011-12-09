@@ -18,10 +18,10 @@ const motorc_step_t motion_step_sequence[] = {
 
 const motorc_step_t motion_step_sleep_sequence[] = {
  /*  A-coil     B-coil		<-PWMA value */
-	{-90,		-90},		//STEP 0
-	{90,		-90},		//STEP 1
-	{90,		90},		//STEP 2
-	{-90,		90},		//STEP 3
+	{-60,		-60},		//STEP 0
+	{60,		-60},		//STEP 1
+	{60,		60},		//STEP 2
+	{-60,		60},		//STEP 3
 };
 
 /* Settings for motor which rotates camera platform */

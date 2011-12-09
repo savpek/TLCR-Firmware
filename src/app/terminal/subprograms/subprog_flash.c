@@ -14,6 +14,7 @@
 #include "./api/flashmem/inc/flashmem.h"
 #include "./app/terminal/common/common_functions/inc/terminal_common_functions.h"
 #include "./api/chrstr/inc/chrstr.h"
+#include "./api/storage/inc/storage.h"
 
 /* Functions for subprog_flash_dump */
 #define SBPROG_FLASH_ROW_LENGTH 16
@@ -71,4 +72,12 @@ void subprog_flash_dump(char* arg_str)
 		} while(terminal_ask_are_sure() == EC_TRUE && flash_addr+16 < FLASHMEM_SIZE);
 	
 	usart_write_line("Exit...");
+	}
+	
+void subprog_flash_erase (char *arg_str)
+	{
+	if(!terminal_ask_are_sure()) return;
+	
+	/* Erase hole chip. */
+	storage_erase_all();
 	}

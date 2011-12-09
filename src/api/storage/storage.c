@@ -13,7 +13,7 @@
 #include "./api/storage/config/storage_config.h"
 #include "./api/storage/inc/storage.h"
 
-static uint32_t s_true_addr(uint32_t segment_id, uint32_t address)
+inline static uint32_t s_true_addr(uint32_t segment_id, uint32_t address)
 	{
 	return  ((segment_id*STORAGE_SEGMENT_SIZE)+address);	
 	} 
@@ -24,23 +24,16 @@ static errorc_t s_memory_range_check (uint32_t segment_id, uint32_t address)
 	/* Lets check that address is inside of segment */
 	if( address > STORAGE_SEGMENT_SIZE )
 		{
-		return EC_STORAGE_SEGMENT_END;	
+		return EC_OUT_OF_RANGE;	
 		}
 		
 	/* Lets check that address is inside of defined total memory range */
-	if( s_true_addr(segment_id, address) < STORAGE_SIZE )
+	if( s_true_addr(segment_id, address) > STORAGE_SIZE )
 		{
-		return EC_STORAGE_END;	
+		return EC_OUT_OF_RANGE;	
 		}
 	
 	return EC_SUCCESS;		
-	}
-
-/* Inits SPI transmission between MCU and FLASH chip */
-void storage_init(void)
-	{
-	/* Well, basically we just init flashmem api here. */
-	flashmem_init();	
 	}
 
 /* Reads from selected storage segment! Address is address from beginning of the segment.
@@ -138,4 +131,10 @@ errorc_t storage_write_int32_t(uint32_t segment_id, uint32_t var_id, int32_t var
 errorc_t storage_erase_segment(uint32_t segment_id)
 	{
 	/* TODO: Routines to erase segment. */
+	}
+
+/* Delete all data from FLASH IC */
+errorc_t storage_erase_all( void )
+	{
+	flashmem_erase_chip();
 	}

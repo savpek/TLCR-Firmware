@@ -155,31 +155,6 @@ static void s_disable_write_protect(void)
 	s_send_cmd(FLASHMEM_CMD_DUMMY);
 	s_npcs_unselect();
 	}
-	
-/* Functions to enable, disable and read that is memory
- * write protected. */
-static void _disable_write_protect(void)
-	{	
-	/* Set WEL bit 1 (Write enable) */
-	s_set_wel_bit();
-		
-	/* First set SPLR bit to 0 (Sector protection registers locked) */
-	s_npcs_select();
-	s_send_cmd(FLASHMEM_CMD_WRITE_STATUS);
-	s_send_cmd(FLASHMEM_VALUE_DISABLE_SPLR);
-	s_send_cmd(FLASHMEM_CMD_DUMMY);
-	s_npcs_unselect();
-
-	/* Set WEL bit 1 (Write enable) */
-	s_set_wel_bit();
-
-	/* Send global write protect disable bits to status register. */
-	s_npcs_select();
-	s_send_cmd(FLASHMEM_CMD_WRITE_STATUS);
-	s_send_cmd(FLASHMEM_VALUE_UNPROTECT_MEM);
-	s_send_cmd(FLASHMEM_CMD_DUMMY);
-	s_npcs_select();
-	}
 
 /* This function inits currently used flash IC and MCU IO */
 void flashmem_init(void)
@@ -344,19 +319,19 @@ void flashmem_write_uint8_t(uint32_t address, uint8_t data)
 /* Write uint32_t type of data to memory */
 void flashmem_write_uint32_t(uint32_t address, uint32_t data)
 	{
-	flashmem_write_uint8_t(address, (uint8_t)data>>24);
-	flashmem_write_uint8_t(address+1, (uint8_t)data>>16);
-	flashmem_write_uint8_t(address+2, (uint8_t)data>>8);
-	flashmem_write_uint8_t(address+3, (uint8_t)data>>0);
+	flashmem_write_uint8_t(address, data>>24);
+	flashmem_write_uint8_t(address+1, data>>16);
+	flashmem_write_uint8_t(address+2, data>>8);
+	flashmem_write_uint8_t(address+3, data>>0);
 	}
 
 /* Write int32_t type of data to memory */
 void flashmem_write_int32_t(uint32_t address, int32_t data)
 	{
-	flashmem_write_uint8_t(address, (uint8_t)data>>24);
-	flashmem_write_uint8_t(address+1, (uint8_t)data>>16);
-	flashmem_write_uint8_t(address+2, (uint8_t)data>>8);
-	flashmem_write_uint8_t(address+3, (uint8_t)data>>0);	
+	flashmem_write_uint8_t(address, data>>24);
+	flashmem_write_uint8_t(address+1, data>>16);
+	flashmem_write_uint8_t(address+2, data>>8);
+	flashmem_write_uint8_t(address+3, data>>0);	
 	}
 
 /* Erases 4kb block, block begins from given addr */

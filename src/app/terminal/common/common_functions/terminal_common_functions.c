@@ -25,6 +25,8 @@ errorc_t terminal_try_get_int_value (char* arg_str, int32_t* return_arg_value)
 	uint8_t string_current_index = 0;
 	int32_t multiplier = 1;
 
+	*return_arg_value = 0;
+
 	/* If value begin point find succesfully, next find end of command
 	 * string. Possible argument example:
 	 * 33, then string_current_index = 2.*/
@@ -55,15 +57,15 @@ errorc_t terminal_try_get_int_value (char* arg_str, int32_t* return_arg_value)
 		 * ASCII value (48 is point where 0 is in ASCII table).*/
 
 		/* Checks that ASCII mark is in really number */
-		if ((arg_str[string_current_index]-48 < 0)
-				|| arg_str[string_current_index]-48 > 9)
+		if ((arg_str[string_current_index] < '0')
+				|| arg_str[string_current_index] > '9')
 			{
 			usart_write_line("Invalid value, number required!");
 			return EC_FAILURE;
 			}
 
 		/* Adds value to return value, every run value gets 10x bigger */
-		*return_arg_value += ( arg_str[string_current_index] - 48 ) * multiplier;
+		*return_arg_value += ( arg_str[string_current_index] - '0' ) * multiplier;
 		multiplier = multiplier * 10;
 
 		/* Go to next character (number) from right to left. Stop if face beginning

@@ -27,9 +27,17 @@ typedef enum {
  * different kind of streams (usart, lcd for example) */
 void (*errorh_print)(char *error_str);
 
+#define ERRORH_PRINT(er) \
+	errorh_print("\r\n");\
+	errorh_print(er); \
+	errorh_print("\r\n"); \
+	errorh_print(__LINE__);\
+	errorh_print("\r\n");\
+	errorh_print(__FILE__)
+
 /* This sets error handler used in project. For example, to set error messages
  * printed to usart use: errorh_set_print_handler(usart_write_line); */
-#define errorh_set_print_handler(x) errorh_print = x
+#define ERRORH_SET_PRINT_HANDLER(x) errorh_print = x
 
 /* This function creates new error to error list. */
 extern void errorh_new_error( errorc_t error_code, error_fatality_t error_fatality );

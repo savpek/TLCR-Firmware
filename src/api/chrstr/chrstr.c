@@ -93,3 +93,41 @@ void chrstr_uint32_to_dec_str(uint32_t input_value, uint8_t *output_str)
 		
 	output_str[str_idx] = '\0';
 	}
+	
+void chrstr_int32_to_dec_str(int32_t input_value, uint8_t *output_str)
+	{
+	/* Maximum value (increment of 10) that can be in uint32_t */
+	uint32_t divider = 1000000000;
+	uint32_t str_idx = 0;
+	
+	/* If value is negative */
+	if (input_value < 0)
+		{
+		output_str[str_idx] = '-';
+		input_value = input_value*-1;
+		}
+	else
+		{
+		output_str[str_idx] = ' ';	
+		}
+	
+	str_idx++;
+	
+	/* Return number to string */
+	do 
+		{	
+		if(( input_value / divider ) != 0 ||
+			str_idx > 1)
+			{
+			output_str[str_idx] = ( input_value / divider )+'0';
+			str_idx++;
+			}
+			
+		input_value = input_value%divider;
+		divider = divider/10;
+		
+		} while ( divider != 0 );
+		
+	output_str[str_idx] = '\0';
+	}
+

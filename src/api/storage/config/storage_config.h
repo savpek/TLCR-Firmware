@@ -16,6 +16,12 @@
 #define STORAGE_ID_SCRIPT_2			2
 #define STORAGE_ID_SCRIPT_3			3
 #define STORAGE_ID_SCRIPT_4			4
+#define STORAGE_ID_SCRIPT_5			5
+#define STORAGE_ID_SCRIPT_6			6
+#define STORAGE_ID_SCRIPT_7			7
+#define STORAGE_ID_SCRIPT_8			8
+#define STORAGE_ID_SCRIPT_9			9
+
 /* Help file (in terminal) -> */
 #define STORAGE_ID_HELP				5
 /* Author file (in terminal) -> */

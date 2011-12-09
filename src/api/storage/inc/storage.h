@@ -16,9 +16,13 @@
 #include "compiler.h"
 #include "./api/errorh/inc/errorh.h"
 #include "./api/storage/config/storage_config.h"
+#include "./api/flashmem/inc/flashmem.h"
 
 /* Inits SPI transmission between MCU and FLASH chip */
-extern void storage_init(void);
+inline void storage_init(void)
+	{
+	flashmem_init();	
+	}
 
 /* Reads from selected storage segment! Address is address from beginning of the segment.
  * Returns: EC_STORAGE_END, EC_SUCCESS */
@@ -50,5 +54,8 @@ extern errorc_t storage_write_int32_t(uint32_t segment_id, uint32_t var_id, int3
 
 /* Erases defined segment. */
 extern errorc_t storage_erase_segment(uint32_t segment_id);
+
+/* Erase all data from memory. */
+errorc_t storage_erase_all( void );
 
 #endif /* STORAGE_H_ */

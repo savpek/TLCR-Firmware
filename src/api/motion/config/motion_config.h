@@ -38,7 +38,7 @@
  * CPU_CLK/Division factor. Remember that actual frequency
  * of PWM signal is (CPU_FREG/DIVISION_F)/PERIOD! */
 #define MOTION_PWMA_ENABLE_CLK_DIV 1
-#define MOTION_PWMA_DIVISION_FACTOR 15
+#define MOTION_PWMA_DIVISION_FACTOR 7
 #define MOTION_PWMA_PERIOD 127
 
 /*! After step, how long will take before motor will drop it's

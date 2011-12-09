@@ -31,8 +31,16 @@ extern void subprog_test_get_int(char* arg_str);
 /* FLASH SUBPROGRAMS */
 /* Command flash_dump */
 extern void subprog_flash_dump(char* arg_str);
+extern void subprog_flash_erase(char *arg_str);
 
-#if 0
+extern void subprog_script_start(char *arg_str);
+extern void subprog_script_end(char *arg_str);
+extern void subprog_script_delay_ms(char *arg_str);
+extern void subprog_script_show(char *arg_str);
+extern void subprog_script_undo(char *arg_str);
+extern void subprog_script_rotate(char *arg_str);
+extern void subprog_script_move(char *arg_str);
+
 /*!! Motion handle subprograms, these gives direct access
  *	 to motion handler libraries and motor control. */
 extern void subprog_move_init(char* argument_str);
@@ -48,6 +56,8 @@ extern void subprog_rotate_stop(char* argument_str);
 extern void subprog_rotate_exit(char* argument_str);
 
 extern void subprog_move_with_keyboard(char* argument_str);
+
+#if 0
 extern void subprog_ui_test(char* argument_str);
 #endif //0
 #endif /* SUBPROG_H_ */
