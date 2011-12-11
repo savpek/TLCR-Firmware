@@ -8,9 +8,8 @@
 #include "compiler.h"
 
 /* Terminal internal */
-#include "./app/terminal/subprograms/config/subprogram_list.h"
-#include "./app/terminal/inc/terminal.h"
-#include "./app/terminal/common/common_functions/inc/terminal_common_functions.h"
+#include "./app/terminal/config/terminal_program_list.h"
+#include "./api/terminalapi/inc/terminalapi.h"
 
 #include "./api/scriptapi/inc/scriptapi.h"
 #include "./driver/usart/inc/usart.h"
@@ -43,7 +42,7 @@ static errorc_t s_is_scripting_active( void )
 	{
 	if(l_active_flag != EC_TRUE)
 		{
-		usart_write_line("ERROR! Scripting sequence not active. Run script_start command!");
+		terminalapi_print("ERROR! Scripting sequence not active. Run script_start command!");
 		return EC_FALSE;
 		}
 	else
@@ -52,18 +51,18 @@ static errorc_t s_is_scripting_active( void )
 		}
 	}
 
-void subprog_script_start(char *arg_str)
+void subprog_script_start(terminalapi_cmd_t *cmd_struct)
 	{
 	uint32_t script_id = 0;
 			
 	/* Exit if given value is invalid. */
-	if( !terminal_try_get_int_value(arg_str, &script_id) ) return;
+	if( !terminalapi_try_get_int32(cmd_struct, &script_id) ) return;
 	
 	/* Check that script exist with current id */
 	if(SCRIPTAPI_SCRIPT_COUNT < script_id
 		|| 0 > script_id )
 		{
-		usart_write_line("Invalid script id!\n\r");
+		terminalapi_print("Invalid script id!\n\r");
 		return;
 		}
 	
@@ -71,42 +70,42 @@ void subprog_script_start(char *arg_str)
 	
 	l_active_flag = EC_TRUE;
 	
-	usart_write_line("Scripting: Active!\n\r");
+	terminalapi_print("Scripting: Active!\n\r");
 	
 	/* TODO: Take mutex from scripting api */
 	}
 	
-void subprog_script_end(char *arg_str)
+void subprog_script_end(terminalapi_cmd_t *cmd_struct)
 	{
-	usart_write_line("Scripting: Inactive!\n\r");
+	terminalapi_print("Scripting: Inactive!\n\r");
 	l_active_flag = EC_FALSE;
 	
 	/* TODO: Release mutex from scripting api */
 	}
 
-void subprog_script_delay_ms(char *arg_str)
+void subprog_script_delay_ms(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;
 	
 	int32_t cmd_value;
 	
-	if(!terminal_try_get_int_value(arg_str, &cmd_value)) return;
+	if(!terminalapi_try_get_int32(cmd_struct, &cmd_value)) return;
 	
 	/* Write delay command to flash memory. */
 	scriptapi_put_cmd(&l_handle, SCRIPTAPI_CMD_DELAY, cmd_value);
 	}
 		
-void subprog_script_delay_s(char *arg_str)
+void subprog_script_delay_s(terminalapi_cmd_t *cmd_struct)
 	{
 		
 	}
 	
-void subprog_script_delay_h(char *arg_str)
+void subprog_script_delay_h(terminalapi_cmd_t *cmd_struct)
 	{
 		
 	}
 
-void subprog_script_undo(char *arg_str)
+void subprog_script_undo(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;
 	
@@ -123,7 +122,7 @@ void subprog_script_undo(char *arg_str)
 	/* Script is empty */
 	if(1 == target_idx)
 		{
-		usart_write_line("Nothing to undo!\r\n");
+		terminalapi_print("Nothing to undo!\r\n");
 		return;	
 		}
 	
@@ -134,23 +133,23 @@ void subprog_script_undo(char *arg_str)
 		
 	scriptapi_clr_cmd(&l_handle, target_idx);
 	
-	usart_write_line("Last line removed!\n\r");
+	terminalapi_print("Last line removed!\n\r");
 	}
 
-void subprog_script_status(char *arg_str)
+void subprog_script_status(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active())
 		{
-		usart_write_line("Scripting not active!\r\n");
+		terminalapi_print("Scripting not active!\r\n");
 		}
 	else
 		{
-		usart_write_line("Scripting active!");	
+		terminalapi_print("Scripting active!");	
 		}
 	}
 
 /* Prints script from beginning */
-void subprog_script_show(char *arg_str)
+void subprog_script_show(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;
 	
@@ -186,43 +185,43 @@ void subprog_script_show(char *arg_str)
 		if(cmd_temp == SCRIPTAPI_CMD_EMPTY) continue;
 		
 		/* If is actual command, print it */
-		usart_write_line(command_array[cmd_temp%4]);
-		usart_write_line(": ");
+		terminalapi_print(command_array[cmd_temp%4]);
+		terminalapi_print(": ");
 		
 		chrstr_int32_to_dec_str(value_temp, string_buffer);
-		usart_write_line(string_buffer);
+		terminalapi_print(string_buffer);
 		
-		usart_write_line(" ");
-		usart_write_line(unit_array[cmd_temp%4]);
+		terminalapi_print(" ");
+		terminalapi_print(unit_array[cmd_temp%4]);
 		
-		usart_write_line(" \r\n");
+		terminalapi_print(" \r\n");
 		}
 	}
 	
-void subprog_script_show_current(char *arg_str)
+void subprog_script_show_current(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;	
 	}
 	
-void subprog_script_move(char *arg_str)
+void subprog_script_move(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;
 	
-	int32_t cmd_value;
+	int32_t cmd_value = 0;
 	
-	if(!terminal_try_get_int_value(arg_str, &cmd_value)) return;
+	if(!terminalapi_try_get_int32(cmd_struct, &cmd_value)) return;
 	
 	/* Write delay command to flash memory. */
 	scriptapi_put_cmd(&l_handle, SCRIPTAPI_CMD_MOVE, cmd_value);	
 	}
 	
-void subprog_script_rotate(char *arg_str)
+void subprog_script_rotate(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;
 	
 	int32_t cmd_value;
 	
-	if(!terminal_try_get_int_value(arg_str, &cmd_value)) return;
+	if(!terminalapi_try_get_int32(cmd_struct, &cmd_value)) return;
 	
 	/* Write delay command to flash memory. */
 	scriptapi_put_cmd(&l_handle, SCRIPTAPI_CMD_ROTATE, cmd_value);

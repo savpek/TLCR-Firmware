@@ -21,7 +21,7 @@
 
 /* ASF */
 #include "compiler.h"
-#include "intc.h"
+#include "gpio.h"
 
 /* Internal */
 #include "./driver/usart/inc/usart.h"
@@ -198,19 +198,29 @@ errorc_t usart_init_rs232_with_rxdry_irq(unsigned long pba_hz)
 	usart->cr = AVR32_USART_CR_RXEN_MASK |
 				AVR32_USART_CR_TXEN_MASK;
 
+	/* Map ports for USART, Atmel driver function reguires mapping
+	 * in gpio_map_t format. */
+	static const gpio_map_t USART_GPIO_MAP =
+	   {
+	     {USART_RX_PIN, USART_RX_FUNCTION},
+	     {USART_TX_PIN, USART_TX_FUNCTION},
+		 {USART_CTS_PIN, USART_CTS_FUNCTION},
+		 {USART_RTS_PIN, USART_RTS_FUNCTION}
+	   };
+
+	/* Assign GPIO to USART. */
+	gpio_enable_module(USART_GPIO_MAP,
+	                   sizeof(USART_GPIO_MAP) / sizeof(USART_GPIO_MAP[0]));
+
+
 	return EC_SUCCESS;
 }
 
-errorc_t usart_putchar(uint8_t c)
+void usart_putchar(uint8_t c)
 	{
-	int timeout = USART_DEFAULT_TIMEOUT;
-
 	do
 		{
-		if (!timeout--) return EC_FAILURE;
 	} while (usart_write_char(c) != EC_SUCCESS);
-
-	return EC_SUCCESS;
 	}
 
 /* Reads single character from register. Don't stay here, just check. */

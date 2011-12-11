@@ -16,11 +16,6 @@
 #include "./driver/usart/inc/usart.h"
 
 /*@ Thread function for terminal (compatible with FreeRTOS). */
-extern void terminal_thread(void*);
-
-/*@ Inits terminal, reguires that clocks have configured correctly,
- * so don't run this before you have set them up.
- * Basically this function inits serial transmission from MCU.*/
-extern void terminal_init(void);
+extern void terminal_thread(void* arguments);
 
 #endif /* SERTERM_H_ */

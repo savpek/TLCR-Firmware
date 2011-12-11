@@ -27,11 +27,9 @@ typedef enum {
  * different kind of streams (usart, lcd for example) */
 void (*errorh_print)(char *error_str);
 
-#define ERRORH_PRINT(er) \
+#define ERRORH_PRINT(error_msg) \
 	errorh_print("\r\n");\
-	errorh_print(er); \
-	errorh_print("\r\n"); \
-	errorh_print(__LINE__);\
+	errorh_print(error_msg); \
 	errorh_print("\r\n");\
 	errorh_print(__FILE__)
 

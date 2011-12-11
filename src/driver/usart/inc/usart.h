@@ -60,7 +60,7 @@ extern errorc_t usart_init_rs232_with_rxdry_irq(unsigned long pba_hz);
  * Waits until character transfer is complete or timeout is expired.
  * EC_SUCCESS  The character was written.
  * EC_FAILURE  The function timed out before the USART transmitter became ready to send. */
-extern errorc_t usart_putchar(uint8_t c);
+extern void usart_putchar(uint8_t c);
 
 
 /* This checks is there received characters in fifo, if there is return one

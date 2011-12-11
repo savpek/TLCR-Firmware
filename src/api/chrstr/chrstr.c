@@ -8,6 +8,7 @@
 #include "compiler.h"
 
 #include "./api/chrstr/inc/chrstr.h"
+#include "./api/errorh/inc/errorh.h"
 
 static void s_return_hex(uint32_t int_value, uint8_t *ret_char)
 	{
@@ -129,5 +130,30 @@ void chrstr_int32_to_dec_str(int32_t input_value, uint8_t *output_str)
 		} while ( divider != 0 );
 		
 	output_str[str_idx] = '\0';
+	}
+	
+extern errorc_t chrstr_string_compare(char *string_one, char *string_two, uint32_t str_cmp_count)
+	{
+	uint32_t string_idx = 0;
+	while (	string_one[string_idx] != '\0' && string_idx <= str_cmp_count )
+		{
+		if(	string_one[string_idx] != string_two[string_idx] )
+			{
+			return EC_FALSE;
+			}
+		string_idx++;
+		}
+	
+	/* To check that strings truly are same, they also must end at same point.
+	 * End can be \0 or ' ' characters. */
+	if( (string_one[string_idx] == '\0' || string_one[string_idx] == ' ') &&
+		(string_two[string_idx] == '\0' || string_two[string_idx] == ' ') )
+		{
+		return EC_TRUE;	
+		}
+	else
+		{
+		return EC_FALSE;
+		}
 	}
 
