@@ -51,7 +51,7 @@ static void _b_coil_value (volatile motorc_t* motor_params, int8_t coil_value)
 /* Interrupt routine that controls motor step routines. 
  * In shortly moves in next PWM step sequence when needed. */
 __attribute__((__interrupt__))
-void motion_irq()
+void motion_isr()
 	{
 	uint8_t loop_counter = 0;
 		
@@ -65,10 +65,10 @@ void motion_irq()
 	while(loop_counter <= MOTION_LAST_MOTOR_ID)
 		{
 		/* Check current motor, is step suppose to happen now. */
-		if(_ms_counter%motion_handle[loop_counter].step_delay_ms == 0
+		if( (_ms_counter % motion_handle[loop_counter].step_delay_ms) == 0
 			&& motion_handle[loop_counter].motor_direction != STOP)
 			{
-			/* We need last momen of step to sleep down motor currents later */	
+			/* We need last moment of step to sleep down motor currents later */	
 			motion_handle[loop_counter].last_step_time_ms = _ms_counter;
 			
 			/* Step counter is required for each motor to know

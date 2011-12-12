@@ -22,14 +22,14 @@ void motion_init (void);
 extern volatile motorc_t motion_handle[];
 
 /*@ This function tries take control of motor. */
-extern errorc_t motion_try_take_control(uint8_t motion_handle_id, motorc_ctrl_unit_t);
+extern errorc_t motion_try_take_control(uint8_t motion_handle_id, motion_access_t);
 
 /*@ This function take control over motor, no matter what unit
  *  is currently controlling it. */
-extern void motion_force_take_control(uint8_t motion_handle_id, motorc_ctrl_unit_t);
+extern void motion_force_take_control(uint8_t motion_handle_id, motion_access_t);
 
 /*@ Checks that which unit is currently using motors */
-extern motorc_ctrl_unit_t motion_check_control(uint8_t motion_handle_id);
+extern motion_access_t motion_check_control(uint8_t motion_handle_id);
 
 /*@ Release control of unit */
 extern void motion_release_control(uint8_t motion_handle_id);
@@ -41,5 +41,5 @@ extern void motion_set_rotate_speed(uint8_t motion_handle_id, uint32_t hundred_o
 extern void motion_set_move_speed(uint8_t motion_handle_id, uint32_t mm_per_h);
 
 /*@ Set direction of selected motor. */
-extern void motion_set_direction( uint8_t motion_handle_id, motorc_dir_t direction);
+extern void motion_set_direction( uint8_t motion_handle_id, motion_dir_t direction);
 #endif /* MOTION_H_ */

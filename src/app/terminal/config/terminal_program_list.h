@@ -26,6 +26,9 @@
 //#define TERMINAL_PROGRAM_FLASH_DUMP
 //#define TERMINAL_PROGRAM_FLASH_ERASE
 
+#define TERMINAL_PROGRAM_MOTOR_INIT
+#define TERMINAL_PROGRAM_MOTOR_USE
+
 //#define TERMINAL_PROGRAM_MOVE
 //#define TERMINAL_PROGRAM_ROTATE
 //#define TERMINAL_PROGRAM_KEYBOARD_CONTROL
@@ -66,6 +69,14 @@ extern terminalapi_program_t terminal_program_array[];
 #endif
 #ifdef TERMINAL_PROGRAM_SCRIPT_MOVE
 	extern void subprog_script_move(terminalapi_cmd_t *cmd_struct);
+#endif
+
+/* TEST FUNCTIONS FOR MOTOR DRIVER */
+#ifdef TERMINAL_PROGRAM_MOTOR_INIT
+	extern void terminal_program_motor_init(terminalapi_cmd_t *cmd_struct);
+#endif
+#ifdef TERMINAL_PROGRAM_MOTOR_USE
+	extern void terminal_program_motor_use(terminalapi_cmd_t *cmd_struct);
 #endif
 
 /* DIRECT CONTROL OVER MOTION */

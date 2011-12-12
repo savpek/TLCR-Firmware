@@ -44,6 +44,13 @@ terminalapi_program_t terminal_program_array[] =
 		{ &subprog_script_rotate,			"script_rotate"	    },
 		#endif
 		
+		/* MOTOR DRIVER TEST */
+		#ifdef TERMINAL_PROGRAM_MOTOR_INIT
+		{ &terminal_program_motor_init,			"motor_init"	    },
+		#endif
+		#ifdef TERMINAL_PROGRAM_MOTOR_USE
+		{ &terminal_program_motor_use,			"motor_use"	    },
+		#endif
 		/* Last member of subprogram array must be null! */
 		{ 0,									0}
 		

@@ -55,26 +55,26 @@
 #define MOTION_PBA_CYCLES_AS_MS 3000
 
 /*! This is type which is used to control selected motor direction */
-typedef enum motorc_dir_t{
+typedef enum motion_dir_t{
 	LEFT = -1,
 	RIGHT = 1,
 	STOP = 0,
 	STOP_LIMITSW = 0,
 	COUNTER_CLOCKW = -1,
 	CLOCKW = 1
-} motorc_dir_t;
+} motion_dir_t;
 
 /*! This is type which tells which module of software is currently controlling
  * device. Basic idea is that terminal can get control of device when it is necessary. When
  * terminal is having control UI interface is disabled until control is disabled from terminal or
  * device is reseted. Another possible controller is program, which is actually an thread that
  * updates required parameters real time based on events saved on flash memory. */
-typedef enum motorc_ctrl_unit_t {
+typedef enum {
 	FREE = 0,
 	TERMINAL = 1,
 	USER_INTERFACE = 2,
 	PROGRAM = 3
-} motorc_ctrl_unit_t;
+} motion_access_t;
 
 /*! Datatype for single step, idea is to make "list" of PWM values
  * that are used for microstepping. */
@@ -82,12 +82,12 @@ typedef struct
 {
 	int8_t coil_a_pwma_value;
 	int8_t coil_b_pwma_value;
-} motorc_step_t;
+} motion_step_t;
 
 /*!! This global variable includes information of each step PWM value.
  *	List is defined in motion_motor_config.c file. !! */
-extern const motorc_step_t motion_step_sequence[];
-extern const motorc_step_t motion_step_sleep_sequence[];
+extern const motion_step_t motion_step_sequence[];
+extern const motion_step_t motion_step_sleep_sequence[];
 
 typedef struct
 {
@@ -107,11 +107,11 @@ typedef struct
 	const uint8_t pwma_function;
 
 	/* This tells module of program that currently is controlling motors */
-	motorc_ctrl_unit_t ctrl_unit;
+	motion_access_t ctrl_unit;
 
 	/* This tells direction to move in step array, if move take previous values
 	 * from step array, then we move backwards. If we take next value we go forward. */
-	motorc_dir_t  motor_direction;
+	motion_dir_t  motor_direction;
 	
 	/* We must keep count of steps, this because we must know current index
 	 * in step array to know which PWM values should be set next. */
@@ -126,6 +126,6 @@ typedef struct
 } motorc_t;
 
 /*!! This is ISR which is used to togle PWM values !!*/
-extern void motion_irq(void);
+extern void motion_isr(void);
 
 #endif /* MOTION_CONFIG_H_ */

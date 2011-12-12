@@ -5,8 +5,8 @@
  *  Author: savpek
  */ 
 
-#include "./api/motion/inc/motion.h"
-#include "./api/motion/config/motion_config.h"
+#include "./driver/motor/inc/motor.h"
+#include "./driver/motor/config/motor_config.h"
 #include "./api/mcu/inc/mcu.h"
 #include "scif_uc3l.h"
 #include "pwma.h"
@@ -14,56 +14,50 @@
 #include "tc.h"
 #include "intc.h"
 
-/* Init motion. Requires init following services:
- *		Interrupt routines X direction.
- *		Interrupt routines ROTATE.
+volatile motor_t motor[MOTOR_MAX_COUNT] = {0};
+
+/* Init motor. Requires init following services:
+ *		Interrupt routines.
  *		Clock for PWMA (Generic clock 3)
  *		PWMA init. */
-void motion_init ()
-	{
-	uint8_t loopc = 0;
-		
+void motor_init (motor_t motor_handle)
+	{		
 	/* These clocks are for PWMA driver, PWMA uses generic clock 3.
 	 * We try set PWM frequency neart 50kHz, since it widely accepted good
 	 * PWM frequency for steppermotors. */
-	scif_gc_setup(AVR32_SCIF_GCLK_PWMA, AVR32_SCIF_GC_USES_CLK_CPU,  MOTION_PWMA_ENABLE_CLK_DIV,
-				  MOTION_PWMA_DIVISION_FACTOR);
+	scif_gc_setup(AVR32_SCIF_GCLK_PWMA, AVR32_SCIF_GC_USES_CLK_CPU,  MOTOR_PWMA_ENABLE_CLK_DIV,
+				  MOTOR_PWMA_DIVISION_FACTOR);
 				  
 	scif_gc_enable(AVR32_SCIF_GCLK_PWMA);
 	
-	/* Next we init all IO and PWMA channels required for motion controller */
-	while(loopc <= MOTION_LAST_MOTOR_ID)
-		{
-		/* Inits A coil positive PWMA */
-		pwma_config_and_enable(&AVR32_PWMA,
-				(1 << motion_handle[loopc].coil_a_pos_pwma_channel), MOTION_PWMA_PERIOD, 0);
+
+	/* Inits A coil positive PWMA */
+	pwma_config_and_enable(&AVR32_PWMA,
+			(1 << motor_handle->coil_a_pos_pwma_channel), MOTOR_PWMA_PERIOD, 0);
 			
-		/* Inits A coil negative PWMA */
-		pwma_config_and_enable(&AVR32_PWMA,
-				(1 << motion_handle[loopc].coil_a_neg_pwma_channel), MOTION_PWMA_PERIOD, 0);				
+	/* Inits A coil negative PWMA */
+	pwma_config_and_enable(&AVR32_PWMA,
+			(1 << motor_handle->coil_a_neg_pwma_channel), MOTOR_PWMA_PERIOD, 0);				
 
 
-		/* Inits B coil positive PWMA */
-		pwma_config_and_enable(&AVR32_PWMA,
-				(1 << motion_handle[loopc].coil_b_pos_pwma_channel), MOTION_PWMA_PERIOD, 0);
+	/* Inits B coil positive PWMA */
+	pwma_config_and_enable(&AVR32_PWMA,
+			(1 << motor_handle->coil_b_pos_pwma_channel), MOTOR_PWMA_PERIOD, 0);
 			
-		/* Inits B coil negative PWMA */
-		pwma_config_and_enable(&AVR32_PWMA,
-				(1 << motion_handle[loopc].coil_b_neg_pwma_channel), MOTION_PWMA_PERIOD, 0);
-		/* !All PWMS are set to "0" value, which means they are off. */
+	/* Inits B coil negative PWMA */
+	pwma_config_and_enable(&AVR32_PWMA,
+			(1 << motor_handle->coil_b_neg_pwma_channel), MOTOR_PWMA_PERIOD, 0);
+	/* !All PWMS are set to "0" value, which means they are off. */
 			
-		/* Next we init IO for PWMA. */
-		gpio_enable_module_pin(motion_handle[loopc].coil_a_pos_pwma_pin, 
-								motion_handle[loopc].pwma_function);
-		gpio_enable_module_pin(motion_handle[loopc].coil_a_neg_pwma_pin, 
-								motion_handle[loopc].pwma_function);
-		gpio_enable_module_pin(motion_handle[loopc].coil_b_pos_pwma_pin, 
-								motion_handle[loopc].pwma_function);
-		gpio_enable_module_pin(motion_handle[loopc].coil_b_neg_pwma_pin, 
-								motion_handle[loopc].pwma_function);
-								
-		loopc++;
-		}
+	/* Next we init IO for PWMA. */
+	gpio_enable_module_pin(	motor_handle->coil_a_pos_pwma_pin, 
+							motor_handle->pwma_function);
+	gpio_enable_module_pin(	motor_handle->coil_a_neg_pwma_pin, 
+							motor_handle->pwma_function);
+	gpio_enable_module_pin(	motor_handle->coil_b_pos_pwma_pin, 
+							motor_handle->pwma_function);
+	gpio_enable_module_pin(	motor_handle->coil_b_neg_pwma_pin, 
+							motor_handle->pwma_function);
 		
 	/* Motion requires TC clock and interrupt with fixed ms frequency.
 	 * We are using RC compare interrupt which happens every time when
@@ -116,7 +110,6 @@ void motion_init ()
 	/* We init TC with values set before */
 	tc_init_waveform((&AVR32_TC0), &WAVEFORM_OPT);
 	
-	
 	tc_configure_interrupts((&AVR32_TC0), 0, &TC_INTERRUPT);
 	
 	tc_write_rc((&AVR32_TC0), 0, 3000); /* This sets compare register value,
@@ -124,5 +117,4 @@ void motion_init ()
 	
 	/* Then we start TC0 channel 0. */
 	tc_start((&AVR32_TC0), 0);
-	
 	}

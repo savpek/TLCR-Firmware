@@ -25,6 +25,7 @@
 #include "./api/chrstr/inc/chrstr.h"
 #include "./driver/usart/inc/usart.h"
 #include "./api/scriptapi/inc/scriptapi.h"
+#include "./driver/motor/inc/motor.h"
 
 int main(void)
 	{
@@ -35,7 +36,6 @@ int main(void)
 	ERRORH_SET_PRINT_HANDLER(usart_write_line);
 	
 	delay_init(48000000);
-	
 	//encoder_init_all();
 	//button_init_all();
 	flashmem_init();

@@ -10,7 +10,7 @@
 #include "./api/errorh/inc/errorh.h"
 
 /*@ This function takes control of selected motor. */
-errorc_t motion_try_take_control(uint8_t motion_handle_id, motorc_ctrl_unit_t new_ctrl_unit)
+errorc_t motion_try_take_control(uint8_t motion_handle_id, motion_access_t new_ctrl_unit)
 	{
 	/* Check that handle exists. */
 	if(motion_handle_id > MOTION_LAST_MOTOR_ID)	return EC_OUT_OF_RANGE;
@@ -29,13 +29,13 @@ errorc_t motion_try_take_control(uint8_t motion_handle_id, motorc_ctrl_unit_t ne
 	}
 
 /*@ Take control over motors, no matter what */
-void motion_force_take_control(uint8_t motion_handle_id, motorc_ctrl_unit_t new_ctrl_unit)
+void motion_force_take_control(uint8_t motion_handle_id, motion_access_t new_ctrl_unit)
 	{
 	motion_handle[motion_handle_id].ctrl_unit = new_ctrl_unit;
 	}
 
 /*@ Checks that which unit is currently using motors */
-motorc_ctrl_unit_t motion_check_control(uint8_t motion_handle_id)
+motion_access_t motion_check_control(uint8_t motion_handle_id)
 	{
 	return motion_handle[motion_handle_id].ctrl_unit;
 	}
@@ -69,7 +69,7 @@ void motion_set_move_speed(uint8_t motion_handle_id, uint32_t mm_per_h)
 	}
 
 /*@ Set direction of selected motor and start moving with speed set before. */
-void motion_set_direction( uint8_t motion_handle_id, motorc_dir_t direction)
+void motion_set_direction( uint8_t motion_handle_id, motion_dir_t direction)
 	{
 	motion_handle[motion_handle_id].motor_direction = direction;	
 	}

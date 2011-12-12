@@ -8,7 +8,7 @@
 #include "motion_config.h"
 #include "compiler.h"
 
-const motorc_step_t motion_step_sequence[] = {
+const motion_step_t motion_step_sequence[] = {
  /*  A-coil     B-coil		<-PWMA value */
 	{-127,		-127},		//STEP 0
 	{127,		-127},		//STEP 1
@@ -16,7 +16,7 @@ const motorc_step_t motion_step_sequence[] = {
 	{-127,		127},		//STEP 3
 };
 
-const motorc_step_t motion_step_sleep_sequence[] = {
+const motion_step_t motion_step_sleep_sequence[] = {
  /*  A-coil     B-coil		<-PWMA value */
 	{-60,		-60},		//STEP 0
 	{60,		-60},		//STEP 1
