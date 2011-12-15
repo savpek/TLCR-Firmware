@@ -85,7 +85,7 @@ void pwma_set_channels_value( volatile avr32_pwma_t *pwma,
   pwma->ischset0 = channel_mask_low;
 
   // Wait for the PWMA to be ready for writing.
-  while (pwma->sr & AVR32_PWMA_SR_BUSY_MASK);
+//  while (pwma->sr & AVR32_PWMA_SR_BUSY_MASK);
   
   //#
   //# Last 32 channels
@@ -96,7 +96,7 @@ void pwma_set_channels_value( volatile avr32_pwma_t *pwma,
   pwma->ischset1 = channel_mask_high;
 
   // Wait for the PWMA to be ready for writing.
-  while (pwma->sr & AVR32_PWMA_SR_BUSY_MASK);
+//  while (pwma->sr & AVR32_PWMA_SR_BUSY_MASK);
 }
 
 

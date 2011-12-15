@@ -39,6 +39,7 @@ typedef enum
 	EC_EXIT = 10,
 	EC_NO_RESPONCE = 11,
 	EC_EMPTY_CMD = 12,
+	EC_ACCESS_DENIED = 13,
 	
 	/* Serial transmission errors */
 	EC_OVERRUN = 100,

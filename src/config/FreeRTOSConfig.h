@@ -74,7 +74,7 @@
 #define configMAX_PRIORITIES      ( ( unsigned portBASE_TYPE ) 3 )
 #define configMINIMAL_STACK_SIZE  ( ( unsigned portSHORT ) 256 )
 /* configTOTAL_HEAP_SIZE is not used when heap_3.c is used. */
-#define configTOTAL_HEAP_SIZE     ( ( size_t ) ( 1024*10 ) )
+#define configTOTAL_HEAP_SIZE     ( ( size_t ) ( 1024*4 ) )
 #define configMAX_TASK_NAME_LEN   ( 16 )
 #define configUSE_TRACE_FACILITY  0
 #define configUSE_16_BIT_TICKS    0
@@ -87,15 +87,15 @@
 /* Set the following definitions to 1 to include the API function, or zero
 to exclude the API function. */
 
-#define INCLUDE_vTaskPrioritySet            0
-#define INCLUDE_uxTaskPriorityGet           0
+#define INCLUDE_vTaskPrioritySet            1
+#define INCLUDE_uxTaskPriorityGet           1
 #define INCLUDE_vTaskDelete                 1
-#define INCLUDE_vTaskCleanUpResources       0
+#define INCLUDE_vTaskCleanUpResources       1
 #define INCLUDE_vTaskSuspend                1
 #define INCLUDE_vTaskDelayUntil             1
 #define INCLUDE_vTaskDelay                  1
-#define INCLUDE_xTaskGetCurrentTaskHandle   0
-#define INCLUDE_xTaskGetSchedulerState      0
+#define INCLUDE_xTaskGetCurrentTaskHandle   1
+#define INCLUDE_xTaskGetSchedulerState      1
 
 /* configTICK_USE_TC is a boolean indicating whether to use a Timer Counter or
    the CPU Cycle Counter for the tick generation.
@@ -103,7 +103,7 @@ to exclude the API function. */
    0: Use of the CPU Cycle Counter.
    1: Use of the Timer Counter (configTICK_TC_CHANNEL is the TC channel). */
 #define configTICK_USE_TC             0
-#define configTICK_TC_CHANNEL         2
+#define configTICK_TC_CHANNEL         0
 
 /* configHEAP_INIT is a boolean indicating whether to initialize the heap with
    0xA5 in order to be able to determine the maximal heap consumption. */

@@ -28,12 +28,12 @@
 #define MOTOR_SLEEP_DELAY_MS 2000
 
 /*! How many different PWM values are in one step sequence. */
-#define MOTOR_STEP_COUNT 4
+#define MOTOR_STEP_COUNT 23
 
 /*! How many PBA_FREQ/8 cycles must happen that it counts as millisecond in
  * real world. This is for controls IRQ that toggles PWM values for stepper
  * motors. */
-#define MOTOR_PBA_CYCLES_AS_MS 3000
+#define MOTOR_PBA_CYCLES_AS_MS 6000
 
 /*! Datatype for single step, idea is to make "list" of PWM values
  * that are used for microstepping. */

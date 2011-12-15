@@ -29,8 +29,8 @@
 #define TERMINAL_PROGRAM_MOTOR_INIT
 #define TERMINAL_PROGRAM_MOTOR_USE
 
-//#define TERMINAL_PROGRAM_MOVE
-//#define TERMINAL_PROGRAM_ROTATE
+#define TERMINAL_PROGRAM_MOVE
+#define TERMINAL_PROGRAM_ROTATE
 //#define TERMINAL_PROGRAM_KEYBOARD_CONTROL
 
 /*	This is the list of terminal sub-program functions.
@@ -50,25 +50,28 @@ extern terminalapi_program_t terminal_program_array[];
 
 /* SCRIPT */
 #ifdef TERMINAL_PROGRAM_SCRIPT_START
-	extern void subprog_script_start(terminalapi_cmd_t *cmd_struct);
+	extern void terminal_program_script_start(terminalapi_cmd_t *cmd_struct);
 #endif
 #ifdef TERMINAL_PROGRAM_SCRIPT_END
-	extern void subprog_script_end(terminalapi_cmd_t *cmd_struct);
+	extern void terminal_program_script_end(terminalapi_cmd_t *cmd_struct);
 #endif
 #ifdef TERMINAL_PROGRAM_SCRIPT_DELAY_MS
-	extern void subprog_script_delay_ms(terminalapi_cmd_t *cmd_struct);
+	extern void terminal_program_script_delay_ms(terminalapi_cmd_t *cmd_struct);
 #endif
 #ifdef TERMINAL_PROGRAM_SCRIPT_SHOW
-	extern void subprog_script_show(terminalapi_cmd_t *cmd_struct);
+	extern void terminal_program_script_show(terminalapi_cmd_t *cmd_struct);
 #endif
 #ifdef TERMINAL_PROGRAM_SCRIPT_UNDO
-	extern void subprog_script_undo(terminalapi_cmd_t *cmd_struct);
+	extern void terminal_program_script_undo(terminalapi_cmd_t *cmd_struct);
 #endif
 #ifdef TERMINAL_PROGRAM_SCRIPT_ROTATE
-	extern void subprog_script_rotate(terminalapi_cmd_t *cmd_struct);
+	extern void terminal_program_script_rotate(terminalapi_cmd_t *cmd_struct);
 #endif
 #ifdef TERMINAL_PROGRAM_SCRIPT_MOVE
-	extern void subprog_script_move(terminalapi_cmd_t *cmd_struct);
+	extern void terminal_program_script_move(terminalapi_cmd_t *cmd_struct);
+#endif
+#ifdef TERMINAL_PROGRAM_SCRIPT_RUN
+	extern void terminal_program_script_run(terminalapi_cmd_t *cmd_struct);
 #endif
 
 /* TEST FUNCTIONS FOR MOTOR DRIVER */
@@ -80,7 +83,12 @@ extern terminalapi_program_t terminal_program_array[];
 #endif
 
 /* DIRECT CONTROL OVER MOTION */
-
+#ifdef TERMINAL_PROGRAM_MOVE
+	extern void terminal_program_move(terminalapi_cmd_t *cmd_struct);
+#endif
+#ifdef TERMINAL_PROGRAM_ROTATE
+	extern void terminal_program_rotate(terminalapi_cmd_t *cmd_struct);
+#endif
 
 #if 0
 extern void subprog_ui_test(char* argument_str);

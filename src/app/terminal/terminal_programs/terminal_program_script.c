@@ -6,6 +6,9 @@
  */ 
 
 #include "compiler.h"
+#include "delay.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 /* Terminal internal */
 #include "./app/terminal/config/terminal_program_list.h"
@@ -14,7 +17,7 @@
 #include "./api/scriptapi/inc/scriptapi.h"
 #include "./driver/usart/inc/usart.h"
 #include "./api/chrstr/inc/chrstr.h"
-
+#include "./api/motion/inc/motion.h"
 
 typedef struct	 
 	{
@@ -51,7 +54,7 @@ static errorc_t s_is_scripting_active( void )
 		}
 	}
 
-void subprog_script_start(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_start(terminalapi_cmd_t *cmd_struct)
 	{
 	uint32_t script_id = 0;
 			
@@ -75,7 +78,7 @@ void subprog_script_start(terminalapi_cmd_t *cmd_struct)
 	/* TODO: Take mutex from scripting api */
 	}
 	
-void subprog_script_end(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_end(terminalapi_cmd_t *cmd_struct)
 	{
 	terminalapi_print("Scripting: Inactive!\n\r");
 	l_active_flag = EC_FALSE;
@@ -83,7 +86,7 @@ void subprog_script_end(terminalapi_cmd_t *cmd_struct)
 	/* TODO: Release mutex from scripting api */
 	}
 
-void subprog_script_delay_ms(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_delay_ms(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;
 	
@@ -95,17 +98,17 @@ void subprog_script_delay_ms(terminalapi_cmd_t *cmd_struct)
 	scriptapi_put_cmd(&l_handle, SCRIPTAPI_CMD_DELAY, cmd_value);
 	}
 		
-void subprog_script_delay_s(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_delay_s(terminalapi_cmd_t *cmd_struct)
 	{
 		
 	}
 	
-void subprog_script_delay_h(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_delay_h(terminalapi_cmd_t *cmd_struct)
 	{
 		
 	}
 
-void subprog_script_undo(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_undo(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;
 	
@@ -136,7 +139,7 @@ void subprog_script_undo(terminalapi_cmd_t *cmd_struct)
 	terminalapi_print("Last line removed!\n\r");
 	}
 
-void subprog_script_status(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_status(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active())
 		{
@@ -149,7 +152,7 @@ void subprog_script_status(terminalapi_cmd_t *cmd_struct)
 	}
 
 /* Prints script from beginning */
-void subprog_script_show(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_show(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;
 	
@@ -198,12 +201,12 @@ void subprog_script_show(terminalapi_cmd_t *cmd_struct)
 		}
 	}
 	
-void subprog_script_show_current(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_show_current(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;	
 	}
 	
-void subprog_script_move(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_move(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;
 	
@@ -215,7 +218,7 @@ void subprog_script_move(terminalapi_cmd_t *cmd_struct)
 	scriptapi_put_cmd(&l_handle, SCRIPTAPI_CMD_MOVE, cmd_value);	
 	}
 	
-void subprog_script_rotate(terminalapi_cmd_t *cmd_struct)
+void terminal_program_script_rotate(terminalapi_cmd_t *cmd_struct)
 	{
 	if(!s_is_scripting_active()) return;
 	
@@ -226,4 +229,40 @@ void subprog_script_rotate(terminalapi_cmd_t *cmd_struct)
 	/* Write delay command to flash memory. */
 	scriptapi_put_cmd(&l_handle, SCRIPTAPI_CMD_ROTATE, cmd_value);
 	}
+	
+void terminal_program_script_run(terminalapi_cmd_t *cmd_struct)
+	{
+	if(!s_is_scripting_active()) return;
+	int32_t cmd_value;
+	scriptapi_cmd_t cmd;
+	uint32_t cmd_idx = 0;
+	
+	portTickType rtos_last_wake_time = xTaskGetTickCount();
+	
+	while( EC_EMPTY != scriptapi_get_cmd(&l_handle, cmd_idx, &cmd, &cmd_value) )
+		{
+		cmd_idx++;
+		
+		switch(cmd)
+			{
+			case SCRIPTAPI_CMD_DELAY:
+				vTaskDelayUntil(&rtos_last_wake_time, (cmd_value/portTICK_RATE_MS));
+				break;
 
+			case SCRIPTAPI_CMD_EMPTY:
+				break;
+				
+			case SCRIPTAPI_CMD_ROTATE:
+				terminalapi_print("CMD_ROTATE\n\r");
+				motion_rotate(cmd_value, MOTION_ACCESS_TERMINAL);
+				break;
+				
+			case SCRIPTAPI_CMD_MOVE:
+				terminalapi_print("CMD_MOVE\n\r");
+				motion_move(cmd_value, MOTION_ACCESS_TERMINAL);
+				break;
+			}
+		}
+	
+	terminalapi_print("Script ended!\r\n");
+	}

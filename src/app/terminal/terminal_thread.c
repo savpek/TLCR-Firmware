@@ -12,6 +12,9 @@
 #include "compiler.h"
 #include "./api/terminalapi/inc/terminalapi.h"
 #include "./app/terminal/config/terminal_program_list.h"
+#include "./config/FreeRTOSConfig.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 /*@ Thread for terminal. This parses terminal commands and drive sub-programs
  * under terminal when needed. */
@@ -19,11 +22,9 @@ extern void terminal_thread(void* arguments)
 	{
 	/* First init TERMINALAPI transmission functions */
 	terminalapi_init();
-	
 	/* Write terminal header data :) */
 	terminalapi_print("\r\n\nTLCR TERMINAL\r\n");
 	terminalapi_cmd_t command_struct;
-	 
 	/* Infinite thread loop. Never exit. */
 	while(1)
 		{

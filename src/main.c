@@ -30,17 +30,16 @@
 int main(void)
 	{
 	mcu_init_clocks();
-	INTC_init_interrupts();
+//	INTC_init_interrupts();
 
 	/* Set printing function for error libraries */
 	ERRORH_SET_PRINT_HANDLER(usart_write_line);
-	
-	delay_init(48000000);
+//	delay_init(48000000);
 	//encoder_init_all();
 	//button_init_all();
 	flashmem_init();
 	
-//	motion_init();
+	motion_init();
 	
 	/* Add terminal to FreeRTOS run list */
 	xTaskCreate(terminal_thread, "terminal", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);

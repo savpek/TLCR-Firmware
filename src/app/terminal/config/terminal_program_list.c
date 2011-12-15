@@ -23,25 +23,28 @@ terminalapi_program_t terminal_program_array[] =
 		
 		/* SCRIPT */
 		#ifdef TERMINAL_PROGRAM_SCRIPT_START
-		{ &subprog_script_start,			"script_start"	    },
+		{ &terminal_program_script_start,			"script_start"	    },
 		#endif
 		#ifdef TERMINAL_PROGRAM_SCRIPT_END
-		{ &subprog_script_end,			"script_end"	    },
+		{ &terminal_program_script_end,			"script_end"	    },
 		#endif
 		#ifdef TERMINAL_PROGRAM_SCRIPT_DELAY_MS
-		{ &subprog_script_delay_ms,			"script_delay_ms"	    },
+		{ &terminal_program_script_delay_ms,			"script_delay_ms"	    },
 		#endif
 		#ifdef TERMINAL_PROGRAM_SCRIPT_SHOW
-		{ &subprog_script_show,			"script_show"	    },
+		{ &terminal_program_script_show,			"script_show"	    },
 		#endif
 		#ifdef TERMINAL_PROGRAM_SCRIPT_UNDO
-		{ &subprog_script_undo,			"script_undo"	    },
+		{ &terminal_program_script_undo,			"script_undo"	    },
 		#endif
 		#ifdef TERMINAL_PROGRAM_SCRIPT_MOVE
-		{ &subprog_script_move,			"script_move"	    },
+		{ &terminal_program_script_move,			"script_move"	    },
 		#endif
 		#ifdef TERMINAL_PROGRAM_SCRIPT_ROTATE
-		{ &subprog_script_rotate,			"script_rotate"	    },
+		{ &terminal_program_script_rotate,			"script_rotate"	    },
+		#endif
+		#ifdef TERMINAL_PROGRAM_SCRIPT_RUN
+		{ &terminal_program_script_run,			"script_run"	    },
 		#endif
 		
 		/* MOTOR DRIVER TEST */
@@ -51,6 +54,15 @@ terminalapi_program_t terminal_program_array[] =
 		#ifdef TERMINAL_PROGRAM_MOTOR_USE
 		{ &terminal_program_motor_use,			"motor_use"	    },
 		#endif
+		
+		/* MOTION */
+		#ifdef TERMINAL_PROGRAM_MOVE
+		{ &terminal_program_move,			"move"	    },
+		#endif
+		#ifdef TERMINAL_PROGRAM_ROTATE
+		{ &terminal_program_rotate,			"rotate"	    },
+		#endif
+		
 		/* Last member of subprogram array must be null! */
 		{ 0,									0}
 		

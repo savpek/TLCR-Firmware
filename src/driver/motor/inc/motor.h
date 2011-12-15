@@ -46,7 +46,7 @@ typedef struct motor_t
 	uint32_t delay;
 	
 	/* Current position in step value list. */
-	uint8_t step;
+	int32_t step;
 	
 	/* This counts how many ms have gone since last step. */
 	uint32_t delay_counter;

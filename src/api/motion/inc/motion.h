@@ -3,6 +3,8 @@
  *
  * Created: 8.8.2011 20:02:02
  *  Author: savpek
+ 
+	High level API for TLCR motion control. Uses motor driver to control motors.
  */ 
 
 #ifndef MOTION_H_
@@ -12,34 +14,21 @@
 #include "./api/motion/config/motion_config.h"
 #include "./api/errorh/inc/errorh.h"
 
-/* Inits necessary system components for motion library. EG: Clocks and interrupts. */
-void motion_init (void);
+typedef enum
+	{
+	MOTION_ACCESS_FREE = 0,
+	MOTION_ACCESS_SCRIPT = 1,
+	MOTION_ACCESS_TERMINAL = 3,
+	} motion_access_t;
 
-/*!! Go see source file motion_motor_config.c to config motors used. 
- * In this array, you define all motor parameters and it also includes
- * handle variables that can be written from elsewhere (like change speed and
- * direction. !!*/
-extern volatile motorc_t motion_handle[];
+/* Inits motion library. Basically connects your motor settings
+ * to motor driver and inits mutex for FreeRTOS. */
+extern void motion_init (void);
 
-/*@ This function tries take control of motor. */
-extern errorc_t motion_try_take_control(uint8_t motion_handle_id, motion_access_t);
+/* Run motors, 0 speed is stopped. */
+extern errorc_t motion_rotate(int32_t speed_md_h, motion_access_t app_access);
+extern errorc_t motion_move(int32_t speed_um_h, motion_access_t app_access);
 
-/*@ This function take control over motor, no matter what unit
- *  is currently controlling it. */
-extern void motion_force_take_control(uint8_t motion_handle_id, motion_access_t);
+extern errorc_t motion_release(motion_access_t app_access);
 
-/*@ Checks that which unit is currently using motors */
-extern motion_access_t motion_check_control(uint8_t motion_handle_id);
-
-/*@ Release control of unit */
-extern void motion_release_control(uint8_t motion_handle_id);
-
-/*@ Sets speed of selected motor.
- *	Units per h are mm/h in X movement, and 1/100 degrees per h
- *	in rotation movement. */
-extern void motion_set_rotate_speed(uint8_t motion_handle_id, uint32_t hundred_of_degree_per_h);
-extern void motion_set_move_speed(uint8_t motion_handle_id, uint32_t mm_per_h);
-
-/*@ Set direction of selected motor. */
-extern void motion_set_direction( uint8_t motion_handle_id, motion_dir_t direction);
 #endif /* MOTION_H_ */

@@ -20,7 +20,8 @@
 #include "./api/mcu/inc/mcu.h"
 
 /* Array of pointers to motor_t struct */
-volatile motor_t *motor[MOTOR_MAX_COUNT] = {0};
+volatile uint32_t step_counter = 0;
+volatile motor_t *motor[MOTOR_MAX_COUNT+1] = {0};
 
 /* Setup A coil value, value can be from -127 to +127. That is value negative positive
  * or negative tells coil current direction */
@@ -67,7 +68,7 @@ static void motor_isr( void )
 	
 	/* This is required to reset RC interrupt flag */
 	tc_read_sr((&AVR32_TC0), 0);
-	
+		
 	/* We check all motors from list, if their movement delay matches
 	 * ms counter, take step */
 	while(motor[counter] != 0)
@@ -78,9 +79,12 @@ static void motor_isr( void )
 		if( ( motor[counter]->delay_counter % motor[counter]->delay == 0 ) &&
 		      motor[counter]->direction != MOTOR_STOP )
 			{
-			/* Direction value can be: 0, -1 and +1. If zero, nothing change so motors don't move. */
 			motor[counter]->step += motor[counter]->direction;
-			motor[counter]->step %= MOTOR_STEP_COUNT;
+
+			/* Keep step variable in range */
+			if(motor[counter]->step < 0) motor[counter]->step = MOTOR_STEP_COUNT-1;
+			if(motor[counter]->step > MOTOR_STEP_COUNT-1) motor[counter]->step = 0;
+
 			motor[counter]->delay_counter = 0;
 			
 			/* Setup coil values */
@@ -89,13 +93,14 @@ static void motor_isr( void )
 
 			s_b_coil_value(motor[counter],
 				motor_step[ motor[counter]->step ].b_pwma_value);
+				
+			step_counter++;
 			}
 		
 		/* Stepper motor "holds" it's position with high torgue, that requires a lot of
 		 * power and it heats up the motor. To increase time that device can be used with single
 		 * battery, we must drop holding torque lower. */
-		if(motor[counter]->delay_counter > MOTOR_SLEEP_DELAY_MS
-		   || motor[counter]->direction == MOTOR_STOP )
+		if( motor[counter]->delay_counter == MOTOR_SLEEP_DELAY_MS )
 			{
 			s_a_coil_value( motor[counter], 
 				motor_sleep_step[ motor[counter]->step ].a_pwma_value);
@@ -120,14 +125,14 @@ errorc_t motor_init (volatile motor_t *motor_handle)
 	while(motor[counter] != 0)
 		{
 		counter++;
-		if(MOTOR_MAX_COUNT >= counter)
+		if(MOTOR_MAX_COUNT <= counter)
 			{
 			return EC_FULL;	
 			}
 		}
 	
 	motor[counter] = motor_handle;
-	
+	Disable_global_interrupt();
 	/* These clocks are for PWMA driver, PWMA uses generic clock 3.
 	 * We try set PWM frequency neart 50kHz, since it widely accepted good
 	 * PWM frequency for steppermotors. */
@@ -217,11 +222,12 @@ errorc_t motor_init (volatile motor_t *motor_handle)
 	
 	tc_configure_interrupts((&AVR32_TC0), 0, &TC_INTERRUPT);
 	
-	tc_write_rc((&AVR32_TC0), 0, 3000); /* This sets compare register value,
+	tc_write_rc((&AVR32_TC0), 0, MOTOR_PBA_CYCLES_AS_MS); /* This sets compare register value,
 										 * when counter reaches this value, interrupt is triggered. */
 	
 	/* Then we start TC0 channel 0. */
 	tc_start((&AVR32_TC0), 0);
+	Enable_global_interrupt();
 	}
 	
 void motor_step_delay(volatile motor_t *motor_handle, uint32_t step_delay, motor_dir_t direction)
