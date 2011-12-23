@@ -348,7 +348,10 @@ void flashmem_erase_block(uint32_t address)
 	s_send_cmd((uint8_t)(address>>8));
 	s_send_cmd((uint8_t)(address>>0));
 	
-	s_npcs_unselect();	
+	s_npcs_unselect();
+	
+	/* Wait until erase is done. */
+	s_wait_for_ic_ready();
 	}
 
 /* Erase hole chip, stays inside of function as long as erase will take. */

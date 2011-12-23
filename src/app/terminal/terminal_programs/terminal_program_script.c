@@ -122,18 +122,17 @@ void terminal_program_script_undo(terminalapi_cmd_t *cmd_struct)
 	
 	int32_t cmd_temp = 0;
 	int32_t value_temp = 0;
-
-	/* Script is empty */
-	if(1 == target_idx)
-		{
-		terminalapi_print("Nothing to undo!\r\n");
-		return;	
-		}
 	
-	do 
+	while (EC_SUCCESS != scriptapi_get_cmd(&l_handle, target_idx, &cmd_temp, &value_temp))
 		{
+		/* Check for beginning of the script. */
+		if(0 == target_idx)
+			{
+			terminalapi_print("Nothing to undo!\r\n");
+			return;	
+			}
 		target_idx--;
-		} while (EC_SUCCESS != scriptapi_get_cmd(&l_handle, target_idx, &cmd_temp, &value_temp));
+		}
 		
 	scriptapi_clr_cmd(&l_handle, target_idx);
 	
@@ -273,6 +272,9 @@ void terminal_program_script_erase(terminalapi_cmd_t *cmd_struct)
 	if(!s_is_scripting_active()) return;
 	
 	storage_erase_segment(l_handle.storage_segment_id);
+	
+	/* Reset handle (current script deleted, return to begin). */
+	scriptapi_init_handle(&l_handle, l_handle.script_id );
 	
 	terminalapi_print("Script erased!\r\n");
 	}

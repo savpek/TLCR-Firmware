@@ -12,7 +12,25 @@
 #define M_VP	80
 #define M_VN	80
 
+#if 0
+const motor_step_t motor_step[MOTOR_STEP_COUNT] = {
+ /*  A-coil     B-coil		<-PWMA value */
+	{-127,		-127},		//STEP 0
+	{127,		-127},		//STEP 0
+	{127,		127},		//STEP 0
+	{-127,		127},		//STEP 0		
+};
 
+const motor_step_t motor_sleep_step[MOTOR_STEP_COUNT] = {
+ /*  A-coil     B-coil		<-PWMA value */
+	{-127,		-127},		//STEP 0
+	{127,		-127},		//STEP 0
+	{127,		127},		//STEP 0
+	{-127,		127},		//STEP 0		
+};
+#endif
+
+#if 1
 const motor_step_t motor_step[MOTOR_STEP_COUNT] = {
  /*  A-coil     B-coil		<-PWMA value */
 	{-127,		-127},		//STEP 0
@@ -66,3 +84,4 @@ const motor_step_t motor_sleep_step[MOTOR_STEP_COUNT] = {
 	{-70,		-58},		//STEP 3
 	{-70,		-65},		//STEP 3
 };
+#endif
