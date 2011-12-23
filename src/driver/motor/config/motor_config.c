@@ -31,7 +31,7 @@ const motor_step_t motor_step[MOTOR_STEP_COUNT] = {
 	{95,		127},		//STEP 2
 	{63,		127},		//STEP 3
 	{0,		127},			//STEP 0
-	{-63,		127},		//STEP 3		
+	{-63,		127},		//STEP 3		<
 	{-95,		127},		//STEP 3
 	{-127,		95},		//STEP 3
 	{-127,		63},		//STEP 3

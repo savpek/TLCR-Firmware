@@ -55,7 +55,7 @@ typedef struct
 	} terminalapi_program_t;
 
 /* Init terminal api, this must be called before any terminal api functions are used! */
-extern void terminalapi_init();
+extern void terminalapi_init(void);
 
 /* This function read command from defined stream. Stays in until
  * user sends NL character. */

@@ -130,7 +130,15 @@ errorc_t storage_write_int32_t(uint32_t segment_id, uint32_t var_id, int32_t var
 /* Erases defined segment. */
 errorc_t storage_erase_segment(uint32_t segment_id)
 	{
-	/* TODO: Routines to erase segment. */
+	uint32_t block_begin_addr = s_true_addr(segment_id, 0);
+	uint32_t block_del_count = 0;
+	
+	while(STORAGE_SEGMENT_SIZE > block_del_count*4000)
+		{
+		flashmem_erase_block(block_begin_addr);
+		block_begin_addr += 4000;
+		block_del_count++;
+		}
 	}
 
 /* Delete all data from FLASH IC */

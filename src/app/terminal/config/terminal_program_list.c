@@ -46,6 +46,9 @@ terminalapi_program_t terminal_program_array[] =
 		#ifdef TERMINAL_PROGRAM_SCRIPT_RUN
 		{ &terminal_program_script_run,			"script_run"	    },
 		#endif
+		#ifdef TERMINAL_PROGRAM_SCRIPT_ERASE
+		{ &terminal_program_script_erase,			"script_erase"	    },
+		#endif
 		
 		/* MOTOR DRIVER TEST */
 		#ifdef TERMINAL_PROGRAM_MOTOR_INIT

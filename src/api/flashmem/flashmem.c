@@ -337,7 +337,18 @@ void flashmem_write_int32_t(uint32_t address, int32_t data)
 /* Erases 4kb block, block begins from given addr */
 void flashmem_erase_block(uint32_t address)
 	{
-		
+	s_disable_write_protect();
+	s_set_wel_bit();
+	
+	s_npcs_select();
+	
+	s_send_cmd(FLASHMEM_CMD_BLOCK_ERASE_4KB);
+	
+	s_send_cmd((uint8_t)(address>>16));
+	s_send_cmd((uint8_t)(address>>8));
+	s_send_cmd((uint8_t)(address>>0));
+	
+	s_npcs_unselect();	
 	}
 
 /* Erase hole chip, stays inside of function as long as erase will take. */

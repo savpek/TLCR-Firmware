@@ -18,6 +18,7 @@
 #include "./driver/usart/inc/usart.h"
 #include "./api/chrstr/inc/chrstr.h"
 #include "./api/motion/inc/motion.h"
+#include "./api/storage/inc/storage.h"
 
 typedef struct	 
 	{
@@ -56,7 +57,7 @@ static errorc_t s_is_scripting_active( void )
 
 void terminal_program_script_start(terminalapi_cmd_t *cmd_struct)
 	{
-	uint32_t script_id = 0;
+	int32_t script_id = 0;
 			
 	/* Exit if given value is invalid. */
 	if( !terminalapi_try_get_int32(cmd_struct, &script_id) ) return;
@@ -265,4 +266,13 @@ void terminal_program_script_run(terminalapi_cmd_t *cmd_struct)
 		}
 	
 	terminalapi_print("Script ended!\r\n");
+	}
+	
+void terminal_program_script_erase(terminalapi_cmd_t *cmd_struct)
+	{
+	if(!s_is_scripting_active()) return;
+	
+	storage_erase_segment(l_handle.storage_segment_id);
+	
+	terminalapi_print("Script erased!\r\n");
 	}

@@ -22,6 +22,7 @@
 #define TERMINAL_PROGRAM_SCRIPT_UNDO
 #define TERMINAL_PROGRAM_SCRIPT_ROTATE
 #define TERMINAL_PROGRAM_SCRIPT_MOVE
+#define TERMINAL_PROGRAM_SCRIPT_ERASE
 
 //#define TERMINAL_PROGRAM_FLASH_DUMP
 //#define TERMINAL_PROGRAM_FLASH_ERASE
@@ -72,6 +73,9 @@ extern terminalapi_program_t terminal_program_array[];
 #endif
 #ifdef TERMINAL_PROGRAM_SCRIPT_RUN
 	extern void terminal_program_script_run(terminalapi_cmd_t *cmd_struct);
+#endif
+#ifdef TERMINAL_PROGRAM_SCRIPT_ERASE
+	extern void terminal_program_script_erase(terminalapi_cmd_t *cmd_struct);
 #endif
 
 /* TEST FUNCTIONS FOR MOTOR DRIVER */
