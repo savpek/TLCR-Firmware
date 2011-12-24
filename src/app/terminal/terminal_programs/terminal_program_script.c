@@ -264,6 +264,10 @@ void terminal_program_script_run(terminalapi_cmd_t *cmd_struct)
 			}
 		}
 	
+	/* Stop motors after run script */
+	motion_rotate(0, MOTION_ACCESS_TERMINAL);
+	motion_move(0, MOTION_ACCESS_TERMINAL);
+	
 	terminalapi_print("Script ended!\r\n");
 	}
 	
