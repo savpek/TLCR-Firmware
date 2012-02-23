@@ -13,15 +13,15 @@
  * Usage:
  *  Init with command: usart_init_rs232_with_rxdry_irq ( ...
  *		Get more information about parameters from usart_wb.h header
- *		file. Clocks must be correctly initialized before this, and 
- *		also you must init INTC before. 
+ *		file. Clocks must be correctly initialized before this, and
+ *		also you must init INTC before.
  *
- *	Settings: 
+ *	Settings:
  *		All configurations can be found from config/usart_settings.h */
 
 /* ASF */
 #include "compiler.h"
-#include "gpio.h"
+#include "./gpio/public/gpio.h"
 
 /* Internal */
 #include "./driver/usart/inc/usart.h"
@@ -56,7 +56,7 @@ static errorc_t usart_write_char(uint8_t c)
 	{
 	avr32_usart_t *usart;
 	usart = USART_POINTER;
-	
+
 	if (usart_tx_ready(usart))
 		{
 		usart->thr = (c << AVR32_USART_THR_TXCHR_OFFSET) & AVR32_USART_THR_TXCHR_MASK;
@@ -150,10 +150,10 @@ errorc_t usart_init_rs232_with_rxdry_irq(unsigned long pba_hz)
 	{
 	avr32_usart_t *usart;
 	usart = USART_POINTER;
-	
+
 	// Reset the USART and shutdown TX and RX.
 	usart_reset(usart);
-	
+
 	// Check input values.
 	if (USART_CHARLENGTH < 5 || USART_CHARLENGTH > 9 ||
 		  USART_PARITYPE > 7 ||
@@ -186,7 +186,7 @@ errorc_t usart_init_rs232_with_rxdry_irq(unsigned long pba_hz)
 	else
 		{
 		// Insert 1, 1.5 or 2 stop bits.
-		usart->mr |= USART_STOPBITS << AVR32_USART_MR_NBSTOP_OFFSET;	
+		usart->mr |= USART_STOPBITS << AVR32_USART_MR_NBSTOP_OFFSET;
 		}
 
 	// Set normal mode.
@@ -227,19 +227,19 @@ void usart_putchar(uint8_t c)
 errorc_t usart_read_char(uint8_t *c)
 	{
 	errorc_t rx_status = usart_get_character_from_rx_register(USART_POINTER, c);
-	
+
 	/* We basically ignore RX errors here. */
 	if (rx_status == EC_USART_RX_ERROR)
 		{
 		#ifdef USART_DEBUG
 		errorh_new_error(EC_USART_RX_ERROR, ERROR_WARNING);
 		#endif
-		
+
 		/* Reset status, if status is not reseted, no further
 		 * chars cannot be received through usart. */
 		usart_reset_status(USART_POINTER);
 		}
-		
+
 	return rx_status;
 	}
 
@@ -248,16 +248,16 @@ errorc_t usart_read_char(uint8_t *c)
 uint8_t usart_getchar( )
 {
 	uint8_t temp_char;
-	
+
 	/* We stay here as long as needed to receive characters. */
 	while(EC_USART_RX_EMPTY == usart_read_char(&temp_char));
 	return temp_char;
 }
 
 void usart_write_line(uint8_t *string)
-	{	
+	{
 	while (*string != '\0')
 		{
-		usart_putchar(*string++);	
+		usart_putchar(*string++);
 		}
 	}

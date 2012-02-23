@@ -43,7 +43,7 @@
  *
  */
 
-#include "gpio.h"
+#include "./gpio/public/gpio.h"
 
 //! GPIO module instance.
 #define GPIO  AVR32_GPIO
@@ -114,19 +114,19 @@ int gpio_enable_module_pin(uint32_t pin, uint32_t function)
     gpio_port->pmr1c = 1 << (pin & 0x1F);
     gpio_port->pmr2s = 1 << (pin & 0x1F);
     break;
-    
+
   case 5: // F function.
     gpio_port->pmr0s = 1 << (pin & 0x1F);
     gpio_port->pmr1c = 1 << (pin & 0x1F);
     gpio_port->pmr2s = 1 << (pin & 0x1F);
     break;
-    
+
   case 6: // G function.
     gpio_port->pmr0c = 1 << (pin & 0x1F);
     gpio_port->pmr1s = 1 << (pin & 0x1F);
     gpio_port->pmr2s = 1 << (pin & 0x1F);
     break;
-    
+
   case 7: // H function.
     gpio_port->pmr0s = 1 << (pin & 0x1F);
     gpio_port->pmr1s = 1 << (pin & 0x1F);
@@ -257,8 +257,8 @@ void gpio_disable_pin_buskeeper(uint32_t pin)
 #endif
 
 void gpio_configure_pin(uint32_t pin, uint32_t flags)
-{  
-  volatile avr32_gpio_port_t *gpio_port = &GPIO.port[pin >> 5];  
+{
+  volatile avr32_gpio_port_t *gpio_port = &GPIO.port[pin >> 5];
 
   /* Both pull-up and pull-down set means buskeeper */
 #if defined(AVR32_GPIO_200_H_INCLUDED) || defined(AVR32_GPIO_210_H_INCLUDED) || defined(AVR32_GPIO_212_H_INCLUDED)
@@ -266,7 +266,7 @@ void gpio_configure_pin(uint32_t pin, uint32_t flags)
             gpio_port->pders = 1 << (pin & 0x1F);
     else
             gpio_port->pderc = 1 << (pin & 0x1F);
-#endif    
+#endif
     if (flags & GPIO_PULL_UP)
             gpio_port->puers = 1 << (pin & 0x1F);
     else
@@ -277,15 +277,15 @@ void gpio_configure_pin(uint32_t pin, uint32_t flags)
             if (flags & GPIO_OPEN_DRAIN)
                     gpio_port->odmers = 1 << (pin & 0x1F);
             else
-                    gpio_port->odmerc = 1 << (pin & 0x1F);            
+                    gpio_port->odmerc = 1 << (pin & 0x1F);
 
             if (flags & GPIO_OPEN_DRAIN)
                     gpio_port->pders = 1 << (pin & 0x1F);
             else
                     gpio_port->pderc = 1 << (pin & 0x1F);
-#endif 
-            
-#if defined(AVR32_GPIO_200_H_INCLUDED) || defined(AVR32_GPIO_210_H_INCLUDED) || defined(AVR32_GPIO_212_H_INCLUDED) 
+#endif
+
+#if defined(AVR32_GPIO_200_H_INCLUDED) || defined(AVR32_GPIO_210_H_INCLUDED) || defined(AVR32_GPIO_212_H_INCLUDED)
             /* Select drive strength */
             if (flags & GPIO_DRIVE_LOW)
                     gpio_port->odcr0s = 1 << (pin & 0x1F);
@@ -332,35 +332,35 @@ void gpio_configure_pin(uint32_t pin, uint32_t flags)
 }
 
 void gpio_configure_group(uint32_t port, uint32_t mask, uint32_t flags)
-{  
-  volatile avr32_gpio_port_t *gpio_port = &GPIO.port[port];  
+{
+  volatile avr32_gpio_port_t *gpio_port = &GPIO.port[port];
 
   /* Both pull-up and pull-down set means buskeeper */
-#if defined(AVR32_GPIO_200_H_INCLUDED) || defined(AVR32_GPIO_210_H_INCLUDED) || defined(AVR32_GPIO_212_H_INCLUDED)  
+#if defined(AVR32_GPIO_200_H_INCLUDED) || defined(AVR32_GPIO_210_H_INCLUDED) || defined(AVR32_GPIO_212_H_INCLUDED)
     if (flags & GPIO_PULL_DOWN)
             gpio_port->pders = mask;
     else
             gpio_port->pderc = mask;
-#endif    
+#endif
     if (flags & GPIO_PULL_UP)
             gpio_port->puers = mask;
     else
             gpio_port->puerc = mask;
 
     /* Enable open-drain mode if requested */
-#if defined(AVR32_GPIO_200_H_INCLUDED) || defined(AVR32_GPIO_210_H_INCLUDED) || defined(AVR32_GPIO_212_H_INCLUDED)  
+#if defined(AVR32_GPIO_200_H_INCLUDED) || defined(AVR32_GPIO_210_H_INCLUDED) || defined(AVR32_GPIO_212_H_INCLUDED)
             if (flags & GPIO_OPEN_DRAIN)
                     gpio_port->odmers = mask;
             else
-                    gpio_port->odmerc = mask;            
+                    gpio_port->odmerc = mask;
 
             if (flags & GPIO_OPEN_DRAIN)
                     gpio_port->pders = mask;
             else
                     gpio_port->pderc = mask;
-#endif 
-            
-#if defined(AVR32_GPIO_200_H_INCLUDED) || defined(AVR32_GPIO_210_H_INCLUDED) || defined(AVR32_GPIO_212_H_INCLUDED) 
+#endif
+
+#if defined(AVR32_GPIO_200_H_INCLUDED) || defined(AVR32_GPIO_210_H_INCLUDED) || defined(AVR32_GPIO_212_H_INCLUDED)
             /* Select drive strength */
             if (flags & GPIO_DRIVE_LOW)
                     gpio_port->odcr0s = mask;
@@ -401,7 +401,7 @@ void gpio_configure_group(uint32_t port, uint32_t mask, uint32_t flags)
     } else {
             gpio_port->oderc = mask;
     }
-    
+
     /* Enable GPIO */
     gpio_port->gpers = mask;
 }
@@ -459,7 +459,7 @@ void gpio_clr_gpio_pin(uint32_t pin)
   volatile avr32_gpio_port_t *gpio_port = &GPIO.port[pin >> 5];
   gpio_port->ovrc  = 1 << (pin & 0x1F); // Value to be driven on the I/O line: 0.
   gpio_port->oders = 1 << (pin & 0x1F); // The GPIO output driver is enabled for that pin.
-  gpio_port->gpers = 1 << (pin & 0x1F); // The GPIO module controls that pin.  
+  gpio_port->gpers = 1 << (pin & 0x1F); // The GPIO module controls that pin.
 }
 
 void gpio_set_group_low(uint32_t port, uint32_t mask)
@@ -541,7 +541,7 @@ void gpio_disable_pin_glitch_filter(uint32_t pin)
 static int gpio_configure_edge_detector(uint32_t pin, uint32_t mode)
 {
   volatile avr32_gpio_port_t *gpio_port = &GPIO.port[pin >> 5];
-  
+
   // Configure the edge detector.
   switch (mode)
   {

@@ -1,5 +1,5 @@
 /*
- * lcd_init_display.c
+ * lcd_init_display.ca
  *
  * Created: 28.9.2011 16:46:44
  *  Author: savpek

@@ -9,7 +9,7 @@
 #include "compiler.h"
 #include "scif_uc3l.h"
 #include "power_clocks_lib.h"
-#include "gpio.h"
+#include "./gpio/public/gpio.h"
 
 /* Lib internal headers */
 #include "./api/mcu/inc/mcu.h"

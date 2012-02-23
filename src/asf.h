@@ -41,32 +41,45 @@
 
 /*
  * This file includes all API header files for the selected drivers from ASF.
+ * Note: There might be duplicate includes required by more than one driver.
  *
  * The file is automatically generated and will be re-written when
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
-#include <usart.h>
+// From module: CPU - Cycle Counter
+#include <cycle_counter.h>
+
+// From module: CPU - INTC - Interrupt Controller
+#include <intc.h>
+
+// From module: CPU - Interrupt management
+#include <interrupt.h>
+
+// From module: CPU - PM - Power Manager
 #include <power_clocks_lib.h>
 #include <sleep.h>
 
+// From module: CPU - SCIF - System Control Interface
+#include <scif_uc3l.h>
+
+// From module: FLASHCDW - FLASH Controller Double-Word
+#include <flashcdw.h>
+
+// From module: Generic components of unit test framework
+#include <unit_test/suite.h>
+
+// From module: PWMA - Pulse Width Modulation A
+#include <pwma.h>
+
+// From module: SPI - Serial Peripheral Interface
 #include <spi.h>
+
+// From module: TIMING - Delay function
+#include <delay.h>
+
+// From module: UTILITY - Compiler abstraction layer and code utilities
 #include <compiler.h>
 #include <status_codes.h>
-#include <interrupt.h>
-#include <delay.h>
-#include <queue.h>
-#include <croutine.h>
-#include <FreeRTOS.h>
-#include <projdefs.h>
-#include <list.h>
-#include <task.h>
-#include <StackMacros.h>
-#include <mpu_wrappers.h>
-#include <timers.h>
-#include <semphr.h>
-#include <portable.h>
-#include <pwma.h>
-#include <intc.h>
-#include <gpio.h>
+
 #endif // ASF_H

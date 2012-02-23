@@ -8,7 +8,7 @@
 /* ASF */
 #include "scif_uc3l.h"
 #include "pwma.h"
-#include "gpio.h"
+#include "./gpio/public/gpio.h"
 #include "tc.h"
 #include "intc.h"
 

@@ -239,6 +239,7 @@ void terminal_program_script_run(terminalapi_cmd_t *cmd_struct)
 	
 	portTickType rtos_last_wake_time = xTaskGetTickCount();
 	
+	/* TODO: ADD ESC BUTTON TO QUIT SCRIPT! */
 	while( EC_EMPTY != scriptapi_get_cmd(&l_handle, cmd_idx, &cmd, &cmd_value) )
 		{
 		cmd_idx++;
