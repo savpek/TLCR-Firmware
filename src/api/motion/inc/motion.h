@@ -12,7 +12,7 @@
 
 #include "compiler.h"
 #include "./api/motion/config/motion_config.h"
-#include "./api/errorh/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 
 typedef enum
 	{

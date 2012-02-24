@@ -15,8 +15,8 @@
 #include "./api/terminalapi/inc/terminalapi.h"
 
 #include "./api/scriptapi/inc/scriptapi.h"
-#include "./driver/usart/inc/usart.h"
-#include "./api/chrstr/inc/chrstr.h"
+#include "./driver/usart/public/usart.h"
+#include "./chrstr/inc/chrstr.h"
 #include "./api/motion/inc/motion.h"
 #include "./api/storage/inc/storage.h"
 

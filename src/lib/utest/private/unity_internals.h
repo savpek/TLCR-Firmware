@@ -11,7 +11,7 @@
 #include <setjmp.h>
 
 #include "compiler.h"
-#include "./driver/usart/inc/usart.h"
+#include "./driver/usart/public/usart.h"
 #define UNITY_OUTPUT_CHAR(a) usart_putchar(a)
 
 //-------------------------------------------------------
@@ -159,7 +159,7 @@ typedef UNITY_DOUBLE_TYPE _UD;
 #define UNITY_OUTPUT_CHAR(a) usart_putchar(a)
 #else
 //If defined as something else, make sure we declare it here so it's ready for use
-extern void UNITY_OUTPUT_CHAR(uint8_t);
+extern void UNITY_OUTPUT_CHAR(char);
 #endif
 
 //-------------------------------------------------------

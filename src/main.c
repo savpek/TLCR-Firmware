@@ -9,7 +9,7 @@
 #include "compiler.h"
 #include "intc.h"
 #include "delay.h"
-#include "./api/errorh/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 #include "./app/terminal/inc/terminal.h"
 #include "./api/terminalapi/inc/terminalapi.h"
 #include "./api/mcu/inc/mcu.h"
@@ -23,8 +23,8 @@
 #include "./api/flashmem/inc/flashmem.h"
 #include "./api/flashmem/inc/flashmem.h"
 #include "./gpio/public/gpio.h"
-#include "./api/chrstr/inc/chrstr.h"
-#include "./driver/usart/inc/usart.h"
+#include "./chrstr/inc/chrstr.h"
+#include "./driver/usart/public/usart.h"
 #include "./api/scriptapi/inc/scriptapi.h"
 #include "./driver/motor/inc/motor.h"
 
@@ -35,6 +35,7 @@
 #define RUN_FIRMWARE
 
 #include "./utest/public/utest.h"
+#include "./init_drivers/public/init_drivers.h"
 
 /* Include all test files */
 
@@ -44,7 +45,7 @@ static void run_tests() {
 
 int main (void) {
 	mcu_init_clocks();
-	terminalapi_init();
+	init_drivers();
 	usart_write_line("\n\r\n\r UNIT TEST RUN:\r\n");
 	UnityMain(run_tests);
 }

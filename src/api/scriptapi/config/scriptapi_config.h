@@ -10,7 +10,7 @@
 #define SCRIPTAPI_CONFIG_H_
 
 #include "compiler.h"
-#include "./api/errorh/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 
 #define SCRIPTAPI_DEBUG
 

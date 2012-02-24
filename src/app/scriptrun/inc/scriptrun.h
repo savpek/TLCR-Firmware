@@ -10,7 +10,7 @@
 #define SCRIPT_H_
 
 #include "compiler.h"
-#include "./api/errorh/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 
 #include "./api/scriptapi/inc/scriptapi.h"
 

@@ -23,8 +23,6 @@ void terminalapi_init()
 	terminalapi_put_char = TERMINALAPI_PUTCHAR_FUNCTION;
 	terminalapi_get_char = TERMINALAPI_GETCHAR_FUNCTION;
 	terminalapi_read_char = TERMINALAPI_READCHAR_FUNCTION;
-	
-	TERMINALAPI_INIT_OUTPUT_DEVICE();
 	}
 
 /* This function read command from defined stream. Stays in until

@@ -10,8 +10,8 @@
 #define TERMINALAPI_H_
 
 #include "compiler.h"
-#include "./api/chrstr/inc/chrstr.h"
-#include "./api/errorh/inc/errorh.h"
+#include "./chrstr/inc/chrstr.h"
+#include "./errorh/inc/errorh.h"
 
 #include "./api/terminalapi/config/terminalapi_config.h"
 

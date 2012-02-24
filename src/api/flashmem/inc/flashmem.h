@@ -3,7 +3,7 @@
  *
  * Created: 3.12.2011 12:28:30
  *  Author: savpek
- */ 
+ */
 
 
 #ifndef FLASHMEM_H_
@@ -11,7 +11,7 @@
 
 #include "compiler.h"
 #include "./api/flashmem/config/flashmem_config.h"
-#include "./api/errorh/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 
 /* This function inits currently used flash IC and MCU IO */
 extern void flashmem_init(void);

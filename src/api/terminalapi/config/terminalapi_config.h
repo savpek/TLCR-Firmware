@@ -12,11 +12,11 @@
 //#define TERMINALAPI_DEBUG
 
 /* You must include api that is used as output here */
-#include "./driver/usart/inc/usart.h"
+#include "./driver/usart/public/usart.h"
 #include "./api/mcu/inc/mcu.h"
 
 /* Define init function of used output stream */
-#define TERMINALAPI_INIT_OUTPUT_DEVICE() usart_init_rs232_with_rxdry_irq(MCU_PBA_F);
+#define TERMINALAPI_INIT_OUTPUT_DEVICE() usart_init_rs232(MCU_PBA_F);
 
 /* This defines output and read functions for stream that terminal
  * will use. */

@@ -16,7 +16,7 @@
 #include "./api/mcu/inc/mcu.h"
 
 /* TLCR lib */
-#include "./api/errorh/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 
 /* Routine for select FLASH IC (#CS pin to low) */
 static void s_npcs_select( void )

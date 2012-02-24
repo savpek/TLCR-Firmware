@@ -3,13 +3,13 @@
  *
  * Created: 8.8.2011 20:24:01
  *  Author: savpek
- */ 
+ */
 
 
 #ifndef SUBPROG_H_
 #define SUBPROG_H_
 
-#include "./api/errorh/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 #include "./api/terminalapi/inc/terminalapi.h"
 
 /*!! Undefine these if you dont want include subprogram to current build. !!*/

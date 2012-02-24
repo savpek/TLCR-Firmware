@@ -101,8 +101,6 @@
     <file path="src/asf/avr32/drivers/pm/sleep.h" framework="com.atmel.avr32.sf.uc3l" version="2.5.1-17860" source="avr32/drivers/pm/sleep.h" changed="False" content-id="Atmel.ASF" />
     <file path="src/asf/avr32/utils/startup/startup_uc3.S" framework="com.atmel.avr32.sf.uc3l" version="2.5.1-17860" source="avr32/utils/startup/startup_uc3.S" changed="False" content-id="Atmel.ASF" />
     <file path="src/asf/common/utils/interrupt.h" framework="com.atmel.avr32.sf.uc3l" version="2.5.1-17860" source="common/utils/interrupt.h" changed="False" content-id="Atmel.ASF" />
-    <file path="src/asf/avr32/drivers/usart/usart.h" framework="com.atmel.avr32.sf.uc3l" version="2.5.1-17860" source="avr32/drivers/usart/usart.h" changed="False" content-id="Atmel.ASF" />
-    <file path="src/asf/avr32/drivers/usart/usart.c" framework="com.atmel.avr32.sf.uc3l" version="2.5.1-17860" source="avr32/drivers/usart/usart.c" changed="False" content-id="Atmel.ASF" />
     <file path="src/asf/avr32/drivers/intc/intc.c" framework="com.atmel.avr32.sf.uc3l" version="2.5.1-17860" source="avr32/drivers/intc/intc.c" changed="False" content-id="Atmel.ASF" />
     <file path="src/asf/avr32/drivers/flashcdw/flashcdw.c" framework="com.atmel.avr32.sf.uc3l" version="2.5.1-17860" source="avr32/drivers/flashcdw/flashcdw.c" changed="False" content-id="Atmel.ASF" />
     <file path="src/asf/avr32/utils/status_codes.h" framework="com.atmel.avr32.sf.uc3l" version="2.5.1-17860" source="avr32/utils/status_codes.h" changed="False" content-id="Atmel.ASF" />
@@ -184,7 +182,6 @@
       <Value>../src/asf/avr32/drivers/intc</Value>
       <Value>../src/asf/avr32/drivers/pm</Value>
       <Value>../src/asf/avr32/drivers/scif</Value>
-      <Value>../src/asf/avr32/drivers/usart</Value>
       <Value>../src/asf/avr32/utils</Value>
       <Value>../src/asf/avr32/utils/preprocessor</Value>
       <Value>../src/asf/common/utils</Value>
@@ -222,7 +219,6 @@
       <Value>../src/asf/avr32/drivers/intc</Value>
       <Value>../src/asf/avr32/drivers/pm</Value>
       <Value>../src/asf/avr32/drivers/scif</Value>
-      <Value>../src/asf/avr32/drivers/usart</Value>
       <Value>../src/asf/avr32/utils</Value>
       <Value>../src/asf/avr32/utils/preprocessor</Value>
       <Value>../src/asf/common/utils</Value>
@@ -246,7 +242,6 @@
       <Value>../src/asf/avr32/drivers/intc</Value>
       <Value>../src/asf/avr32/drivers/pm</Value>
       <Value>../src/asf/avr32/drivers/scif</Value>
-      <Value>../src/asf/avr32/drivers/usart</Value>
       <Value>../src/asf/avr32/utils</Value>
       <Value>../src/asf/avr32/utils/preprocessor</Value>
       <Value>../src/asf/common/utils</Value>
@@ -282,7 +277,6 @@
       <Value>../src/asf/avr32/drivers/intc</Value>
       <Value>../src/asf/avr32/drivers/pm</Value>
       <Value>../src/asf/avr32/drivers/scif</Value>
-      <Value>../src/asf/avr32/drivers/usart</Value>
       <Value>../src/asf/avr32/utils</Value>
       <Value>../src/asf/avr32/utils/preprocessor</Value>
       <Value>../src/asf/common/utils</Value>
@@ -297,6 +291,7 @@
       <Value>../src/asf/avr32/drivers/eic</Value>
       <Value>../src/lib</Value>
       <Value>../src/driver</Value>
+      <Value>../src/app</Value>
     </ListValues>
   </avr32gcc.compiler.directories.IncludePaths>
   <avr32gcc.compiler.optimization.OtherFlags>-fdata-sections</avr32gcc.compiler.optimization.OtherFlags>
@@ -323,7 +318,6 @@
       <Value>../src/asf/avr32/drivers/intc</Value>
       <Value>../src/asf/avr32/drivers/pm</Value>
       <Value>../src/asf/avr32/drivers/scif</Value>
-      <Value>../src/asf/avr32/drivers/usart</Value>
       <Value>../src/asf/avr32/utils</Value>
       <Value>../src/asf/avr32/utils/preprocessor</Value>
       <Value>../src/asf/common/utils</Value>
@@ -348,7 +342,6 @@
       <Value>../src/asf/avr32/drivers/intc</Value>
       <Value>../src/asf/avr32/drivers/pm</Value>
       <Value>../src/asf/avr32/drivers/scif</Value>
-      <Value>../src/asf/avr32/drivers/usart</Value>
       <Value>../src/asf/avr32/utils</Value>
       <Value>../src/asf/avr32/utils/preprocessor</Value>
       <Value>../src/asf/common/utils</Value>
@@ -368,21 +361,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="src\api\chrstr\chrstr.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\api\chrstr\inc\chrstr.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\api\errorh\config\error_codes.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\api\errorh\errorh.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\api\errorh\inc\errorh.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\api\flashmem\config\flashmem_config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -441,6 +419,30 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\api\terminalapi\terminalapi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\config\clocks_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\config\gpio_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\config\pwma_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\config\usart_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\init_drivers.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\init_drivers_private.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\private\init_drivers_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\public\init_drivers.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\app\scriptrun\config\scriptrun_config.h">
@@ -647,9 +649,6 @@
     <Compile Include="src\config\FreeRTOSConfig.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\config\pin_conf.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\driver\gpio\gpio.c">
       <SubType>compile</SubType>
     </Compile>
@@ -692,13 +691,28 @@
     <Compile Include="src\driver\motor\motor.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\driver\usart\config\usart_settings.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\driver\usart\inc\usart.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\driver\usart\usart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\usart\usart_spy.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lib\chrstr\chrstr.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lib\chrstr\inc\chrstr.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lib\errorh\config\error_codes.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lib\errorh\errorh.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lib\errorh\inc\errorh.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\lib\utest\private\unity_fixture.h">
@@ -735,16 +749,15 @@
     <Folder Include="src\api\print" />
     <Folder Include="src\api\print\public" />
     <Folder Include="src\api\read\public" />
+    <Folder Include="src\app\init_drivers\" />
+    <Folder Include="src\app\init_drivers\config\" />
+    <Folder Include="src\app\init_drivers\private\" />
+    <Folder Include="src\app\init_drivers\public\" />
     <Folder Include="src\driver\gpio\" />
     <Folder Include="src\driver\gpio\public" />
     <Folder Include="src\driver\lcd_driver\config" />
     <Folder Include="src\driver\lcd_driver\spy" />
     <Folder Include="src\" />
-    <Folder Include="src\api\chrstr\" />
-    <Folder Include="src\api\chrstr\inc\" />
-    <Folder Include="src\api\errorh\" />
-    <Folder Include="src\api\errorh\config\" />
-    <Folder Include="src\api\errorh\inc\" />
     <Folder Include="src\api\flashmem" />
     <Folder Include="src\api\flashmem\inc" />
     <Folder Include="src\api\flashmem\config" />
@@ -763,11 +776,9 @@
     <Folder Include="src\api\storage\inc\" />
     <Folder Include="src\api\terminalapi\inc" />
     <Folder Include="src\api\terminalapi\config" />
-    <Folder Include="src\app\lcd" />
     <Folder Include="src\app\scriptrun\config\" />
     <Folder Include="src\app\scriptrun\inc" />
     <Folder Include="src\app\terminal\config\" />
-    <Folder Include="src\app\ui" />
     <Folder Include="src\app\scriptrun" />
     <Folder Include="src\app\terminal\" />
     <Folder Include="src\app\terminal\inc\" />
@@ -820,9 +831,15 @@
     <Folder Include="src\driver\motor\config" />
     <Folder Include="src\driver\lcd_driver" />
     <Folder Include="src\driver\usart\" />
-    <Folder Include="src\driver\usart\config\" />
-    <Folder Include="src\driver\usart\inc\" />
+    <Folder Include="src\driver\usart\public" />
+    <Folder Include="src\driver\usart\utest" />
+    <Folder Include="src\driver\usart\spy" />
     <Folder Include="src\lib" />
+    <Folder Include="src\lib\chrstr\" />
+    <Folder Include="src\lib\chrstr\inc\" />
+    <Folder Include="src\lib\errorh\" />
+    <Folder Include="src\lib\errorh\config\" />
+    <Folder Include="src\lib\errorh\inc\" />
     <Folder Include="src\lib\utest\" />
     <Folder Include="src\lib\utest\public" />
     <Folder Include="src\lib\utest\private" />

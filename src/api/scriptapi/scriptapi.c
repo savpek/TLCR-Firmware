@@ -3,11 +3,11 @@
  *
  * Created: 6.12.2011 14:26:39
  *  Author: savpek
- */ 
+ */
 
 #include "compiler.h"
 
-#include "./api/errorh/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 #include "./api/storage/inc/storage.h"
 #include "./api/scriptapi/inc/scriptapi.h"
 #include "./api/scriptapi/config/scriptapi_config.h"
@@ -54,15 +54,15 @@ errorc_t scriptapi_init_handle(scriptapi_t *handle, uint32_t script_id)
 			#endif
 			break;
 		}
-	
-	/* Set script id you currently use. */	
+
+	/* Set script id you currently use. */
 	handle->script_id = script_id;
-	
+
 	/* Lets find last used index from current memory location, this can be done
 	 * simply loop memory until we find 0xFFF... command. Slow, but working method. */
 	handle->last_idx = 0;
 	int32_t cmd_temp = 0;
-	
+
 	while(0xFFFFFFFF != cmd_temp)
 		{
 		/* If meet end of memory, dont go any further. */
@@ -71,11 +71,11 @@ errorc_t scriptapi_init_handle(scriptapi_t *handle, uint32_t script_id)
 			#ifdef SCRIPTAPI_DEBUG
 //			ERRORH_PRINT("");
 			#endif
-			return EC_OUT_OF_RANGE;	
+			return EC_OUT_OF_RANGE;
 			}
 		handle->last_idx++;
 		}
-	
+
 	/* Points to last idx which has data, so subtract one. */
 	handle->last_idx -= 1;
 	}
@@ -87,29 +87,26 @@ extern errorc_t scriptapi_get_cmd(scriptapi_t *handle, uint32_t cmd_idx, scripta
 	if(!storage_read_int32_t(handle->storage_segment_id, cmd_idx*2, (int32_t*)ret_cmd))
 		{
 		#ifdef SCRIPTAPI_DEBUG
-//		ERRORH_PRINT("READ_CMD_ERROR");
 		#endif
 		return EC_FAILURE;
 		}
-			
+
 	/* Get value */
-	if(!storage_read_int32_t(handle->storage_segment_id, cmd_idx*2+1, (int32_t*)ret_cmd_value)) 
+	if(!storage_read_int32_t(handle->storage_segment_id, cmd_idx*2+1, (int32_t*)ret_cmd_value))
 		{
 		#ifdef SCRIPTAPI_DEBUG
-//		ERRORH_PRINT("READ_VALUE_ERROR");
 		#endif
 		return EC_FAILURE;
 		}
-		
+
 	/* If return value was 0xFFF ... which means that area was unwritten. */
 	if(*ret_cmd == 0xFFFFFFFF)
 		{
 		#ifdef SCRIPTAPI_DEBUG
-//		ERRORH_PRINT("CMD_EMPTY");
 		#endif
 		return EC_EMPTY;
 		}
-		
+
 	if(*ret_cmd == 0)
 		{
 		/* This isn't actual error, it just informs that current
@@ -128,22 +125,22 @@ extern errorc_t scriptapi_put_cmd(scriptapi_t *handle, scriptapi_cmd_t cmd, int3
 		{
 		return EC_FAILURE;
 		}
-	
-	/* Write value to memory */	
+
+	/* Write value to memory */
 	if(EC_SUCCESS != storage_write_int32_t(handle->storage_segment_id, (handle->last_idx)*2+1, cmd_value))
 		{
 		return EC_FAILURE;
 		}
-	
+
 	handle->last_idx++;
-	
+
 	return EC_SUCCESS;
 	}
 
 /* Writes "empty" command to defined command index */
 extern errorc_t scriptapi_clr_cmd(scriptapi_t *handle, uint32_t cmd_idx)
 	{
-	/* This simply sets command value to 0 (all bits to 0). 
+	/* This simply sets command value to 0 (all bits to 0).
 	 * So can overwrite any old value. */
 	if(EC_SUCCESS != storage_write_int32_t(handle->storage_segment_id, cmd_idx*2, 0x00000000))
 		{

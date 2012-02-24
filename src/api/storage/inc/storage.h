@@ -14,7 +14,7 @@
 #define STORAGE_H_
 
 #include "compiler.h"
-#include "./api/errorh/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 #include "./api/storage/config/storage_config.h"
 #include "./api/flashmem/inc/flashmem.h"
 

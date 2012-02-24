@@ -11,7 +11,7 @@
 
 #include "compiler.h"
 
-#include "./api/errorh/inc/errorh.h"
+#include "./errorh/inc/errorh.h"
 #include "./driver/motor/config/motor_config.h"
 
 typedef enum
