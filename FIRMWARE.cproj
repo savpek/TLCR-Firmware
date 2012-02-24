@@ -370,15 +370,6 @@
     <Compile Include="src\api\flashmem\inc\flashmem.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\api\mcu\config\mcu_config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\api\mcu\inc\mcu.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\api\mcu\mcu.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\api\motion\config\motion_config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -676,7 +667,7 @@
     <Compile Include="src\driver\lcd_driver\spy_lcd_driver.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\driver\lcd_driver\utest\test_lcd_driver.c">
+    <Compile Include="src\driver\lcd_driver\test\test_lcd_driver.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\driver\motor\config\motor_config.c">
@@ -700,10 +691,10 @@
     <Compile Include="src\driver\usart\usart_spy.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\lib\chrstr\chrstr.c">
+    <Compile Include="src\lib\str\public\str.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\lib\chrstr\inc\chrstr.h">
+    <Compile Include="src\lib\str\str.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\lib\errorh\config\error_codes.h">
@@ -713,6 +704,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\lib\errorh\inc\errorh.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\lib\str\test\test_str.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\lib\utest\private\unity_fixture.h">
@@ -745,6 +739,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\api\ioapi" />
+    <Folder Include="src\api\print\private" />
+    <Folder Include="src\api\print\utest" />
     <Folder Include="src\api\read" />
     <Folder Include="src\api\print" />
     <Folder Include="src\api\print\public" />
@@ -753,6 +749,7 @@
     <Folder Include="src\app\init_drivers\config\" />
     <Folder Include="src\app\init_drivers\private\" />
     <Folder Include="src\app\init_drivers\public\" />
+    <Folder Include="src\asf\common\services\" />
     <Folder Include="src\driver\gpio\" />
     <Folder Include="src\driver\gpio\public" />
     <Folder Include="src\driver\lcd_driver\config" />
@@ -761,9 +758,6 @@
     <Folder Include="src\api\flashmem" />
     <Folder Include="src\api\flashmem\inc" />
     <Folder Include="src\api\flashmem\config" />
-    <Folder Include="src\api\mcu\" />
-    <Folder Include="src\api\mcu\config\" />
-    <Folder Include="src\api\mcu\inc\" />
     <Folder Include="src\api\motion\" />
     <Folder Include="src\api\motion\config\" />
     <Folder Include="src\api\motion\inc\" />
@@ -825,7 +819,7 @@
     <Folder Include="src\app" />
     <Folder Include="src\driver\lcd_driver\private" />
     <Folder Include="src\driver\lcd_driver\public" />
-    <Folder Include="src\driver\lcd_driver\utest" />
+    <Folder Include="src\driver\lcd_driver\test" />
     <Folder Include="src\driver\motor" />
     <Folder Include="src\driver\motor\inc" />
     <Folder Include="src\driver\motor\config" />
@@ -835,8 +829,9 @@
     <Folder Include="src\driver\usart\utest" />
     <Folder Include="src\driver\usart\spy" />
     <Folder Include="src\lib" />
-    <Folder Include="src\lib\chrstr\" />
-    <Folder Include="src\lib\chrstr\inc\" />
+    <Folder Include="src\lib\str" />
+    <Folder Include="src\lib\str\test" />
+    <Folder Include="src\lib\str\public" />
     <Folder Include="src\lib\errorh\" />
     <Folder Include="src\lib\errorh\config\" />
     <Folder Include="src\lib\errorh\inc\" />

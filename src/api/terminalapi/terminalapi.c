@@ -181,7 +181,7 @@ extern errorc_t terminalapi_try_run_program(terminalapi_cmd_t *cmd_struct, termi
 		{
 		/* Command string can also end empty space (after space comes value), for that reason third argument
 		 * is set to ' '. */
-		if( chrstr_string_compare(cmd_struct->command_str, program_list[program_idx].command_string, cmd_struct->cmd_end_idx) )
+		if( str_compare(cmd_struct->command_str, program_list[program_idx].command_string, cmd_struct->cmd_end_idx) )
 			{
 			/* If strings match, run program in terminal */
 			(*(*program_list[program_idx].program_pointer))(cmd_struct);

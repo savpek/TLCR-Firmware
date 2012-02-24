@@ -23,7 +23,7 @@
 #include "./api/flashmem/inc/flashmem.h"
 #include "./api/flashmem/inc/flashmem.h"
 #include "./gpio/public/gpio.h"
-#include "./chrstr/inc/chrstr.h"
+#include "./str/public/str.h"
 #include "./driver/usart/public/usart.h"
 #include "./api/scriptapi/inc/scriptapi.h"
 #include "./driver/motor/inc/motor.h"
@@ -41,10 +41,10 @@
 
 static void run_tests() {
 	RUN_TEST_GROUP(lcd_driver);
+	RUN_TEST_GROUP(str);
 }
 
 int main (void) {
-	mcu_init_clocks();
 	init_drivers();
 	usart_write_line("\n\r\n\r UNIT TEST RUN:\r\n");
 	UnityMain(run_tests);
