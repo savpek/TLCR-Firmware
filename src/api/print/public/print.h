@@ -9,6 +9,8 @@
 #ifndef PRINT_H_
 #define PRINT_H_
 
+#include "compiler.h"
+
 /*! @brief Prints out character.
  *
  *	@param print_this print this character. */
@@ -17,22 +19,12 @@ extern void print_char( char print_this);
 /*! @brief Prints print_this string + EOL
  *
  *	@param print_this constant string. */
-extern void print_line( const char* print_this);
-
-/*! @brief Prints non constant string with EOL
- *
- *	@param print_this non constant string. */
-extern void print_var_line( char* print_this);
+extern void print_line( char* print_this);
 
 /*! @brief Prints constant string (without EOL).
  *
- *	@param print_this non constan string. */
-extern void print_string( const char* print_this);
-
-/*! @brief Prints constant string (without EOL).
- *
- *	@param print_this non constan string. */
-extern void print_string( const char* print_this);
+ *	@param print_this constan string. */
+extern void print_string( char* print_this);
 
 /*! @brief Prints uint8_t to output stream, presented as 8bit HEX value.
  *	 For example: 255 -> 0xFF.

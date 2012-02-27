@@ -42,6 +42,7 @@
 static void run_tests() {
 	RUN_TEST_GROUP(lcd_driver);
 	RUN_TEST_GROUP(str);
+	RUN_TEST_GROUP(print);
 }
 
 int main (void) {

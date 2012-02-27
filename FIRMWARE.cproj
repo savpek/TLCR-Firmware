@@ -292,6 +292,7 @@
       <Value>../src/lib</Value>
       <Value>../src/driver</Value>
       <Value>../src/app</Value>
+      <Value>../src/api</Value>
     </ListValues>
   </avr32gcc.compiler.directories.IncludePaths>
   <avr32gcc.compiler.optimization.OtherFlags>-fdata-sections</avr32gcc.compiler.optimization.OtherFlags>
@@ -379,7 +380,16 @@
     <Compile Include="src\api\motion\motion.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\api\print\config\print_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\api\print\print.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\api\print\public\print.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\api\print\test\test_print.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\api\read\public\read.h">
@@ -682,13 +692,16 @@
     <Compile Include="src\driver\motor\motor.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\driver\usart\inc\usart.h">
+    <Compile Include="src\driver\usart\public\usart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\usart\spy\spy_usart.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\driver\usart\usart.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\driver\usart\usart_spy.c">
+    <Compile Include="src\driver\usart\spy_usart.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\lib\str\public\str.h">
@@ -739,8 +752,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\api\ioapi" />
+    <Folder Include="src\api\print\config" />
     <Folder Include="src\api\print\private" />
-    <Folder Include="src\api\print\utest" />
+    <Folder Include="src\api\print\test" />
     <Folder Include="src\api\read" />
     <Folder Include="src\api\print" />
     <Folder Include="src\api\print\public" />
@@ -826,7 +840,6 @@
     <Folder Include="src\driver\lcd_driver" />
     <Folder Include="src\driver\usart\" />
     <Folder Include="src\driver\usart\public" />
-    <Folder Include="src\driver\usart\utest" />
     <Folder Include="src\driver\usart\spy" />
     <Folder Include="src\lib" />
     <Folder Include="src\lib\str" />

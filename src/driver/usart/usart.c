@@ -176,12 +176,10 @@ errorc_t usart_init_rs232(volatile avr32_usart_t *usart, const usart_options_t *
   return EC_SUCCESS;
 }
 
-void usart_putchar(char c)
-	{
-	do
-		{
-	} while (usart_write_char(c) != EC_SUCCESS);
+void usart_putchar_body(char c) {
+	while (usart_write_char(c) != EC_SUCCESS);
 	}
+void (*usart_putchar)(char c) = &usart_putchar_body;
 
 /* Reads single character from register. Don't stay here, just check. */
 errorc_t usart_read_char(char *c)

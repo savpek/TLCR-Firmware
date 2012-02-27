@@ -32,14 +32,14 @@ TEST_SETUP(lcd_driver) {
 	/* We need gpio_ spy functions: */
 
 	/* We need lcd_driver spy: */
-	store_lcd_driver_write_cmd = &lcd_driver_write_cmd;
+	store_lcd_driver_write_cmd = lcd_driver_write_cmd;
 	lcd_driver_write_cmd = spy_lcd_driver_send_cmd;
 }
 
 /*! @brief Group teardown function..
  *	@param Group name */
 TEST_TEAR_DOWN(lcd_driver) {
-	lcd_driver_write_cmd = &store_lcd_driver_write_cmd;
+	lcd_driver_write_cmd = store_lcd_driver_write_cmd;
 	spy_lcd_driver_cmd_buffer_reset();
 }
 
@@ -48,9 +48,9 @@ TEST_TEAR_DOWN(lcd_driver) {
  *	@param Test name */
 TEST(lcd_driver, init) {
 	lcd_driver_init();
-	
+
 	/* Test that GPIO is set up correctly. */
-	
+
 	/* Init 4 bit interface */
 	TEST_ASSERT_EQUAL_HEX32((1<<LCD_D_DB5)|(1<<LCD_D_DB4)|(1<<LCD_D_DB1)|(1<<LCD_D_DB0), spy_read_lcd_driver_send_cmd(0));
 	TEST_ASSERT_EQUAL_HEX32((1<<LCD_D_DB5)|(1<<LCD_D_DB4)|(1<<LCD_D_DB1), spy_read_lcd_driver_send_cmd(1));

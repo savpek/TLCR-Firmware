@@ -55,7 +55,7 @@ static void return_string_from_uint(uint32_t input_value, char *output_str, uint
 	output_str[str_begin_idx] = '\0';
 }
 
-void str_merge(const char *source, volatile char *target, const uint8_t begin_idx ) {
+void str_merge(char *source, char *target, uint8_t begin_idx ) {
 	uint8_t i = 0;
 	while (source[i] != '\0')
 		{

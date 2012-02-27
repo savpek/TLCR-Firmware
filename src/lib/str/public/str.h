@@ -16,7 +16,7 @@
  *	@param		source: Constant string that is inserted to another string.
  *	@param[our] target: Merge source string to this string. Beginning from begin_idx.
  *	@param		begin_idx: begin merge from this idx (target idx). */
-extern void str_merge( const char *source, volatile char *target, const uint8_t begin_idx);
+extern void str_merge( char *source, char *target, uint8_t begin_idx);
 
 /*! @brief Returns HEX string from uint8_t type number.
  *
@@ -49,7 +49,7 @@ extern void str_from_uint8(uint8_t input_value, char *output_str);
 extern void str_from_uint32(uint32_t input_value, char *output_str);
 
 
-/*! @brief Return numerical representation from value as string. 
+/*! @brief Return numerical representation from value as string.
  *
  *	@param int32_t input_value 	: uint32_t type input value, converted to string.
  *	@param char * output_str 	: Return buffer. */

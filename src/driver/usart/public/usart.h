@@ -67,7 +67,7 @@ errorc_t usart_init_rs232(volatile avr32_usart_t *usart, const usart_options_t *
  * Waits until character transfer is complete or timeout is expired.
  * EC_SUCCESS  The character was written.
  * EC_FAILURE  The function timed out before the USART transmitter became ready to send. */
-extern void usart_putchar(char c);
+extern void (*usart_putchar)(char c);
 
 /* This checks is there received characters in fifo, if there is return one
  * character from buffer. Otherwise send XON mark to terminal and return error code.
