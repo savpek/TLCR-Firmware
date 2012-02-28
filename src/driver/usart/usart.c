@@ -182,7 +182,7 @@ void usart_putchar_body(char c) {
 void (*usart_putchar)(char c) = &usart_putchar_body;
 
 /* Reads single character from register. Don't stay here, just check. */
-errorc_t usart_read_char(char *c)
+errorc_t usart_try_read_char_body(char *c)
 	{
 	errorc_t rx_status = usart_get_character_from_rx_register(usart_addr, c);
 
@@ -196,17 +196,19 @@ errorc_t usart_read_char(char *c)
 
 	return rx_status;
 	}
+errorc_t (*usart_try_read_char)(char*) = usart_try_read_char_body;
 
 /* Get character (from buffer), loop in function
  * as long as character is received.*/
-char usart_getchar( )
+char usart_read_char_body()
 {
 	char temp_char;
 
 	/* We stay here as long as needed to receive characters. */
-	while(EC_USART_RX_EMPTY == usart_read_char(&temp_char));
+	while(EC_USART_RX_EMPTY == usart_try_read_char(&temp_char));
 	return temp_char;
 }
+char (*usart_read_char)() = usart_read_char_body;
 
 void usart_write_line(char *string)
 	{

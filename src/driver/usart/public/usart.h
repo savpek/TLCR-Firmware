@@ -74,11 +74,11 @@ extern void (*usart_putchar)(char c);
  * EC_SUCCESS  The character was read successfully.
  * EC_USART_RX_EMPTY The RX buffer was empty.
  * EC_USART_RX_ERROR An error was deteceted. */
-extern errorc_t usart_read_char(char *c);
+extern errorc_t (*usart_try_read_char)(char *c);
 
 /* Same as usart_read_char, for that exeption that this waits until
  * character is received. Returns character.*/
-extern char usart_getchar( void );
+extern char (*usart_read_char)( void );
 
 /* Writes character string to the USART (constant). */
 extern void usart_write_line(char *string);

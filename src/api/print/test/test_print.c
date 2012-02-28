@@ -28,7 +28,7 @@ TEST_GROUP(print);
 TEST_SETUP(print) {
 	putchar_storage = usart_putchar;
 	usart_putchar = spy_usart_putchar;
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 }
 
 /*! @brief Group teardown function..
@@ -41,17 +41,17 @@ TEST_TEAR_DOWN(print) {
  *	@param Group name
  *	@param Test name */
 TEST(print, test_print_char) {
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 
 	SET_SPY_OUTPUT();
 	print_char('b');
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_HEX8('b', spy_usart_buffer[0]);
+	TEST_ASSERT_EQUAL_HEX8('b', spy_usart_buffer_tx[0]);
 
 	SET_SPY_OUTPUT();
 	print_char('c');
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_HEX8('c', spy_usart_buffer[1]);
+	TEST_ASSERT_EQUAL_HEX8('c', spy_usart_buffer_tx[1]);
 }
 
 /*! @brief Test print_string
@@ -59,16 +59,16 @@ TEST(print, test_print_char) {
  *	@param Test name */
 TEST(print, test_print_line) {
 	SET_SPY_OUTPUT();
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 	print_line("this is test line");
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_STRING("this is test line\n\r", spy_usart_buffer);
+	TEST_ASSERT_EQUAL_STRING("this is test line\n\r", spy_usart_buffer_tx);
 
 	SET_SPY_OUTPUT();
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 	print_line("");
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_STRING("\n\r", spy_usart_buffer);
+	TEST_ASSERT_EQUAL_STRING("\n\r", spy_usart_buffer_tx);
 }
 
 /*! @brief Test print_string
@@ -76,16 +76,16 @@ TEST(print, test_print_line) {
  *	@param Test name */
 TEST(print, test_print_string) {
 	SET_SPY_OUTPUT();
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 	print_string("this is test line");
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_STRING("this is test line", spy_usart_buffer);
+	TEST_ASSERT_EQUAL_STRING("this is test line", spy_usart_buffer_tx);
 
 	SET_SPY_OUTPUT();
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 	print_string("");
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_STRING("", spy_usart_buffer);
+	TEST_ASSERT_EQUAL_STRING("", spy_usart_buffer_tx);
 }
 
 /*! @brief Test print_hex8
@@ -93,22 +93,22 @@ TEST(print, test_print_string) {
  *	@param Test name */
 TEST(print, test_print_hex8) {
 	SET_SPY_OUTPUT();
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 	print_hex8(0x00);
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_STRING("0x00", spy_usart_buffer);
+	TEST_ASSERT_EQUAL_STRING("0x00", spy_usart_buffer_tx);
 
 	SET_SPY_OUTPUT();
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 	print_hex8(255);
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_STRING("0xFF", spy_usart_buffer);
+	TEST_ASSERT_EQUAL_STRING("0xFF", spy_usart_buffer_tx);
 
 	SET_SPY_OUTPUT();
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 	print_hex8(100);
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_STRING("0x64", spy_usart_buffer);
+	TEST_ASSERT_EQUAL_STRING("0x64", spy_usart_buffer_tx);
 }
 
 /*! @brief Test print_hex32
@@ -116,22 +116,22 @@ TEST(print, test_print_hex8) {
  *	@param Test name */
 TEST(print, test_print_hex32) {
 	SET_SPY_OUTPUT();
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 	print_hex32(0x00);
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_STRING("0x00000000", spy_usart_buffer);
+	TEST_ASSERT_EQUAL_STRING("0x00000000", spy_usart_buffer_tx);
 
 	SET_SPY_OUTPUT();
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 	print_hex32(~0);
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_STRING("0xFFFFFFFF", spy_usart_buffer);
+	TEST_ASSERT_EQUAL_STRING("0xFFFFFFFF", spy_usart_buffer_tx);
 
 	SET_SPY_OUTPUT();
-	spy_usart_reset_buffer();
+	spy_usart_reset_tx();
 	print_hex32(98000);
 	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_STRING("0x00017ED0", spy_usart_buffer);
+	TEST_ASSERT_EQUAL_STRING("0x00017ED0", spy_usart_buffer_tx);
 }
 
 /*	@brief Set up all runnable tests from this module.

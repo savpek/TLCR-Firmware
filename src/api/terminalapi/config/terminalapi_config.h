@@ -22,8 +22,8 @@
  * will use. */
 #define TERMINALAPI_PRINT_FUNCTION usart_write_line
 #define TERMINALAPI_PUTCHAR_FUNCTION usart_putchar
-#define TERMINALAPI_GETCHAR_FUNCTION usart_getchar
-#define TERMINALAPI_READCHAR_FUNCTION usart_read_char
+#define TERMINALAPI_GETCHAR_FUNCTION usart_read_char
+#define TERMINALAPI_READCHAR_FUNCTION usart_try_read_char
 
 /* This defines maximum length of used command. You cannot type
  * longer line to terminal than this. */

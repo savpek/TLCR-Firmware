@@ -35,19 +35,23 @@
 #define RUN_FIRMWARE
 
 #include "./utest/public/utest.h"
+
 #include "./init_drivers/public/init_drivers.h"
 
 /* Include all test files */
 
 static void run_tests() {
+	
 	RUN_TEST_GROUP(lcd_driver);
 	RUN_TEST_GROUP(str);
 	RUN_TEST_GROUP(print);
+	RUN_TEST_GROUP(read);
 }
 
 int main (void) {
 	init_drivers();
 	usart_write_line("\n\r\n\r UNIT TEST RUN:\r\n");
+
 	UnityMain(run_tests);
 }
 
