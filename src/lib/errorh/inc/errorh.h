@@ -3,7 +3,7 @@
  *
  * Created: 20.11.2011 11:35:53
  *  Author: savpek
- */ 
+ */
 
 
 #ifndef ERRORH_H_
@@ -45,4 +45,15 @@ extern errorc_t errorh_get_error_code( uint8_t error_number );
 
 extern errorc_t errorh_get_newest_error_code( void );
 
+/*! ASSERT handler! Define this null if building release. */
+#define ERRORH_ASSERT(a) errorh_assert_body(a, __FILE__, __LINE__)
+
+/*! @brief Don't use directly! See ERRORH_ASSERT() macro!
+ *
+ *	@param uint32_t assert_value : If not true, 1, trigger assert.
+ *	@param char * file_name 	 : From macro.
+ *	@param uint32_t assert_line  : From macro.
+ *
+ * 	@return void */
+extern void errorh_assert_body(uint32_t assert_value, char* file_name, uint32_t assert_line );
 #endif /* ERRORH_H_ */

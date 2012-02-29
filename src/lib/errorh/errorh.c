@@ -7,6 +7,7 @@
 
 #include "compiler.h"
 #include "./errorh/inc/errorh.h"
+#include "./print/public/print.h"
 
 /* We store up to 10 different error codes */
 static errorc_t error_log[10] = {0};
@@ -39,5 +40,13 @@ errorc_t errorh_get_newest_error_code()
 	return error_log[newest_error_index%10];
 	}
 
-void errorh_assert(uint32_t assert_value, uint32_t assert_line ) {
+void errorh_assert_body( uint32_t assert_value, char* file_name, uint32_t assert_line ) {
+	if(assert_value != 1) { /* Not true */
+		print_line("");
+		print_string("ASSERT! At ");
+		print_string(file_name);
+		print_string(" on line ");
+		print_dec(assert_line);
+		print_line(".");
+	}
 }

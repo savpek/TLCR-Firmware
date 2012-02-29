@@ -50,6 +50,7 @@ static void run_tests() {
 
 int main (void) {
 	init_drivers();
+	
 	usart_write_line("\n\r\n\r UNIT TEST RUN:\r\n");
 
 	UnityMain(run_tests);
