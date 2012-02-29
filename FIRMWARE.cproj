@@ -371,6 +371,9 @@
     <Compile Include="src\api\flashmem\inc\flashmem.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\api\ioapi\public\ioapi.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\api\motion\config\motion_config.h">
       <SubType>compile</SubType>
     </Compile>
@@ -755,6 +758,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\api\ioapi" />
+    <Folder Include="src\api\ioapi\public" />
     <Folder Include="src\api\print\config" />
     <Folder Include="src\api\print\private" />
     <Folder Include="src\api\print\test" />

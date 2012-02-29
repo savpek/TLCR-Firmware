@@ -48,3 +48,10 @@ void print_hex32( uint32_t print_this_value )
 	str_from_uint32_hex(print_this_value, output_buffer);
 	print_string(output_buffer);
 }
+
+void print_dec( uint32_t print_this )
+{
+	char output_buffer[STR_DEC_INT32_SIZE];
+	str_from_uint32(print_this, output_buffer);
+	print_string(output_buffer);
+}

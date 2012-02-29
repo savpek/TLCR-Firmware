@@ -134,6 +134,23 @@ TEST(print, test_print_hex32) {
 	TEST_ASSERT_EQUAL_STRING("0x00017ED0", spy_usart_buffer_tx);
 }
 
+/*! @brief Test print_dec
+ *	@param Group name
+ *	@param Test name */
+TEST(print, test_print_dec) {
+	SET_SPY_OUTPUT();
+	spy_usart_reset_tx();
+	print_dec(0);
+	SET_DEFAULT_OUTPUT();
+	TEST_ASSERT_EQUAL_STRING("0", spy_usart_buffer_tx);
+	
+	SET_SPY_OUTPUT();
+	spy_usart_reset_tx();
+	print_dec(500);
+	SET_DEFAULT_OUTPUT();
+	TEST_ASSERT_EQUAL_STRING("500", spy_usart_buffer_tx);
+}
+
 /*	@brief Set up all runnable tests from this module.
  *	@param group name.*/
 TEST_GROUP_RUNNER(print) {
@@ -142,4 +159,5 @@ TEST_GROUP_RUNNER(print) {
 	RUN_TEST_CASE(print, test_print_string);
 	RUN_TEST_CASE(print, test_print_hex8);
 	RUN_TEST_CASE(print, test_print_hex32);
+	RUN_TEST_CASE(print, test_print_dec);
 }

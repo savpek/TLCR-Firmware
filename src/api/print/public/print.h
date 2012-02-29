@@ -38,16 +38,11 @@ extern void print_hex8( uint8_t print_this);
  *	@param print_this uint32_t as hex to output stream. */
 extern void print_hex32( uint32_t print_this);
 
-/*! @brief Prints uint8_t type variable bit presentation to output stream.
- *	 For example: 0b00000000
+/*! @brief Prints number as string (decimal format).
  *
- *	@param print_this uint32_t as bit to output stream. */
-extern void print_bit8( uint8_t print_this);
-
-/*! @brief Prints uint8_t type variable bit presentation to output stream.
- *	 For example: 0b00000000....00000
+ *	@param uint32_t print_this 	: print this at decimal format to output.
  *
- *	@param print_this uint32_t as bit to output stream. */
-extern void print_bit32( uint32_t print_this);
+ * 	@return void */
+extern void print_dec( uint32_t print_this );
 
 #endif /* PRINT_H_ */

@@ -3,7 +3,7 @@
  *
  * Created: 20.11.2011 11:54:57
  *  Author: savpek
- */ 
+ */
 
 #include "compiler.h"
 #include "./errorh/inc/errorh.h"
@@ -21,10 +21,10 @@ void errorh_new_error( errorc_t error_code, error_fatality_t error_fatality )
 		{
 		while(1);
 		}
-	
+
 	/* If error is not fatal, add it to error list */
 	error_log[newest_error_index%10] = error_code;
-	
+
 	newest_error_index++;
 	}
 
@@ -39,4 +39,5 @@ errorc_t errorh_get_newest_error_code()
 	return error_log[newest_error_index%10];
 	}
 
-
+void errorh_assert(uint32_t assert_value, uint32_t assert_line ) {
+}
