@@ -41,7 +41,7 @@ errorc_t errorh_get_newest_error_code()
 	}
 
 void errorh_assert_body( uint32_t assert_value, char* file_name, uint32_t assert_line ) {
-	if(assert_value != 1) { /* Not true */
+	if(assert_value == 0) {
 		print_line("");
 		print_string("ASSERT! At ");
 		print_string(file_name);

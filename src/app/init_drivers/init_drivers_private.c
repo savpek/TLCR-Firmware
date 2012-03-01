@@ -18,7 +18,7 @@
 #include "power_clocks_lib.h"
 
 /*! @brief inits MCU clocks, see clocks_config.h from ../config/. */
-extern errorc_t init_driver_clocks( void) {
+errorc_t init_driver_clocks( void) {
 
 	/* Set reguired changes for flash wait state and readmode */
 	flashcdw_set_flash_waitstate_and_readmode(INITD_CPU_F);
@@ -65,4 +65,4 @@ errorc_t init_driver_gpio( void) {
 }
 
 /*! @brief inits pwma, see pwma_config.h from ../config/. */
-extern errorc_t init_driver_pwma ( void);
+errorc_t init_driver_pwma ( void);

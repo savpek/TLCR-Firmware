@@ -40,12 +40,12 @@
 
 /* Include all test files */
 
-static void run_tests() {
-	
+static void run_tests() {	
 	RUN_TEST_GROUP(lcd_driver);
 	RUN_TEST_GROUP(str);
 	RUN_TEST_GROUP(print);
 	RUN_TEST_GROUP(read);
+	RUN_TEST_GROUP(ioapi);
 }
 
 int main (void) {
