@@ -26,16 +26,14 @@ void announceTestRun(int runNumber)
     UnityPrintNumber(runNumber+1);
     UnityPrint(" of ");
     UnityPrintNumber(UnityFixture.RepeatCount);
-    UNITY_OUTPUT_CHAR('\n');
-	UNITY_OUTPUT_CHAR('\r');
+    UNITY_PRINT_EOL;
 }
 
 int UnityMain(void (*runAllTests)())
 {
     UnityBegin();
     runAllTests();
-    UNITY_OUTPUT_CHAR('\n');
-	UNITY_OUTPUT_CHAR('\r');
+    UNITY_PRINT_EOL;
 	UnityEnd();
 
     return UnityFailureCount();
@@ -77,10 +75,9 @@ void UnityTestRunner(unityfunction* setup,
         Unity.TestFile = file;
         Unity.CurrentTestName = printableName;
         Unity.CurrentTestLineNumber = line;
-        if (!UnityFixture.Verbose)
-            UNITY_OUTPUT_CHAR('.');
-        else
-            UnityPrint(printableName);
+
+        UnityPrint(printableName);
+		UNITY_PRINT_EOL;
 
         Unity.NumberOfTests++;
         UnityMalloc_StartTest();

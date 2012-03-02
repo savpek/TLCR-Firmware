@@ -56,12 +56,13 @@ errorc_t init_driver_usart( void) {
 /*! @brief inits gpio (all ports from MCU), see gpio_config.h from ../config/. */
 errorc_t init_driver_gpio( void) {
 	//#if INITD_GPIO_PIN_COUNT >= 8
-	gpio_enable_module_pin(	0,		INITD_GPIO_PIN_0_F);
-	gpio_enable_module_pin(	1,		INITD_GPIO_PIN_1_F);
-	gpio_enable_module_pin(	2,		INITD_GPIO_PIN_2_F);
-	gpio_enable_module_pin(	3,		INITD_GPIO_PIN_3_F);
-	gpio_enable_module_pin(	4,		INITD_GPIO_PIN_4_F);
-	//#endif
+	gpio_enable_module_pin(	0,		INITD_GPIO_PA00_FUNCTION);
+	gpio_enable_module_pin(	1,		INITD_GPIO_PA01_FUNCTION);
+	gpio_enable_module_pin(	2,		INITD_GPIO_PA02_FUNCTION);
+	gpio_enable_module_pin(	3,		INITD_GPIO_PA03_FUNCTION);
+	
+	gpio_enable_module_pin(	8,		INITD_GPIO_PA08_FUNCTION);	
+	gpio_configure_pin(8, INITD_GPIO_PA08_CONFIG);
 }
 
 /*! @brief inits pwma, see pwma_config.h from ../config/. */

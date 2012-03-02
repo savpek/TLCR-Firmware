@@ -26,6 +26,7 @@
 #include "./driver/usart/public/usart.h"
 #include "./scriptapi/inc/scriptapi.h"
 #include "./driver/motor/inc/motor.h"
+#include "./ioapi/public/ioapi.h"
 
 /*
  * Here we define test framework!
@@ -47,19 +48,21 @@ static void run_tests() {
 	RUN_TEST_GROUP(ioapi);
 }
 
-int main (void) {
+int main(void)
+	{
+	
 	init_drivers();
 
 	usart_write_line("\n\r\n\r UNIT TEST RUN:\r\n");
 
-	UnityMain(run_tests);
-}
-
-#if 0
-
-int main(void)
-	{
-	mcu_init_clocks();
+	UnityMain(run_tests);	
+	
+//	init_drivers();
+	
+	//gpio_clr_gpio_pin(AVR32_PIN_PA08);
+//	ioapi_output_low(AVR32_PIN_PA08);
+	
+	//mcu_init_clocks();
 //	INTC_init_interrupts();
 
 	/* Set printing function for error libraries */
@@ -67,21 +70,19 @@ int main(void)
 //	delay_init(48000000);
 	//encoder_init_all();
 	//button_init_all();
-	flashmem_init();
+//	flashmem_init();
 
-	motion_init();
+//	motion_init();
 
 	/* Add terminal to FreeRTOS run list */
-	xTaskCreate(terminal_thread, "terminal", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);
+//	xTaskCreate(terminal_thread, "terminal", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);
 
 	/* LCD thread */
 	//xTaskCreate(lcd_thread, "lcd_thread", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);
 
 	/* Begin FreeRtos scheduling */
-	vTaskStartScheduler();
+//	vTaskStartScheduler();
 
 	/* If program reaches this point, FreeRtos have crashed, badly. */
 	while(1);
 	}
-
-#endif

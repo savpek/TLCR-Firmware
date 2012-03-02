@@ -7,7 +7,7 @@ static uint8_t get_port_idx(uint8_t pin) {
 	return pin>>5;
 }
 
-static uint8_t get_pin_bit_in_port(uint8_t pin) {
+static uint32_t get_pin_bit_in_port(uint8_t pin) {
 	return (1<<(pin & 0x1F));
 }
 
@@ -58,8 +58,8 @@ void ioapi_output_high( uint8_t pin_number )
 	gpio_set_pin_high(pin_number);
 
 	/* Check that driver is set correctly. */
-	ERRORH_ASSERT(ioapi_get_pin_info(pin_number) & IOAPI_GPIO_USED );
-	ERRORH_ASSERT(ioapi_get_pin_info(pin_number) & IOAPI_OUTPUT);
+	ERRORH_ASSERT( (ioapi_get_pin_info(pin_number) & IOAPI_GPIO_USED) != 0 );
+	ERRORH_ASSERT( (ioapi_get_pin_info(pin_number) & IOAPI_OUTPUT ) != 0);
 }
 
 void ioapi_output_low( uint8_t pin_number )
@@ -67,7 +67,7 @@ void ioapi_output_low( uint8_t pin_number )
 	gpio_set_pin_low(pin_number);
 
 	/* Check that driver is set correctly. */
-	ERRORH_ASSERT(ioapi_get_pin_info(pin_number) & IOAPI_GPIO_USED );
+	ERRORH_ASSERT( (ioapi_get_pin_info(pin_number) & IOAPI_GPIO_USED) != 0 );
 	ERRORH_ASSERT(ioapi_get_pin_info(pin_number) & IOAPI_OUTPUT);
 }
 

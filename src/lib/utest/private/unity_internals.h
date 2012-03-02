@@ -13,6 +13,7 @@
 #include "compiler.h"
 #include "./usart/public/usart.h"
 #define UNITY_OUTPUT_CHAR(a) usart_putchar(a)
+#define UNITY_PRINT_EOL       { UNITY_OUTPUT_CHAR('\r'); UNITY_OUTPUT_CHAR('\n'); }
 
 //-------------------------------------------------------
 // Int Support

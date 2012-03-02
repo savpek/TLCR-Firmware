@@ -12,11 +12,9 @@
 
 #include "./print/public/print.h"
 
-void (*putchar_storage)(char) = NULL;
-
 /*! You must change output streams during tests because you need same
  *	output driver for unity error messages! */
-#define SET_DEFAULT_OUTPUT() usart_putchar = putchar_storage;
+#define SET_DEFAULT_OUTPUT() usart_putchar = spy_usart_putchar_safe;
 #define SET_SPY_OUTPUT()	 usart_putchar = spy_usart_putchar;
 
 /*! @brief Set-up test group for: str
@@ -26,7 +24,9 @@ TEST_GROUP(print);
 /*! @brief Group setup function..
  *	@param Group name */
 TEST_SETUP(print) {
-	putchar_storage = usart_putchar;
+	if(spy_usart_putchar_safe == NULL)
+		spy_usart_putchar_safe = usart_putchar;
+		
 	usart_putchar = spy_usart_putchar;
 	spy_usart_reset_tx();
 }
@@ -34,7 +34,7 @@ TEST_SETUP(print) {
 /*! @brief Group teardown function..
  *	@param Group name */
 TEST_TEAR_DOWN(print) {
-	usart_putchar =	putchar_storage;
+	usart_putchar =	spy_usart_putchar_safe;
 }
 
 /*! @brief Test print_char function from api.
@@ -109,6 +109,7 @@ TEST(print, test_print_hex8) {
 	print_hex8(100);
 	SET_DEFAULT_OUTPUT();
 	TEST_ASSERT_EQUAL_STRING("0x64", spy_usart_buffer_tx);
+
 }
 
 /*! @brief Test print_hex32
@@ -143,7 +144,7 @@ TEST(print, test_print_dec) {
 	print_dec(0);
 	SET_DEFAULT_OUTPUT();
 	TEST_ASSERT_EQUAL_STRING("0", spy_usart_buffer_tx);
-	
+
 	SET_SPY_OUTPUT();
 	spy_usart_reset_tx();
 	print_dec(500);
