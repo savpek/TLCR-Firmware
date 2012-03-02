@@ -11,9 +11,9 @@
 #include "./gpio/public/gpio.h"
 
 /* Internal */
-#include "./api/flashmem/inc/flashmem.h"
-#include "./api/flashmem/config/flashmem_config.h"
-#include "./api/mcu/inc/mcu.h"
+#include "./flashmem/inc/flashmem.h"
+#include "./flashmem/config/flashmem_config.h"
+#include "./mcu/inc/mcu.h"
 
 /* TLCR lib */
 #include "./errorh/inc/errorh.h"

@@ -7,7 +7,7 @@
 
 #include "compiler.h"
 #include "./app/terminal/config/terminal_program_list.h"
-#include "./api/terminalapi/inc/terminalapi.h"
+#include "./terminalapi/inc/terminalapi.h"
 
 /*!! Array of runnable programs, you must define function
  *	 pointer and command string that calls function from terminal !*/

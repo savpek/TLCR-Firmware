@@ -8,9 +8,9 @@
 #include "compiler.h"
 
 #include "./errorh/inc/errorh.h"
-#include "./api/storage/inc/storage.h"
-#include "./api/scriptapi/inc/scriptapi.h"
-#include "./api/scriptapi/config/scriptapi_config.h"
+#include "./storage/inc/storage.h"
+#include "./scriptapi/inc/scriptapi.h"
+#include "./scriptapi/config/scriptapi_config.h"
 
 /* This function inits values to handle you use. MUST BE CALLED BEFORE YOU USE HANDLE! */
 errorc_t scriptapi_init_handle(scriptapi_t *handle, uint32_t script_id)

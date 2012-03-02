@@ -10,7 +10,7 @@
  */
 
 #include "compiler.h"
-#include "./api/terminalapi/inc/terminalapi.h"
+#include "./terminalapi/inc/terminalapi.h"
 #include "./app/terminal/config/terminal_program_list.h"
 #include "./config/FreeRTOSConfig.h"
 #include "FreeRTOS.h"

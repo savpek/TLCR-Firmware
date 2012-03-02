@@ -8,10 +8,10 @@
 #include "compiler.h"
 
 #include "./errorh/inc/errorh.h"
-#include "./api/flashmem/inc/flashmem.h"
+#include "./flashmem/inc/flashmem.h"
 
-#include "./api/storage/config/storage_config.h"
-#include "./api/storage/inc/storage.h"
+#include "./storage/config/storage_config.h"
+#include "./storage/inc/storage.h"
 
 inline static uint32_t s_true_addr(uint32_t segment_id, uint32_t address)
 	{

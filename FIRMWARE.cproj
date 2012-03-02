@@ -362,15 +362,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="src\api\flashmem\config\flashmem_config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\api\flashmem\flashmem.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\api\flashmem\inc\flashmem.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\api\ioapi\ioapi.c">
       <SubType>compile</SubType>
     </Compile>
@@ -662,6 +653,15 @@
     <Compile Include="src\config\FreeRTOSConfig.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\driver\flashmem\config\flashmem_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\flashmem\flashmem.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\driver\flashmem\inc\flashmem.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\driver\gpio\gpio.c">
       <SubType>compile</SubType>
     </Compile>
@@ -780,14 +780,14 @@
     <Folder Include="src\app\init_drivers\private\" />
     <Folder Include="src\app\init_drivers\public\" />
     <Folder Include="src\asf\common\services\" />
+    <Folder Include="src\driver\flashmem\" />
+    <Folder Include="src\driver\flashmem\config\" />
+    <Folder Include="src\driver\flashmem\inc\" />
     <Folder Include="src\driver\gpio\" />
     <Folder Include="src\driver\gpio\public" />
     <Folder Include="src\driver\lcd_driver\config" />
     <Folder Include="src\driver\lcd_driver\spy" />
     <Folder Include="src\" />
-    <Folder Include="src\api\flashmem" />
-    <Folder Include="src\api\flashmem\inc" />
-    <Folder Include="src\api\flashmem\config" />
     <Folder Include="src\api\motion\" />
     <Folder Include="src\api\motion\config\" />
     <Folder Include="src\api\motion\inc\" />

@@ -15,8 +15,8 @@
 
 #include "compiler.h"
 #include "./errorh/inc/errorh.h"
-#include "./api/storage/config/storage_config.h"
-#include "./api/flashmem/inc/flashmem.h"
+#include "./storage/config/storage_config.h"
+#include "./flashmem/inc/flashmem.h"
 
 /* Inits SPI transmission between MCU and FLASH chip */
 inline void storage_init(void)

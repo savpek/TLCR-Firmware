@@ -10,7 +10,7 @@
 #define SCRIPTAPI_H_
 
 #include "compiler.h"
-#include "./api/scriptapi/config/scriptapi_config.h"
+#include "./scriptapi/config/scriptapi_config.h"
 
 /* These are command codes, saved in flashmemory. */
 typedef enum {

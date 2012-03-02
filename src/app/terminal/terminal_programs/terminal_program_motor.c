@@ -9,7 +9,7 @@
 
 /* Terminal internal */
 #include "./app/terminal/config/terminal_program_list.h"
-#include "./api/terminalapi/inc/terminalapi.h"
+#include "./terminalapi/inc/terminalapi.h"
 
 #include "./driver/motor/inc/motor.h"
 

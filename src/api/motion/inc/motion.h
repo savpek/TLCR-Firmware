@@ -11,7 +11,7 @@
 #define MOTION_H_
 
 #include "compiler.h"
-#include "./api/motion/config/motion_config.h"
+#include "./motion/config/motion_config.h"
 #include "./errorh/inc/errorh.h"
 
 typedef enum

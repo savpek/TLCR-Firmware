@@ -6,8 +6,8 @@
  */ 
 
 #include "compiler.h"
-#include "./api/terminalapi/inc/terminalapi.h"
-#include "./api/terminalapi/config/terminalapi_config.h"
+#include "./terminalapi/inc/terminalapi.h"
+#include "./terminalapi/config/terminalapi_config.h"
 
 /* Init terminal api, this must be called before any terminal api functions are used! */
 void terminalapi_init()

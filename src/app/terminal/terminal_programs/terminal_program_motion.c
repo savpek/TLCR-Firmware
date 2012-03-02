@@ -7,9 +7,9 @@
 
 /* Terminal internal */
 #include "./app/terminal/config/terminal_program_list.h"
-#include "./api/terminalapi/inc/terminalapi.h"
+#include "./terminalapi/inc/terminalapi.h"
 
-#include "./api/motion/inc/motion.h"
+#include "./motion/inc/motion.h"
 
 void terminal_program_rotate(terminalapi_cmd_t *cmd_struct)
 	{

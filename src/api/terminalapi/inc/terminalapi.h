@@ -13,7 +13,7 @@
 #include "./str/public/str.h"
 #include "./errorh/inc/errorh.h"
 
-#include "./api/terminalapi/config/terminalapi_config.h"
+#include "./terminalapi/config/terminalapi_config.h"
 
 /* Print functions */
 void (*terminalapi_print)(char *string);

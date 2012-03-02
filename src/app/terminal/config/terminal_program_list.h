@@ -10,7 +10,7 @@
 #define SUBPROG_H_
 
 #include "./errorh/inc/errorh.h"
-#include "./api/terminalapi/inc/terminalapi.h"
+#include "./terminalapi/inc/terminalapi.h"
 
 /*!! Undefine these if you dont want include subprogram to current build. !!*/
 /* Scripting programs */

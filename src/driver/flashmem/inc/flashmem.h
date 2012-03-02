@@ -10,7 +10,7 @@
 #define FLASHMEM_H_
 
 #include "compiler.h"
-#include "./api/flashmem/config/flashmem_config.h"
+#include "./flashmem/config/flashmem_config.h"
 #include "./errorh/inc/errorh.h"
 
 /* This function inits currently used flash IC and MCU IO */

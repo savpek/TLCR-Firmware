@@ -12,13 +12,13 @@
 
 /* Terminal internal */
 #include "./app/terminal/config/terminal_program_list.h"
-#include "./api/terminalapi/inc/terminalapi.h"
+#include "./terminalapi/inc/terminalapi.h"
 
-#include "./api/scriptapi/inc/scriptapi.h"
+#include "./scriptapi/inc/scriptapi.h"
 #include "./driver/usart/public/usart.h"
 #include "./str/public/str.h"
-#include "./api/motion/inc/motion.h"
-#include "./api/storage/inc/storage.h"
+#include "./motion/inc/motion.h"
+#include "./storage/inc/storage.h"
 
 typedef struct
 	{

@@ -7,8 +7,8 @@
 
 #include "compiler.h"
 
-#include "./api/motion/inc/motion.h"
-#include "./api/motion/config/motion_config.h"
+#include "./motion/inc/motion.h"
+#include "./motion/config/motion_config.h"
 #include "./driver/motor/inc/motor.h"
 
 volatile motor_t l_motors[2] =

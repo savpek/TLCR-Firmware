@@ -12,7 +12,7 @@
 #include "compiler.h"
 #include "./errorh/inc/errorh.h"
 
-#include "./api/scriptapi/inc/scriptapi.h"
+#include "./scriptapi/inc/scriptapi.h"
 
 /* Thread which runs all applications */
 extern void scriptrun_thread(void *args);
