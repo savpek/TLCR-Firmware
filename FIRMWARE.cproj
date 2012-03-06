@@ -368,6 +368,12 @@
     <Compile Include="src\api\ioapi\public\ioapi.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\api\ioapi\spy\spy_ioapi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\api\ioapi\spy\spy_ioapi.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\api\ioapi\test\test_ioapi.c">
       <SubType>compile</SubType>
     </Compile>
@@ -447,6 +453,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\app\init_drivers\init_drivers_private.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\app\init_drivers\init_gpio.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\app\init_drivers\private\init_drivers_private.h">
@@ -689,6 +698,9 @@
     <Compile Include="src\driver\lcd_driver\spy_lcd_driver.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\driver\lcd_driver\test\test_lcd_cmd_write.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\driver\lcd_driver\test\test_lcd_driver.c">
       <SubType>compile</SubType>
     </Compile>
@@ -764,8 +776,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\api\ioapi" />
+    <Folder Include="src\api\ioapi\spy" />
     <Folder Include="src\api\ioapi\test" />
     <Folder Include="src\api\ioapi\public" />
+    <Folder Include="src\api\delay" />
     <Folder Include="src\api\print\config" />
     <Folder Include="src\api\print\private" />
     <Folder Include="src\api\print\test" />

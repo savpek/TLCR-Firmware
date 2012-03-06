@@ -52,18 +52,18 @@ int main(void)
 	{
 	
 	init_drivers();
-
+		
 	usart_write_line("\n\r\n\r UNIT TEST RUN:\r\n");
 
 	UnityMain(run_tests);	
 	
-//	init_drivers();
+	init_drivers();
 	
 	//gpio_clr_gpio_pin(AVR32_PIN_PA08);
-//	ioapi_output_low(AVR32_PIN_PA08);
+	ioapi_output_low(AVR32_PIN_PA08);
 	
 	//mcu_init_clocks();
-//	INTC_init_interrupts();
+	INTC_init_interrupts();
 
 	/* Set printing function for error libraries */
 	ERRORH_SET_PRINT_HANDLER(usart_write_line);
@@ -75,13 +75,13 @@ int main(void)
 //	motion_init();
 
 	/* Add terminal to FreeRTOS run list */
-//	xTaskCreate(terminal_thread, "terminal", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);
+	xTaskCreate(terminal_thread, "terminal", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);
 
 	/* LCD thread */
 	//xTaskCreate(lcd_thread, "lcd_thread", 1000, NULL, FREERTOS_PRIORITY_NORMAL, NULL);
 
 	/* Begin FreeRtos scheduling */
-//	vTaskStartScheduler();
+	vTaskStartScheduler();
 
 	/* If program reaches this point, FreeRtos have crashed, badly. */
 	while(1);

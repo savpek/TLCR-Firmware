@@ -53,17 +53,5 @@ errorc_t init_driver_usart( void) {
 	usart_init_rs232(INITD_USART_POINTER, &usart_settings, INITD_PBA_F);
 }
 
-/*! @brief inits gpio (all ports from MCU), see gpio_config.h from ../config/. */
-errorc_t init_driver_gpio( void) {
-	//#if INITD_GPIO_PIN_COUNT >= 8
-	gpio_enable_module_pin(	0,		INITD_GPIO_PA00_FUNCTION);
-	gpio_enable_module_pin(	1,		INITD_GPIO_PA01_FUNCTION);
-	gpio_enable_module_pin(	2,		INITD_GPIO_PA02_FUNCTION);
-	gpio_enable_module_pin(	3,		INITD_GPIO_PA03_FUNCTION);
-	
-	gpio_enable_module_pin(	8,		INITD_GPIO_PA08_FUNCTION);	
-	gpio_configure_pin(8, INITD_GPIO_PA08_CONFIG);
-}
-
 /*! @brief inits pwma, see pwma_config.h from ../config/. */
 errorc_t init_driver_pwma ( void);

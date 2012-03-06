@@ -16,8 +16,6 @@
 lcd_drv_t test_lcd_settings = {
 };
 
-void testi ( uint32_t jorma ){}
-
 /*! @brief Set-up test group for: lcd_driver()
  *	@param Group name */
 TEST_GROUP(lcd_driver);
@@ -29,7 +27,7 @@ void (*store_lcd_driver_write_cmd)(uint32_t) = NULL;
 /*! @brief Group setup function..
  *	@param Group name */
 TEST_SETUP(lcd_driver) {
-	/* We need gpio_ spy functions: */
+	/* We need ioapi_ spy functions: */
 
 	/* We need lcd_driver spy: */
 	store_lcd_driver_write_cmd = lcd_driver_write_cmd;
@@ -48,8 +46,6 @@ TEST_TEAR_DOWN(lcd_driver) {
  *	@param Test name */
 TEST(lcd_driver, init) {
 	lcd_driver_init();
-
-	/* Test that GPIO is set up correctly. */
 
 	/* Init 4 bit interface */
 	TEST_ASSERT_EQUAL_HEX32((1<<LCD_D_DB5)|(1<<LCD_D_DB4)|(1<<LCD_D_DB1)|(1<<LCD_D_DB0), spy_read_lcd_driver_send_cmd(0));
