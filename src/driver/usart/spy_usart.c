@@ -24,7 +24,7 @@ void spy_usart_putchar(char a) {
 
 	buffer_idx_tx++;
 }
-void (*spy_usart_putchar_safe)(char a) = NULL;
+void (*backup_usart_putchar)(char a) = NULL;
 
 void spy_usart_reset_tx( void ) {
 	spy_usart_buffer_tx[0] = '\0';
@@ -47,7 +47,7 @@ char spy_usart_read_char ( void) {
 	}
 	return '\0';
 }
-char (*spy_usart_read_char_safe)(void) = NULL;
+char (*backup_usart_read_char)(void) = NULL;
 
 errorc_t spy_usart_try_read_char( char *c) {
 	if (buffer_idx_rx > 0) {
@@ -58,4 +58,4 @@ errorc_t spy_usart_try_read_char( char *c) {
 	*c = '\0';
 	return EC_USART_RX_EMPTY;
 }
-errorc_t (*spy_usart_try_read_char_safe)( char *c) = NULL;
+errorc_t (*backup_usart_try_read_char)( char *c) = NULL;

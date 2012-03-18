@@ -10,7 +10,6 @@
 
 #include "./utest/private/unity.h"
 #include "./utest/private/unity_internals.h"
-#include "./utest/private/unity_fixture_malloc_overrides.h"
 #include "./utest/private/unity_fixture_internals.h"
 
 int UnityMain(void (*runAllTests)());

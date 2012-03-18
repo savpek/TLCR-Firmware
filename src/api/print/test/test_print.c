@@ -14,7 +14,7 @@
 
 /*! You must change output streams during tests because you need same
  *	output driver for unity error messages! */
-#define SET_DEFAULT_OUTPUT() usart_putchar = spy_usart_putchar_safe;
+#define SET_DEFAULT_OUTPUT() usart_putchar = backup_usart_putchar;
 #define SET_SPY_OUTPUT()	 usart_putchar = spy_usart_putchar;
 
 /*! @brief Set-up test group for: str
@@ -24,8 +24,8 @@ TEST_GROUP(print);
 /*! @brief Group setup function..
  *	@param Group name */
 TEST_SETUP(print) {
-	if(spy_usart_putchar_safe == NULL)
-		spy_usart_putchar_safe = usart_putchar;
+	if(backup_usart_putchar == NULL)
+		backup_usart_putchar = usart_putchar;
 		
 	usart_putchar = spy_usart_putchar;
 	spy_usart_reset_tx();
@@ -34,7 +34,7 @@ TEST_SETUP(print) {
 /*! @brief Group teardown function..
  *	@param Group name */
 TEST_TEAR_DOWN(print) {
-	usart_putchar =	spy_usart_putchar_safe;
+	usart_putchar =	backup_usart_putchar;
 }
 
 /*! @brief Test print_char function from api.
@@ -45,12 +45,9 @@ TEST(print, test_print_char) {
 
 	SET_SPY_OUTPUT();
 	print_char('b');
-	SET_DEFAULT_OUTPUT();
-	TEST_ASSERT_EQUAL_HEX8('b', spy_usart_buffer_tx[0]);
-
-	SET_SPY_OUTPUT();
 	print_char('c');
 	SET_DEFAULT_OUTPUT();
+	TEST_ASSERT_EQUAL_HEX8('b', spy_usart_buffer_tx[0]);
 	TEST_ASSERT_EQUAL_HEX8('c', spy_usart_buffer_tx[1]);
 }
 

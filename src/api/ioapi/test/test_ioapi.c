@@ -29,22 +29,22 @@ TEST_TEAR_DOWN(ioapi) {
  *	@param Group name
  *	@param Test name */
 TEST(ioapi, test_ioapi_output_high) {
-	gpio_configure_pin(AVR32_PIN_PA22, GPIO_DIR_OUTPUT);
-	ioapi_output_high(AVR32_PIN_PA22);
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_GPIO_USED );
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_OUTPUT);
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_OUT_HIGH);
+	gpio_configure_pin(AVR32_PIN_PA19, GPIO_DIR_OUTPUT);
+	ioapi_output_high(AVR32_PIN_PA19);
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_GPIO_USED );
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_OUTPUT);
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_OUT_HIGH);
 }
 
 /*! @brief Test ioapi_output_low
  *	@param Group name
  *	@param Test name */
 TEST(ioapi, test_ioapi_output_low) {
-	gpio_configure_pin(AVR32_PIN_PA22, GPIO_DIR_OUTPUT);
-	ioapi_output_low(AVR32_PIN_PA22);
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_GPIO_USED );
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_OUTPUT );
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_OUT_LOW );
+	gpio_configure_pin(AVR32_PIN_PA19, GPIO_DIR_OUTPUT);
+	ioapi_output_low(AVR32_PIN_PA19);
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_GPIO_USED );
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_OUTPUT );
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_OUT_LOW );
 }
 
 /*! @brief Test ioapi_input_value
@@ -53,24 +53,24 @@ TEST(ioapi, test_ioapi_output_low) {
 TEST(ioapi, test_ioapi_input_value) {
 	/* Cannot truly test this functionality, because register values
 	 * depends HW. */
-	gpio_configure_pin(AVR32_PIN_PA22, GPIO_DIR_INPUT);
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_GPIO_USED );
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_INPUT);
+	gpio_configure_pin(AVR32_PIN_PA19, GPIO_DIR_INPUT);
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_GPIO_USED );
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_INPUT);
 }
 
 /*! @brief Test get pin info functionality.
  *	@param Group name
  *	@param Test name */
 TEST(ioapi, test_ioapi_get_pin_info) {
-	gpio_configure_pin(AVR32_PIN_PA22, GPIO_DIR_OUTPUT);
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_GPIO_USED );
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_OUTPUT );
+	gpio_configure_pin(AVR32_PIN_PA19, GPIO_DIR_OUTPUT);
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_GPIO_USED );
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_OUTPUT );
 
-	gpio_configure_pin(AVR32_PIN_PA22, GPIO_DIR_INPUT);
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_INPUT );
+	gpio_configure_pin(AVR32_PIN_PA19, GPIO_DIR_INPUT);
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_INPUT );
 
-	gpio_configure_pin(AVR32_PIN_PA22, GPIO_DIR_INPUT|GPIO_PULL_UP );
-	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA22) & IOAPI_PULL_UP );
+	gpio_configure_pin(AVR32_PIN_PA19, GPIO_DIR_INPUT|GPIO_PULL_UP );
+	TEST_ASSERT(ioapi_get_pin_info(AVR32_PIN_PA19) & IOAPI_PULL_UP );
 }
 
 /*	@brief Set up all runnable tests from this module.

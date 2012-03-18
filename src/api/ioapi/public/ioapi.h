@@ -12,19 +12,23 @@
 #include "compiler.h"
 #include "errorh/inc/errorh.h"
 
+/*!  Include file which contains logigal names for IO pins. 
+ *	 IO pins shoulde be in format: IOPIN_...*/
+#include "./init_drivers/config/gpio_config.h"
+
 /*! @brief Set defined pin to high state. Pin must be initialized correctly beforehand.
  *
  *	@param uint8_t pin_number
  *
  * 	@return void */
-extern void ioapi_output_high( uint8_t pin_number );
+extern void (*ioapi_output_high)( uint8_t pin_number );
 
 /*! @brief Set defined pin output low. Pin must be initialized correctly beforehand.
  *
  *	@param uint8_t pin_number
  *
  * 	@return extern void: */
-extern void ioapi_output_low( uint8_t pin_number );
+extern void (*ioapi_output_low)( uint8_t pin_number );
 
 
 /*! @brief Get pin current input value. Pin must be initialized correctly beforehand.

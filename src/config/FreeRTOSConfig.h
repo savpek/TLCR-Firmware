@@ -46,7 +46,7 @@
 #ifndef FREERTOS_CONFIG_H
 #define FREERTOS_CONFIG_H
 
-#include "./mcu/inc/mcu.h"
+#include "./init_drivers/config/clocks_config.h"
 
 /*-----------------------------------------------------------
  * Application specific definitions.
@@ -68,8 +68,8 @@
 #define configUSE_PREEMPTION      1
 #define configUSE_IDLE_HOOK       0
 #define configUSE_TICK_HOOK       0
-#define configCPU_CLOCK_HZ        MCU_CPU_F
-#define configPBA_CLOCK_HZ		  MCU_PBA_F
+#define configCPU_CLOCK_HZ        INITD_CPU_F
+#define configPBA_CLOCK_HZ		  INITD_PBA_F
 #define configTICK_RATE_HZ        ( ( portTickType ) 200 )
 #define configMAX_PRIORITIES      ( ( unsigned portBASE_TYPE ) 3 )
 #define configMINIMAL_STACK_SIZE  ( ( unsigned portSHORT ) 256 )

@@ -27,12 +27,12 @@ TEST_GROUP(read);
  * for output stream. Needed to check read_line echo. */
 static set_tx_spy() {
 	spy_usart_reset_tx();
-	spy_usart_putchar_safe = usart_putchar;
+	backup_usart_putchar = usart_putchar;
 	usart_putchar = spy_usart_putchar;
 }
 
 static unset_tx_spy() {
-	usart_putchar = spy_usart_putchar_safe;
+	usart_putchar = backup_usart_putchar;
 }
 
 /*! @brief Group setup function..

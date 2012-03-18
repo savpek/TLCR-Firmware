@@ -16,9 +16,6 @@
 #include "./driver/motor/inc/motor.h"
 #include "./driver/motor/config/motor_config.h"
 
-/* TLCR API */
-#include "./mcu/inc/mcu.h"
-
 /* Array of pointers to motor_t struct */
 volatile uint32_t step_counter = 0;
 volatile motor_t *motor[MOTOR_MAX_COUNT+1] = {0};

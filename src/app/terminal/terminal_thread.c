@@ -18,7 +18,7 @@
 
 /*@ Thread for terminal. This parses terminal commands and drive sub-programs
  * under terminal when needed. */
-extern void terminal_thread(void* arguments)
+void terminal_thread(void* arguments)
 	{
 	/* First init TERMINALAPI transmission functions */
 	terminalapi_init();

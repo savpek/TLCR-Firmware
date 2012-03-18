@@ -13,7 +13,7 @@
 /* Internal */
 #include "./flashmem/inc/flashmem.h"
 #include "./flashmem/config/flashmem_config.h"
-#include "./mcu/inc/mcu.h"
+#include "./init_drivers/config/clocks_config.h"
 
 /* TLCR lib */
 #include "./errorh/inc/errorh.h"
@@ -194,7 +194,7 @@ void flashmem_init(void)
 	/* Enable SPI. */
 	spi_enable(FLASHMEM_SPI);
 
-	spi_setupChipReg(FLASHMEM_SPI, &spiOptions, MCU_PBA_F);
+	spi_setupChipReg(FLASHMEM_SPI, &spiOptions, INITD_PBA_F);
 
 	/* If debug is enabled, we print error message if IC isn't responding. */
 	#ifdef FLASHMEM_DEBUG

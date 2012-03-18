@@ -69,7 +69,8 @@ SECTIONS
   __max_heap_size__ = -1;
 
   /* Use a default heap size if heap size was not defined. */
-  __heap_size__ = DEFINED(__heap_size__) ? __heap_size__ : __max_heap_size__;
+  //__heap_size__ = DEFINED(__heap_size__) ? __heap_size__ : __max_heap_size__;
+  __heap_size__ = 0;
 
   /* Use a default stack size if stack size was not defined. */
   __stack_size__ = DEFINED(__stack_size__) ? __stack_size__ : 4K;

@@ -30,5 +30,4 @@ void lcd_driver_display_on() {
 
 void lcd_driver_display_off() {
 	lcd_driver_write_cmd(LCD_D_SET_OFF);
-	return;
 }

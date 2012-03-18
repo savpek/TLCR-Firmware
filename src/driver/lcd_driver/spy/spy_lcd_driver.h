@@ -11,7 +11,9 @@
 
 #include "compiler.h"
 
-extern void spy_lcd_driver_send_cmd(uint32_t cmd_input);
-void spy_lcd_driver_cmd_buffer_reset(void);
-uint32_t spy_read_lcd_driver_send_cmd(uint8_t idx);
+extern void spy_lcd_driver_write_cmd(uint32_t cmd_input);
+extern void (*backup_lcd_driver_write_cmd)(uint32_t);
+extern void spy_lcd_driver_cmd_buffer_reset(void);
+extern uint32_t spy_read_lcd_driver_cmd(uint8_t idx);
+
 #endif /* INCFILE1_H_ */

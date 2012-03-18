@@ -47,7 +47,7 @@ uint32_t ioapi_get_pin_info( const uint8_t pin_number ) {
 	return return_flags;
 }
 
-void ioapi_output_high( uint8_t pin_number )
+void ioapi_output_high_body( uint8_t pin_number )
 {
 	/*	There are functions in GPIO driver which automatically
 	 *	init ports when they are used. However, they open risk that
@@ -61,8 +61,9 @@ void ioapi_output_high( uint8_t pin_number )
 	ERRORH_ASSERT( (ioapi_get_pin_info(pin_number) & IOAPI_GPIO_USED) != 0 );
 	ERRORH_ASSERT( (ioapi_get_pin_info(pin_number) & IOAPI_OUTPUT ) != 0);
 }
+void (*ioapi_output_high)(uint8_t) = ioapi_output_high_body;
 
-void ioapi_output_low( uint8_t pin_number )
+void ioapi_output_low_body( uint8_t pin_number )
 {
 	gpio_set_pin_low(pin_number);
 
@@ -70,6 +71,7 @@ void ioapi_output_low( uint8_t pin_number )
 	ERRORH_ASSERT( (ioapi_get_pin_info(pin_number) & IOAPI_GPIO_USED) != 0 );
 	ERRORH_ASSERT(ioapi_get_pin_info(pin_number) & IOAPI_OUTPUT);
 }
+void (*ioapi_output_low)(uint8_t) = ioapi_output_low_body;
 
 errorc_t ioapi_input_value( uint8_t pin_number )
 {

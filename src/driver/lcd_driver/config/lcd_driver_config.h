@@ -43,7 +43,7 @@
 
 /*! Command to write data to ram.
  *	Usage: LCD_D_SEND_DATA_MASK & DATA_TO_WRITE .*/
-#define LCD_D_SEND_DATA_MASK (1<<LCD_D_RS) |
+#define LCD_D_SEND_CHAR_MASK (1<<LCD_D_RS)
 
 /*! Command to set addres in RAM.
  *	Usage: LCD_D_SEND_ADDR_MASK | (ADDRES_TO_WRITE_NEXT_TIME & LCD_D_SEND_DDRAM_ADDR_MASK). */
@@ -54,6 +54,5 @@
  *	Usage: LCD_D_SEND_GRAM_ADDR_MASK & (ADDRES_TO_WRITE_NEXT_TIME & LCD_D_SEND_CGRAM_ADDR_MASK).*/
 #define LCD_D_SEND_CGRAM_ADDR_CMD (1<<LCD_DB7)
 #define LCD_D_SEND_CGRAM_ADDR_MASK (0x7F) /* Accept 7 addr bits, ignore rest. */
-
 
 #endif /* LCD_DRIVER_CONFIG_H_ */

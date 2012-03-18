@@ -263,106 +263,105 @@
     <OutputFileExtension>.elf</OutputFileExtension>
     <ToolchainSettings>
       <Avr32Gcc>
-  <avr32gcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>BOARD=UC3_L0_XPLAINED</Value>
-    </ListValues>
-  </avr32gcc.compiler.symbols.DefSymbols>
-  <avr32gcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/asf/avr32/boards</Value>
-      <Value>../src/asf/avr32/boards/uc3_l0_xplained</Value>
-      <Value>../src/asf/avr32/drivers/flashcdw</Value>
-      <Value>../src/asf/avr32/drivers/intc</Value>
-      <Value>../src/asf/avr32/drivers/pm</Value>
-      <Value>../src/asf/avr32/drivers/scif</Value>
-      <Value>../src/asf/avr32/utils</Value>
-      <Value>../src/asf/avr32/utils/preprocessor</Value>
-      <Value>../src/asf/common/utils</Value>
-      <Value>../src/config</Value>
-      <Value>../src/asf/avr32/drivers/spi</Value>
-      <Value>../src/asf/avr32/drivers/cpu/cycle_counter</Value>
-      <Value>../src/asf/avr32/services/delay</Value>
-      <Value>../src/asf/avr32/drivers/tc</Value>
-      <Value>../src/asf/thirdparty/freertos/source/include</Value>
-      <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
-      <Value>../src/asf/avr32/drivers/pwma</Value>
-      <Value>../src/asf/avr32/drivers/eic</Value>
-      <Value>../src/lib</Value>
-      <Value>../src/driver</Value>
-      <Value>../src/app</Value>
-      <Value>../src/api</Value>
-    </ListValues>
-  </avr32gcc.compiler.directories.IncludePaths>
-  <avr32gcc.compiler.optimization.OtherFlags>-fdata-sections</avr32gcc.compiler.optimization.OtherFlags>
-  <avr32gcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avr32gcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
-  <avr32gcc.compiler.optimization.DebugLevel>Maximum (-g3)</avr32gcc.compiler.optimization.DebugLevel>
-  <avr32gcc.compiler.warnings.AllWarnings>True</avr32gcc.compiler.warnings.AllWarnings>
-  <avr32gcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avr32gcc.compiler.miscellaneous.OtherFlags>
-  <avr32gcc.compiler.miscellaneous.Verbose>True</avr32gcc.compiler.miscellaneous.Verbose>
-  <avr32gcc.linker.general.DoNotUseStandardStartFiles>True</avr32gcc.linker.general.DoNotUseStandardStartFiles>
-  <avr32gcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>m</Value>
-    </ListValues>
-  </avr32gcc.linker.libraries.Libraries>
-  <avr32gcc.linker.optimization.GarbageCollectUnusedSections>True</avr32gcc.linker.optimization.GarbageCollectUnusedSections>
-  <avr32gcc.linker.miscellaneous.LinkerFlags>-T../src/asf/avr32/utils/linker_scripts/at32uc3l/064/gcc/link_uc3l064.lds -Wl,--relax -Wl,-e,_trampoline</avr32gcc.linker.miscellaneous.LinkerFlags>
-  <avr32gcc.assembler.general.AssemblerFlags>-mrelax</avr32gcc.assembler.general.AssemblerFlags>
-  <avr32gcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/asf/avr32/boards</Value>
-      <Value>../src/asf/avr32/boards/uc3_l0_xplained</Value>
-      <Value>../src/asf/avr32/drivers/flashcdw</Value>
-      <Value>../src/asf/avr32/drivers/intc</Value>
-      <Value>../src/asf/avr32/drivers/pm</Value>
-      <Value>../src/asf/avr32/drivers/scif</Value>
-      <Value>../src/asf/avr32/utils</Value>
-      <Value>../src/asf/avr32/utils/preprocessor</Value>
-      <Value>../src/asf/common/utils</Value>
-      <Value>../src/config</Value>
-      <Value>../src/asf/avr32/drivers/spi</Value>
-      <Value>../src/asf/avr32/drivers/cpu/cycle_counter</Value>
-      <Value>../src/asf/avr32/services/delay</Value>
-      <Value>../src/asf/avr32/drivers/tc</Value>
-      <Value>../src/asf/thirdparty/freertos/source/include</Value>
-      <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
-      <Value>../src/asf/avr32/drivers/eic</Value>
-    </ListValues>
-  </avr32gcc.assembler.general.IncludePaths>
-  <avr32gcc.assembler.debugging.DebugLevel>Maximum (-g3)</avr32gcc.assembler.debugging.DebugLevel>
-  <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
-  <avr32gcc.preprocessingassembler.general.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/asf/avr32/boards</Value>
-      <Value>../src/asf/avr32/boards/uc3_l0_xplained</Value>
-      <Value>../src/asf/avr32/drivers/flashcdw</Value>
-      <Value>../src/asf/avr32/drivers/intc</Value>
-      <Value>../src/asf/avr32/drivers/pm</Value>
-      <Value>../src/asf/avr32/drivers/scif</Value>
-      <Value>../src/asf/avr32/utils</Value>
-      <Value>../src/asf/avr32/utils/preprocessor</Value>
-      <Value>../src/asf/common/utils</Value>
-      <Value>../src/config</Value>
-      <Value>../src/freertos</Value>
-      <Value>../src/asf/avr32/drivers/spi</Value>
-      <Value>../src/asf/avr32/drivers/cpu/cycle_counter</Value>
-      <Value>../src/asf/avr32/services/delay</Value>
-      <Value>../src/asf/avr32/drivers/tc</Value>
-      <Value>../src/asf/thirdparty/freertos/source/include</Value>
-      <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
-      <Value>../src/asf/avr32/drivers/eic</Value>
-    </ListValues>
-  </avr32gcc.preprocessingassembler.general.IncludePaths>
-  <avr32gcc.preprocessingassembler.debugging.DebugLevel>Maximum (-g3)</avr32gcc.preprocessingassembler.debugging.DebugLevel>
-</Avr32Gcc>
+        <avr32gcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>BOARD=UC3_L0_XPLAINED</Value>
+          </ListValues>
+        </avr32gcc.compiler.symbols.DefSymbols>
+        <avr32gcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/asf/avr32/boards</Value>
+            <Value>../src/asf/avr32/boards/uc3_l0_xplained</Value>
+            <Value>../src/asf/avr32/drivers/flashcdw</Value>
+            <Value>../src/asf/avr32/drivers/intc</Value>
+            <Value>../src/asf/avr32/drivers/pm</Value>
+            <Value>../src/asf/avr32/drivers/scif</Value>
+            <Value>../src/asf/avr32/utils</Value>
+            <Value>../src/asf/avr32/utils/preprocessor</Value>
+            <Value>../src/asf/common/utils</Value>
+            <Value>../src/config</Value>
+            <Value>../src/asf/avr32/drivers/spi</Value>
+            <Value>../src/asf/avr32/drivers/cpu/cycle_counter</Value>
+            <Value>../src/asf/avr32/services/delay</Value>
+            <Value>../src/asf/avr32/drivers/tc</Value>
+            <Value>../src/asf/thirdparty/freertos/source/include</Value>
+            <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
+            <Value>../src/asf/avr32/drivers/pwma</Value>
+            <Value>../src/asf/avr32/drivers/eic</Value>
+            <Value>../src/lib</Value>
+            <Value>../src/driver</Value>
+            <Value>../src/app</Value>
+            <Value>../src/api</Value>
+          </ListValues>
+        </avr32gcc.compiler.directories.IncludePaths>
+        <avr32gcc.compiler.optimization.OtherFlags>-fdata-sections</avr32gcc.compiler.optimization.OtherFlags>
+        <avr32gcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avr32gcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+        <avr32gcc.compiler.optimization.DebugLevel>Maximum (-g3)</avr32gcc.compiler.optimization.DebugLevel>
+        <avr32gcc.compiler.warnings.AllWarnings>True</avr32gcc.compiler.warnings.AllWarnings>
+        <avr32gcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avr32gcc.compiler.miscellaneous.OtherFlags>
+        <avr32gcc.linker.general.DoNotUseStandardStartFiles>True</avr32gcc.linker.general.DoNotUseStandardStartFiles>
+        <avr32gcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>m</Value>
+          </ListValues>
+        </avr32gcc.linker.libraries.Libraries>
+        <avr32gcc.linker.optimization.GarbageCollectUnusedSections>True</avr32gcc.linker.optimization.GarbageCollectUnusedSections>
+        <avr32gcc.linker.miscellaneous.LinkerFlags>-T../src/asf/avr32/utils/linker_scripts/at32uc3l/064/gcc/link_uc3l064.lds -Wl,--relax -Wl,-e,_trampoline</avr32gcc.linker.miscellaneous.LinkerFlags>
+        <avr32gcc.assembler.general.AssemblerFlags>-mrelax</avr32gcc.assembler.general.AssemblerFlags>
+        <avr32gcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/asf/avr32/boards</Value>
+            <Value>../src/asf/avr32/boards/uc3_l0_xplained</Value>
+            <Value>../src/asf/avr32/drivers/flashcdw</Value>
+            <Value>../src/asf/avr32/drivers/intc</Value>
+            <Value>../src/asf/avr32/drivers/pm</Value>
+            <Value>../src/asf/avr32/drivers/scif</Value>
+            <Value>../src/asf/avr32/utils</Value>
+            <Value>../src/asf/avr32/utils/preprocessor</Value>
+            <Value>../src/asf/common/utils</Value>
+            <Value>../src/config</Value>
+            <Value>../src/asf/avr32/drivers/spi</Value>
+            <Value>../src/asf/avr32/drivers/cpu/cycle_counter</Value>
+            <Value>../src/asf/avr32/services/delay</Value>
+            <Value>../src/asf/avr32/drivers/tc</Value>
+            <Value>../src/asf/thirdparty/freertos/source/include</Value>
+            <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
+            <Value>../src/asf/avr32/drivers/eic</Value>
+          </ListValues>
+        </avr32gcc.assembler.general.IncludePaths>
+        <avr32gcc.assembler.debugging.DebugLevel>Maximum (-g3)</avr32gcc.assembler.debugging.DebugLevel>
+        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
+        <avr32gcc.preprocessingassembler.general.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/asf/avr32/boards</Value>
+            <Value>../src/asf/avr32/boards/uc3_l0_xplained</Value>
+            <Value>../src/asf/avr32/drivers/flashcdw</Value>
+            <Value>../src/asf/avr32/drivers/intc</Value>
+            <Value>../src/asf/avr32/drivers/pm</Value>
+            <Value>../src/asf/avr32/drivers/scif</Value>
+            <Value>../src/asf/avr32/utils</Value>
+            <Value>../src/asf/avr32/utils/preprocessor</Value>
+            <Value>../src/asf/common/utils</Value>
+            <Value>../src/config</Value>
+            <Value>../src/freertos</Value>
+            <Value>../src/asf/avr32/drivers/spi</Value>
+            <Value>../src/asf/avr32/drivers/cpu/cycle_counter</Value>
+            <Value>../src/asf/avr32/services/delay</Value>
+            <Value>../src/asf/avr32/drivers/tc</Value>
+            <Value>../src/asf/thirdparty/freertos/source/include</Value>
+            <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
+            <Value>../src/asf/avr32/drivers/eic</Value>
+          </ListValues>
+        </avr32gcc.preprocessingassembler.general.IncludePaths>
+        <avr32gcc.preprocessingassembler.debugging.DebugLevel>Maximum (-g3)</avr32gcc.preprocessingassembler.debugging.DebugLevel>
+      </Avr32Gcc>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="src\api\ioapi\ioapi.c">
+    <Compile Include="src\api\ioapi\port\ioapi_avr32.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\api\ioapi\public\ioapi.h">
@@ -581,15 +580,6 @@
     <Compile Include="src\asf\avr32\utils\preprocessor\tpaste.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\asf\avr32\utils\startup\startup_uc3.S">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\avr32\utils\startup\trampoline_uc3.S">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\asf\avr32\utils\startup\trampoline_uc3.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\asf\avr32\utils\status_codes.h">
       <SubType>compile</SubType>
     </Compile>
@@ -692,13 +682,13 @@
     <Compile Include="src\driver\lcd_driver\public\lcd_driver.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\driver\lcd_driver\spy\spy_lcd_driver.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\driver\lcd_driver\spy\spy_lcd_driver.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\driver\lcd_driver\spy_lcd_driver.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\driver\lcd_driver\test\test_lcd_cmd_write.c">
+    <Compile Include="src\driver\lcd_driver\test\test_lcd_driver_private.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\driver\lcd_driver\test\test_lcd_driver.c">
@@ -752,9 +742,6 @@
     <Compile Include="src\lib\utest\private\unity_fixture_internals.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\lib\utest\private\unity_fixture_malloc_overrides.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\lib\utest\private\unity_internals.h">
       <SubType>compile</SubType>
     </Compile>
@@ -773,9 +760,19 @@
     <Compile Include="src\main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\startup\startup_uc3.S">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\startup\trampoline_uc3.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\startup\trampoline_uc3.S">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\api\ioapi" />
+    <Folder Include="src\api\ioapi\port" />
     <Folder Include="src\api\ioapi\spy" />
     <Folder Include="src\api\ioapi\test" />
     <Folder Include="src\api\ioapi\public" />
@@ -880,6 +877,7 @@
     <Folder Include="src\lib\utest\" />
     <Folder Include="src\lib\utest\public" />
     <Folder Include="src\lib\utest\private" />
+    <Folder Include="src\startup\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\asf\thirdparty\freertos\license\license.txt">

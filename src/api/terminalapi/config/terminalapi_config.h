@@ -13,7 +13,6 @@
 
 /* You must include api that is used as output here */
 #include "./driver/usart/public/usart.h"
-#include "./mcu/inc/mcu.h"
 
 /* Define init function of used output stream */
 #define TERMINALAPI_INIT_OUTPUT_DEVICE() usart_init_rs232(MCU_PBA_F);
