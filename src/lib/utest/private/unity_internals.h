@@ -12,8 +12,8 @@
 
 #include "compiler.h"
 #include "./usart/public/usart.h"
-#define UNITY_OUTPUT_CHAR(a) usart_putchar(a)
-#define UNITY_PRINT_EOL       { UNITY_OUTPUT_CHAR('\r'); UNITY_OUTPUT_CHAR('\n'); }
+#define UTEST_OUTPUT_CHAR(a) usart_putchar(a)
+#define UNITY_PRINT_EOL       { UTEST_OUTPUT_CHAR('\r'); UTEST_OUTPUT_CHAR('\n'); }
 
 //-------------------------------------------------------
 // Int Support
@@ -155,9 +155,9 @@ typedef UNITY_DOUBLE_TYPE _UD;
 // Output Method
 //-------------------------------------------------------
 
-#ifndef UNITY_OUTPUT_CHAR
+#ifndef UTEST_OUTPUT_CHAR
 //Default to using putchar, which is defined in stdio.h above
-#define UNITY_OUTPUT_CHAR(a) usart_putchar(a)
+#define UTEST_OUTPUT_CHAR(a) usart_putchar(a)
 #else
 //If defined as something else, make sure we declare it here so it's ready for use
 //extern void UNITY_OUTPUT_CHAR(char);

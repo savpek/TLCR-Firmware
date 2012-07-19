@@ -40,7 +40,13 @@ extern errorc_t ioapi_input_value( uint8_t pin_number );
 
 extern void ioapi_output_pwm( uint8_t pin_number, uint32_t pwm_percent );
 
-extern void ioapi_input_adc( uint8_t pin_number );
+/*! @brief Get ADC value of pin, pin must be configured correctly before use
+ *	 and ADC converter must be initalized correctly.
+ *
+ *	@param uint8_t pin_number :
+ *
+ * 	@return extern uint32_t : ADC value. */
+extern uint32_t ioapi_input_adc( uint8_t pin_number );
 
 typedef enum {
 	IOAPI_OUTPUT =		0x01,

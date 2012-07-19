@@ -54,7 +54,7 @@ int main(void)
 	{
 	#ifdef RUN_TESTS
 		init_drivers();
-		UnityMain(run_tests);
+		run_utest_main(run_tests);
 	#endif
 
 	init_drivers();

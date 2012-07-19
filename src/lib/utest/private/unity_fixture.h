@@ -12,8 +12,7 @@
 #include "./utest/private/unity_internals.h"
 #include "./utest/private/unity_fixture_internals.h"
 
-int UnityMain(void (*runAllTests)());
-
+void run_utest_main(void (*runAllTests)());
 
 #define TEST_GROUP(group)\
     int TEST_GROUP_##group = 0

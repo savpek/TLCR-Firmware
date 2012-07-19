@@ -12,9 +12,6 @@
 
 UNITY_FIXTURE_T UnityFixture;
 
-//If you decide to use the function pointer approach.
-int (*outputChar)(int) = putchar;
-
 int verbose = 0;
 
 void setUp(void)    { /*does nothing*/ }
@@ -29,14 +26,12 @@ void announceTestRun(int runNumber)
     UNITY_PRINT_EOL;
 }
 
-int UnityMain(void (*runAllTests)())
+void run_utest_main(void (*runAllTests)())
 {
     UnityBegin();
     runAllTests();
     UNITY_PRINT_EOL;
 	UnityEnd();
-
- //   return UnityFailureCount();
 }
 
 static int selected(const char * filter, const char * name)
@@ -85,5 +80,5 @@ void UnityIgnoreTest()
 {
     Unity.NumberOfTests++;
     Unity.CurrentTestIgnored = 1;
-    UNITY_OUTPUT_CHAR('!');
+    UTEST_OUTPUT_CHAR('!');
 }

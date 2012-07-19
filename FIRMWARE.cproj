@@ -361,7 +361,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="src\api\ioapi\port\ioapi_avr32.c">
+    <Compile Include="src\api\ioapi\ioapi.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\api\ioapi\public\ioapi.h">
@@ -736,6 +736,9 @@
     <Compile Include="src\lib\str\test\test_str.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\lib\utest\config\utest_config.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\lib\utest\private\unity_fixture.h">
       <SubType>compile</SubType>
     </Compile>
@@ -772,7 +775,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\api\ioapi" />
-    <Folder Include="src\api\ioapi\port" />
     <Folder Include="src\api\ioapi\spy" />
     <Folder Include="src\api\ioapi\test" />
     <Folder Include="src\api\ioapi\public" />
@@ -875,6 +877,7 @@
     <Folder Include="src\lib\errorh\config\" />
     <Folder Include="src\lib\errorh\inc\" />
     <Folder Include="src\lib\utest\" />
+    <Folder Include="src\lib\utest\config" />
     <Folder Include="src\lib\utest\public" />
     <Folder Include="src\lib\utest\private" />
     <Folder Include="src\startup\" />
